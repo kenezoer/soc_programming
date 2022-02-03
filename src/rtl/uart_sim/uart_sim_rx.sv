@@ -87,12 +87,12 @@ module uart_sim_rx#(
             @(posedge clk iff rdy === 1'b1);
 
             chr = rdata;
-            msg = string'({msg, chr});
+            msg = {msg, string'(chr)};
 
             if(chr != 8'h0A) begin
-                $fwrite(fd_tmp, "%s", string'({8'h0D, msg}));
+                $fwrite(fd_tmp, "%s", string'({string'(8'h0D), msg}));
             end else begin
-                $fwrite(fd_tmp, "%s\n", string'({8'h0D, msg}));
+                $fwrite(fd_tmp, "%s\n", string'({string'(8'h0D), msg}));
                 $fwrite(fd, "%s\n", msg);
                 msg = "";
             end

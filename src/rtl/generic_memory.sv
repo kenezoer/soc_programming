@@ -25,12 +25,12 @@ module generic_memory#(
     output  logic   [SRAM_BANK_DATA_WIDTH-1:0]      mem_rdata
 );
 
-    logic   [2**16-1:0] [SRAM_BANK_DATA_WIDTH-1:0] memory_array; // if we put 2 ** 32 array will be size -1, too big value
+    logic   [2**SRAM_BANK_ADDR_WIDTH-1:0] [SRAM_BANK_DATA_WIDTH-1:0] memory_array; // if we put 2 ** 32 array will be size -1, too big value
     string                              hex_data;
     int                                 fd, status;
 
     initial begin
-        hex_data = "../compile/user_programm/user_programm.hex";
+        hex_data = "../compile/user_programm/build/user_programm.hex";
 
         fd = $fopen (hex_data, "rb");
 

@@ -25,7 +25,7 @@ module top;
     always #10ns   i_clk   = ~i_clk; //| lets imagine frequency of 100 MHz
     always #20ns   i_rst_n = '1;
 
-    always#10000us $stop;
+    always#1000us $stop;
 
     //| BUS Width Parameters
     localparam      //| AXI4
@@ -247,7 +247,7 @@ module top;
     //| Generic SRAM Bank
     //|------------------------
     generic_memory#(
-        .SRAM_BANK_ADDR_WIDTH   ( SRAM_BANK_ADDR_WIDTH  ),
+        .SRAM_BANK_ADDR_WIDTH   ( 12                    ),
         .SRAM_BANK_DATA_WIDTH   ( SRAM_BANK_DATA_WIDTH  )
     ) generic_memory (
         .i_clk                  ( i_clk                 ),
