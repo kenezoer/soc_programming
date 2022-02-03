@@ -1,0 +1,21 @@
+
+/local/users/8140744/LabCourses/SOC_PROGRAMMING/sim/compile/user_programm/build/user_programm.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .text.init:
+
+00000000 <SIM_EXIT-0xf4>:
+	...
+
+000000f4 <SIM_EXIT>:
+  f4:	00000013          	nop
+
+000000f8 <SIM_STOP>:
+  f8:	0000006f          	j	f8 <SIM_STOP>
+  fc:	ffff                	0xffff
+  fe:	ffff                	0xffff
+
+Disassembly of section .stack:
+
+0000fc00 <.stack>:
+	...

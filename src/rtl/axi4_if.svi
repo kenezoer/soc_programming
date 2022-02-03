@@ -1,0 +1,127 @@
+//|-----------------------------------------------------------------------------------
+//| Author:      Kirill Lyubavin (kenezoer@gmail.com)
+//| 
+//| Module:      axi4_if.svi
+//| 
+//| Purpose:     AXI4 Interface primitive for future use
+//| 
+//| Functionality:   
+//|      Nothing extra, just a SV's interface of AMBA AXI4 Bus
+//| 
+//|-----------------------------------------------------------------------------------
+
+interface axi4_if
+//|---------- Required packages -----------
+import  axi4_pkg::*;
+//|----------------------------------------
+#(
+    parameter   int unsigned AXI_ADDR_WIDTH = 0,
+    parameter   int unsigned AXI_DATA_WIDTH = 0,
+    parameter   int unsigned AXI_ID_WIDTH   = 0,
+    parameter   int unsigned AXI_USER_WIDTH = 0
+);
+
+    localparam  int unsigned AXI_STRB_WIDTH = AXI_DATA_WIDTH / 8;
+
+    //|-------------------------------
+    //| AXI4 Signals
+    //|-------------------------------
+    //| AW channel
+    logic [AXI_ID_WIDTH-1:0]            aw_id;
+    logic [AXI_ADDR_WIDTH-1:0]          aw_addr;
+    len_t                               aw_len;
+    size_t                              aw_size;
+    burst_t                             aw_burst;
+    logic                               aw_lock;
+    cache_t                             aw_cache;
+    prot_t                              aw_prot;
+    qos_t                               aw_qos;
+    region_t                            aw_region;
+    logic [AXI_USER_WIDTH-1:0]          aw_user;
+    logic                               aw_valid;
+    logic                               aw_ready;
+
+    //| W channel
+    logic [AXI_DATA_WIDTH-1:0]          w_data;
+    logic [AXI_STRB_WIDTH-1:0]          w_strb;
+    logic                               w_last;
+    logic [AXI_USER_WIDTH-1:0]          w_user;
+    logic                               w_valid;
+    logic                               w_ready;
+
+    //| B channel
+    logic [AXI_ID_WIDTH-1:0]            b_id;
+    resp_t                              b_resp;
+    logic [AXI_USER_WIDTH-1:0]          b_user;
+    logic                               b_valid;
+    logic                               b_ready;
+
+    //| AR channel
+    logic [AXI_ID_WIDTH-1:0]            ar_id;
+    logic [AXI_ADDR_WIDTH-1:0]          ar_addr;
+    len_t                               ar_len;
+    size_t                              ar_size;
+    burst_t                             ar_burst;
+    logic                               ar_lock;
+    cache_t                             ar_cache;
+    prot_t                              ar_prot;
+    qos_t                               ar_qos;
+    region_t                            ar_region;
+    logic [AXI_USER_WIDTH-1:0]          ar_user;
+    logic                               ar_valid;
+    logic                               ar_ready;
+
+    //| R channel
+    logic [AXI_ID_WIDTH-1:0]            r_id;
+    logic [AXI_DATA_WIDTH-1:0]          r_data;
+    resp_t                              r_resp;
+    logic                               r_last;
+    logic [AXI_USER_WIDTH-1:0]          r_user;
+    logic                               r_valid;
+    logic                               r_ready;
+
+    //|-------------------------------
+    //| Modports Definition
+    //|-------------------------------
+    //| Slave
+    //|-------------------------------
+    modport Slave (
+
+    //| AW channel
+        input aw_id, aw_addr, aw_len, aw_size, aw_burst, aw_lock, aw_cache, aw_prot, aw_qos, aw_region, aw_user, aw_valid, output aw_ready,
+
+    //| W channel
+        input w_data, w_strb, w_last, w_user, w_valid, output w_ready,
+
+    //| B channel
+        output b_id, b_resp, b_user, b_valid, input b_ready,
+
+    //| AR channel
+        input ar_id, ar_addr, ar_len, ar_size, ar_burst, ar_lock, ar_cache, ar_prot, ar_qos, ar_region, ar_user, ar_valid, output ar_ready,
+
+    //| R channel
+        output r_id, r_data, r_resp, r_last, r_user, r_valid, input r_ready
+    );
+
+    //|-------------------------------
+    //| Master
+    //|-------------------------------
+    modport Master (
+
+    //| AW channel
+        output aw_id, aw_addr, aw_len, aw_size, aw_burst, aw_lock, aw_cache, aw_prot, aw_qos, aw_region, aw_user, aw_valid, input aw_ready,
+
+    //| W channel
+        output w_data, w_strb, w_last, w_user, w_valid, input w_ready,
+
+    //| B channel
+        input b_id, b_resp, b_user, b_valid, output b_ready,
+
+    //| AR channel
+        output ar_id, ar_addr, ar_len, ar_size, ar_burst, ar_lock, ar_cache, ar_prot, ar_qos, ar_region, ar_user, ar_valid, input ar_ready,
+
+    //| R channel
+        input r_id, r_data, r_resp, r_last, r_user, r_valid, output r_ready
+    );
+
+endinterface : axi4_if
