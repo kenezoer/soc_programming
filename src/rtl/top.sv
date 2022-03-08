@@ -118,7 +118,7 @@ module top;
     //| Simple interconnect
     //| 1 AXI4 -> 2 AXI4
     //|------------------------
-    //| X2P BADDR:  32'h0000_0000 (range 1000)
+    //| X2P BADDR:  32'h0000_0000 (range 1000) (apb3 slave BA 32'h0000_0400)
     //| UART BADDR: 32'h0000_1000 (range 1000)
     //| SRAM BADDR: 32'h0010_0000 (range 500000)
     //|------------------------
@@ -139,28 +139,17 @@ module top;
     //| Student's module place
     //|------------------------
 
-    APB #(
-        .ADDR_WIDTH         ( APB3_ADDR_WIDTH   ),
-        .DATA_WIDTH         ( APB3_DATA_WIDTH   )
-    ) APB3_sec (
-        .PCLK               ( i_clk             ),
-        .PRESETn            ( i_rst_n           ));
 
-    APB_slave#(
-        .ADDR_WIDTH         ( APB3_ADDR_WIDTH   ),
-        .DATA_WIDTH         ( APB3_DATA_WIDTH   )
-    ) crc_apb_slave (
-        .APB_if             ( APB3_sec.Slave    ));
-
-    always_comb APB3_sec.PADDR      = APB3.PADDR;
-    always_comb APB3_sec.PSEL       = APB3.PSEL;
-    always_comb APB3_sec.PENABLE    = APB3.PENABLE;
-    always_comb APB3_sec.PWRITE     = APB3.PWRITE;
-    always_comb APB3_sec.PWDATA     = APB3.PWDATA;
-
-    always_comb APB3.PREADY         = APB3_sec.PREADY;
-    always_comb APB3.PSLVERR        = APB3_sec.PSLVERR;
-    always_comb APB3.PRDATA         = APB3_sec.PRDATA;
+    //| !!!!!!!!!!!!!!!!!!!
+    //| !!!!!!!!!!!!!!!!!!!
+    //| !!!!!!!!!!!!!!!!!!!
+    //| !!!!!!!!!!!!!!!!!!!
+    //| PUT YOUR MODULE HERE
+    //| !!!!!!!!!!!!!!!!!!!
+    //| !!!!!!!!!!!!!!!!!!!
+    //| !!!!!!!!!!!!!!!!!!!
+    //| !!!!!!!!!!!!!!!!!!!
+    //| !!!!!!!!!!!!!!!!!!!
 
     //|------------------------
     //| DW AXI X2P 
