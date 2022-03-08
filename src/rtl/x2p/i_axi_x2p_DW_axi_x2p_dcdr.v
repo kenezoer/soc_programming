@@ -41,45 +41,43 @@
 -- =====================================================================
 */
 
-`include "DW_axi_x2p_all_includes.vh"
+`include "i_axi_x2p_DW_axi_x2p_all_includes.vh"
 
-module DW_axi_x2p_dcdr (/*AUTOARG*/
+module i_axi_x2p_DW_axi_x2p_dcdr (/*AUTOARG*/
   // Outputs
   psel_int, psel_err,
   // Inputs
   psel_addr
   );
-  // parameter apb_size = `X2P_APB_SIZE;
-  // parameter NUM_APB_SLAVES = `X2P_NUM_APB_SLAVES;
+  // parameter apb_size = `i_axi_x2p_X2P_APB_SIZE;
+  // parameter NUM_APB_SLAVES = `i_axi_x2p_X2P_NUM_APB_SLAVES;
 
 //-----------------
 // IO declarations
 //-----------------
 
-   input [`X2P_CMD_ADDR_WIDTH-1:10]   psel_addr;    // input address bus
+   input [`i_axi_x2p_X2P_CMD_ADDR_WIDTH-1:10]   psel_addr;    // input address bus
 
-   output [`X2P_NUM_APB_SLAVES-1:0]   psel_int;  // PSEL output bus
+   output [`i_axi_x2p_X2P_NUM_APB_SLAVES-1:0]   psel_int;  // PSEL output bus
 
    output                             psel_err;  // set when no selects or more than 1 sel
 
 //----------------
 // wires and regs
 //----------------
-  wire [`X2P_NUM_APB_SLAVES-1:0]                           psel_int;
+  wire [`i_axi_x2p_X2P_NUM_APB_SLAVES-1:0]                           psel_int;
   reg                                 psel_err;
   wire [31:10]                        paddr;      // 64 bit addressing the top 32 arn not seen
 
 //---------------------------
 // Internal wires and regs
 //---------------------------
-   wire [`X2P_NUM_APB_SLAVES-1:0] psel_tmp; // max width psel bus
+   wire [`i_axi_x2p_X2P_NUM_APB_SLAVES-1:0] psel_tmp; // max width psel bus
 //   wire [3:0]  num_slaves = NUM_APB_SLAVES;
 //   integer     adjusted_size;
 
-parameter [63:0] START_TMP_PADDR0     = `X2P_START_PADDR_S0;
-parameter [63:0] END_TMP_PADDR0       = `X2P_END_PADDR_S0; 
-parameter [63:0] START_TMP_PADDR1     = `X2P_START_PADDR_S1;
-parameter [63:0] END_TMP_PADDR1       = `X2P_END_PADDR_S1; 
+parameter [63:0] START_TMP_PADDR0     = `i_axi_x2p_X2P_START_PADDR_S0;
+parameter [63:0] END_TMP_PADDR0       = `i_axi_x2p_X2P_END_PADDR_S0; 
                                                            
    assign      paddr = psel_addr[31:10];
 
@@ -88,7 +86,6 @@ parameter [63:0] END_TMP_PADDR1       = `X2P_END_PADDR_S1;
 // APB system always
 //
    assign      psel_tmp[0] = ((paddr[31:10] >= START_TMP_PADDR0[31:10]) && (paddr[31:10] <= END_TMP_PADDR0[31:10]));
-   assign      psel_tmp[1] = ((paddr[31:10] >= START_TMP_PADDR1[31:10]) && (paddr[31:10] <= END_TMP_PADDR1[31:10]));
 
 //
 // Extract the active slice from the maximally configured bus
@@ -102,7 +99,7 @@ parameter [63:0] END_TMP_PADDR1       = `X2P_END_PADDR_S1;
     begin: PSEL_ERR_PROC
       psel_err = 1'b0;
       //if (|psel_tmp == 0) psel_err = 1'b1;
-      if (!(|psel_tmp)) psel_err = 1'b1;
+      if (!(psel_tmp)) psel_err = 1'b1;
     end
 
 endmodule // DW_axi_x2p_dcdr

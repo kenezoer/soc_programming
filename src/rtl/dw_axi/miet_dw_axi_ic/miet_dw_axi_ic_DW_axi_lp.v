@@ -69,7 +69,7 @@ module miet_dw_axi_ic_DW_axi_lp (
 
   wire       ready_en_o;
 
-  assign active_trans = (awpendtrans_i) | (arpendtrans_i) | (awvalid_m_i) | (arvalid_m_i) ;
+  assign active_trans = (|awpendtrans_i) | (|arpendtrans_i) | (|awvalid_m_i) | (|arvalid_m_i) ;
     
 
 

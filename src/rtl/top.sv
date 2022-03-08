@@ -15,6 +15,7 @@
 
 module top;
 
+
     //| Clock and reset generation
     logic   i_clk   = '0;
     logic   i_rst_n = '0;
@@ -25,13 +26,14 @@ module top;
     always #10ns   i_clk   = ~i_clk; //| lets imagine frequency of 100 MHz
     always #20ns   i_rst_n = '1;
 
-    always#1000us $stop;
+    always#30us $stop;
 
     //| BUS Width Parameters
     localparam      //| AXI4
                     AXI4_ADDR_WIDTH     = 32,
                     AXI4_DATA_WIDTH     = 32,
-                    AXI4_ID_WIDTH       = 4,
+                    AXI4_MID_WIDTH      = 4,
+                    AXI4_SID_WIDTH      = 5,
                     AXI4_USER_WIDTH     = 4,
 
                     //| APB3
@@ -52,7 +54,7 @@ module top;
     axi4_if#(
         .AXI_ADDR_WIDTH     ( AXI4_ADDR_WIDTH   ),
         .AXI_DATA_WIDTH     ( AXI4_DATA_WIDTH   ),
-        .AXI_ID_WIDTH       ( AXI4_ID_WIDTH     ),
+        .AXI_ID_WIDTH       ( AXI4_MID_WIDTH    ),
         .AXI_USER_WIDTH     ( AXI4_USER_WIDTH   )
     ) AXI4_DMEM ();
 
@@ -60,7 +62,7 @@ module top;
     axi4_if#(
         .AXI_ADDR_WIDTH     ( AXI4_ADDR_WIDTH   ),
         .AXI_DATA_WIDTH     ( AXI4_DATA_WIDTH   ),
-        .AXI_ID_WIDTH       ( AXI4_ID_WIDTH     ),
+        .AXI_ID_WIDTH       ( AXI4_MID_WIDTH    ),
         .AXI_USER_WIDTH     ( AXI4_USER_WIDTH   )
     ) AXI4_IMEM ();
 
@@ -68,17 +70,25 @@ module top;
     axi4_if#(
         .AXI_ADDR_WIDTH     ( AXI4_ADDR_WIDTH   ),
         .AXI_DATA_WIDTH     ( AXI4_DATA_WIDTH   ),
-        .AXI_ID_WIDTH       ( AXI4_ID_WIDTH     ),
+        .AXI_ID_WIDTH       ( AXI4_SID_WIDTH    ),
         .AXI_USER_WIDTH     ( AXI4_USER_WIDTH   )
     ) AXI4_UART ();
 
-    //| CPU Instruction Memory AXI4
+    //| AXI to APB3
     axi4_if#(
         .AXI_ADDR_WIDTH     ( AXI4_ADDR_WIDTH   ),
         .AXI_DATA_WIDTH     ( AXI4_DATA_WIDTH   ),
-        .AXI_ID_WIDTH       ( AXI4_ID_WIDTH     ),
+        .AXI_ID_WIDTH       ( AXI4_SID_WIDTH    ),
         .AXI_USER_WIDTH     ( AXI4_USER_WIDTH   )
     ) AXI4_X2P ();
+
+    //| CPU SRAM Memory
+    axi4_if#(
+        .AXI_ADDR_WIDTH     ( AXI4_ADDR_WIDTH   ),
+        .AXI_DATA_WIDTH     ( AXI4_DATA_WIDTH   ),
+        .AXI_ID_WIDTH       ( AXI4_SID_WIDTH    ),
+        .AXI_USER_WIDTH     ( AXI4_USER_WIDTH   )
+    ) AXI4_SRAM ();
 
     //|------------------------
     //| Internal variables definition
@@ -93,7 +103,7 @@ module top;
     scr1_wrapper#(
         .AXI_ADDR_WIDTH     ( AXI4_ADDR_WIDTH   ),
         .AXI_DATA_WIDTH     ( AXI4_DATA_WIDTH   ),
-        .AXI_ID_WIDTH       ( AXI4_ID_WIDTH     ),
+        .AXI_ID_WIDTH       ( AXI4_MID_WIDTH    ),
         .AXI_USER_WIDTH     ( AXI4_USER_WIDTH   )
     ) scr1_wrapper (
         .i_clk              ( i_clk             ),
@@ -110,6 +120,7 @@ module top;
     //|------------------------
     //| X2P BADDR:  32'h0000_0000 (range 1000)
     //| UART BADDR: 32'h0000_1000 (range 1000)
+    //| SRAM BADDR: 32'h0010_0000 (range 500000)
     //|------------------------
     miet_interconnect_wrapper
     miet_interconnect_wrapper(
@@ -118,27 +129,43 @@ module top;
         .i_nrst             ( i_rst_n           ),
 
         .AXI4_DMEM          ( AXI4_DMEM.Slave   ),
+        .AXI4_IMEM          ( AXI4_IMEM.Slave   ),
 
         .AXI4_X2P           ( AXI4_X2P.Master   ),
-        .AXI4_UART          ( AXI4_UART.Master  ));
+        .AXI4_UART          ( AXI4_UART.Master  ),
+        .AXI4_SRAM          ( AXI4_SRAM.Master  ));
 
     //|------------------------
     //| Student's module place
     //|------------------------
 
-    //| PLACE       !!!
-    //| YOUR        !!!
-    //| MODULE      !!!
-    //| INSTANCE    !!!
-    //| HERE        !!!
+    APB #(
+        .ADDR_WIDTH         ( APB3_ADDR_WIDTH   ),
+        .DATA_WIDTH         ( APB3_DATA_WIDTH   )
+    ) APB3_sec (
+        .PCLK               ( i_clk             ),
+        .PRESETn            ( i_rst_n           ));
 
-    always_comb APB3.PREADY     = '1;
-    always_comb APB3.PSLVERR    = '0;
-    always_comb APB3.PRDATA     = '0;
+    APB_slave#(
+        .ADDR_WIDTH         ( APB3_ADDR_WIDTH   ),
+        .DATA_WIDTH         ( APB3_DATA_WIDTH   )
+    ) crc_apb_slave (
+        .APB_if             ( APB3_sec.Slave    ));
+
+    always_comb APB3_sec.PADDR      = APB3.PADDR;
+    always_comb APB3_sec.PSEL       = APB3.PSEL;
+    always_comb APB3_sec.PENABLE    = APB3.PENABLE;
+    always_comb APB3_sec.PWRITE     = APB3.PWRITE;
+    always_comb APB3_sec.PWDATA     = APB3.PWDATA;
+
+    always_comb APB3.PREADY         = APB3_sec.PREADY;
+    always_comb APB3.PSLVERR        = APB3_sec.PSLVERR;
+    always_comb APB3.PRDATA         = APB3_sec.PRDATA;
 
     //|------------------------
     //| DW AXI X2P 
     //|------------------------
+    i_axi_x2p_DW_axi_x2p
     DW_axi_x2p(
 
     // Outputs
@@ -154,7 +181,6 @@ module top;
         .rlast      ( AXI4_X2P.r_last       ),
         .rvalid     ( AXI4_X2P.r_valid      ),
         .psel_s0    ( APB3.PSEL             ),
-        .psel_s1    ( /* not used */        ),
         .paddr      ( APB3.PADDR            ),
         .penable    ( APB3.PENABLE          ),
         .pwdata     ( APB3.PWDATA           ),
@@ -186,8 +212,7 @@ module top;
         .arid       ( AXI4_X2P.ar_id        ),
         .arlen      ( AXI4_X2P.ar_len       ),
         .arcache    ( AXI4_X2P.ar_cache     ),
-        .prdata_s0  ( APB3.PRDATA           ),
-        .prdata_s1  ( '0 /*not used*/       ));
+        .prdata_s0  ( APB3.PRDATA           ));
 
     //|------------------------
     //| AXI4 To memory 
@@ -221,7 +246,7 @@ module top;
     axi_sram #(
         .AXI_ADDR_WIDTH         ( AXI4_ADDR_WIDTH       ),
         .AXI_DATA_WIDTH         ( AXI4_DATA_WIDTH       ),
-        .AXI_ID_WIDTH           ( AXI4_ID_WIDTH         ),
+        .AXI_ID_WIDTH           ( AXI4_SID_WIDTH        ),
         .AXI_USER_WIDTH         ( AXI4_USER_WIDTH       ),
         .SRAM_BANKS_ROWS        ( SRAM_BANKS_ROWS       ),
         .SRAM_BANKS_COLS        ( SRAM_BANKS_COLS       ),
@@ -233,7 +258,7 @@ module top;
         .rst_ni                 ( i_rst_n               ),
 
     // AXI slave interface
-        .axi                    ( AXI4_IMEM.Slave       ),
+        .axi                    ( AXI4_SRAM.Slave       ),
 
     // SRAM bank interface
         .bank_addr              ( bank_addr             ),
@@ -290,16 +315,16 @@ module top;
         .i_uart_rx              ( uart_rx               ),
         .o_uart_tx              ( uart_tx               ),
         .i_cts_n                ( '0                    ),
-        .o_rts_n                ( '0                    ),
+        .o_rts_n                ( /* not used */        ),
         .o_uart_rx_int          ( /* not used */        ),
         .o_uart_tx_int          ( /* not used */        ),
         .o_uart_rxfifo_int      ( /* not used */        ),
         .o_uart_txfifo_int      ( /* not used */        ));
 
-    uart_sim_rx #(
-        .UART_CLK_HPER          ( 10ns                  )
-    ) uart_sim_log (
-        .i_rst_n                ( i_rst_n               ),
-        .i_uart_rx              ( uart_tx               ));
+    // uart_sim_rx #(
+    //     .UART_CLK_HPER          ( 10ns                  )
+    // ) uart_sim_log (
+    //     .i_rst_n                ( i_rst_n               ),
+    //     .i_uart_rx              ( uart_tx               ));
 
 endmodule : top

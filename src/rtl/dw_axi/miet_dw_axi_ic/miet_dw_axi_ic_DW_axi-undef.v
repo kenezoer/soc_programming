@@ -128,6 +128,7 @@
    `undef miet_dw_axi_ic_AXI_ARPYLD_SIZE_LHS
    `undef miet_dw_axi_ic_AXI_ARPYLD_SIZE_RHS
    `undef miet_dw_axi_ic_AXI_ARQOS_INT_M1
+   `undef miet_dw_axi_ic_AXI_ARQOS_INT_M2
    `undef miet_dw_axi_ic_AXI_AR_ARB_TYPE_S0
    `undef miet_dw_axi_ic_AXI_AR_ARB_TYPE_S1
    `undef miet_dw_axi_ic_AXI_AR_ARB_TYPE_S10
@@ -595,6 +596,7 @@
    `undef miet_dw_axi_ic_AXI_AWPYLD_SIZE_LHS
    `undef miet_dw_axi_ic_AXI_AWPYLD_SIZE_RHS
    `undef miet_dw_axi_ic_AXI_AWQOS_INT_M1
+   `undef miet_dw_axi_ic_AXI_AWQOS_INT_M2
    `undef miet_dw_axi_ic_AXI_AW_ARB_TYPE_S0
    `undef miet_dw_axi_ic_AXI_AW_ARB_TYPE_S1
    `undef miet_dw_axi_ic_AXI_AW_ARB_TYPE_S10
@@ -2244,10 +2246,8 @@
    `undef miet_dw_axi_ic_AXI_M1_SHARED_R_HAS_DDCTD
    `undef miet_dw_axi_ic_AXI_M2_ON_AR_SHARED_VAL
    `undef miet_dw_axi_ic_AXI_M2_ON_AW_SHARED_VAL
-   `undef miet_dw_axi_ic_AXI_M2_ON_B_SHARED_ONLY
    `undef miet_dw_axi_ic_AXI_M2_ON_B_SHARED_ONLY_VAL
    `undef miet_dw_axi_ic_AXI_M2_ON_B_SHARED_VAL
-   `undef miet_dw_axi_ic_AXI_M2_ON_R_SHARED_ONLY
    `undef miet_dw_axi_ic_AXI_M2_ON_R_SHARED_ONLY_VAL
    `undef miet_dw_axi_ic_AXI_M2_ON_R_SHARED_VAL
    `undef miet_dw_axi_ic_AXI_M2_ON_W_SHARED_VAL
@@ -2542,7 +2542,6 @@
    `undef miet_dw_axi_ic_AXI_NSV_M9
    `undef miet_dw_axi_ic_AXI_NUM_ICM
    `undef miet_dw_axi_ic_AXI_NUM_MASTERS
-   `undef miet_dw_axi_ic_AXI_NUM_MASTERS_1
    `undef miet_dw_axi_ic_AXI_NUM_MST_THRU_ICM1
    `undef miet_dw_axi_ic_AXI_NUM_MST_THRU_ICM2
    `undef miet_dw_axi_ic_AXI_NUM_MST_THRU_ICM3
@@ -4095,15 +4094,12 @@
    `undef miet_dw_axi_ic_AXI_S2_SHARED_FARC
    `undef miet_dw_axi_ic_AXI_S2_SHARED_FAWC
    `undef miet_dw_axi_ic_AXI_S2_SHARED_W_HAS_DDCTD
-   `undef miet_dw_axi_ic_AXI_S3_ON_AR_SHARED_ONLY
    `undef miet_dw_axi_ic_AXI_S3_ON_AR_SHARED_ONLY_VAL
    `undef miet_dw_axi_ic_AXI_S3_ON_AR_SHARED_VAL
-   `undef miet_dw_axi_ic_AXI_S3_ON_AW_SHARED_ONLY
    `undef miet_dw_axi_ic_AXI_S3_ON_AW_SHARED_ONLY_VAL
    `undef miet_dw_axi_ic_AXI_S3_ON_AW_SHARED_VAL
    `undef miet_dw_axi_ic_AXI_S3_ON_B_SHARED_VAL
    `undef miet_dw_axi_ic_AXI_S3_ON_R_SHARED_VAL
-   `undef miet_dw_axi_ic_AXI_S3_ON_W_SHARED_ONLY
    `undef miet_dw_axi_ic_AXI_S3_ON_W_SHARED_ONLY_VAL
    `undef miet_dw_axi_ic_AXI_S3_ON_W_SHARED_VAL
    `undef miet_dw_axi_ic_AXI_S3_SHARED_AR_HAS_DDCTD

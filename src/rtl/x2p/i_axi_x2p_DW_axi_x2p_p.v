@@ -41,9 +41,9 @@
 /*                                                                   */
 /*********************************************************************/
 
-`include "DW_axi_x2p_all_includes.vh"
+`include "i_axi_x2p_DW_axi_x2p_all_includes.vh"
 
-module DW_axi_x2p_p(/*AUTOARG*/
+module i_axi_x2p_DW_axi_x2p_p(/*AUTOARG*/
    // Outputs
    //awready,
    wready, 
@@ -71,7 +71,7 @@ module DW_axi_x2p_p(/*AUTOARG*/
                     //   awcache,
                     //   awprot,
                     awvalid, 
-                    //   `ifdef X2P_AXI3_INTERFACE
+                    //   `ifdef i_axi_x2p_X2P_AXI3_INTERFACE
                     //   wid,
                     //   `endif
                     wdata, 
@@ -115,12 +115,12 @@ module DW_axi_x2p_p(/*AUTOARG*/
   input [AXI_LEN_WIDTH-1:0]    awlen;
   input [2:0]                  awsize;
   input [1:0]                  awburst;
-//  input [`X2P_AXI_LTW-1:0]     awlock;
+//  input [`i_axi_x2p_X2P_AXI_LTW-1:0]     awlock;
 //  input [3:0]                  awcache;
 //  input [2:0]                  awprot;
   input                        awvalid;
 //  output                       awready;
-//  `ifdef X2P_AXI3_INTERFACE
+//  `ifdef i_axi_x2p_X2P_AXI3_INTERFACE
 //  input [AXI_ID_WIDTH-1:0]     wid;
 //  `endif
   input [AXI_DATA_WIDTH-1:0]   wdata;
@@ -154,7 +154,7 @@ module DW_axi_x2p_p(/*AUTOARG*/
   input [AXI_LEN_WIDTH-1:0]    arlen;
   input [2:0]                  arsize;
   input [1:0]                  arburst;
-//  input [`X2P_AXI_LTW-1:0]     arlock;
+//  input [`i_axi_x2p_X2P_AXI_LTW-1:0]     arlock;
 //  input [3:0]                  arcache;
 //  input [2:0]                  arprot;
   input                        arvalid;

@@ -45,6 +45,8 @@
      command_en_aclk,
      reg_awqos_m1,
      reg_arqos_m1,
+     reg_awqos_m2,
+     reg_arqos_m2,
  err_bit, 
   rdata ); 
   
@@ -67,6 +69,8 @@
      output [`miet_dw_axi_ic_AXI_QOSW-1:0]           reg_awqos_m1;
      output [`miet_dw_axi_ic_AXI_QOSW-1:0]           reg_arqos_m1;
   
+     output [`miet_dw_axi_ic_AXI_QOSW-1:0]           reg_awqos_m2;
+     output [`miet_dw_axi_ic_AXI_QOSW-1:0]           reg_arqos_m2;
   
   
   
@@ -332,6 +336,8 @@
 
      
 
+     reg_awqos_m2                <={(`miet_dw_axi_ic_AXI_QOSW){1'b0}};
+     reg_arqos_m2                <={(`miet_dw_axi_ic_AXI_QOSW){1'b0}};
 
      
 
@@ -389,6 +395,8 @@
 
             
 
+     reg_awqos_m2                <={(`miet_dw_axi_ic_AXI_QOSW){1'b0}};
+     reg_arqos_m2                <={(`miet_dw_axi_ic_AXI_QOSW){1'b0}};
 
             
 
@@ -484,6 +492,49 @@
                end
      
  
+   8'd16 : begin
+            err_bit_w <= 1'b1 ;
+            end
+     
+ 
+   8'd17 : begin
+             err_bit_w <= 1'b1 ;
+            end
+            
+ 
+   8'd18 : begin 
+            reg_arqos_m2                <= wdata [`miet_dw_axi_ic_AXI_QOSW-1:0];  
+            err_bit_w <= 1'b0 ; 
+            end
+
+   
+ 
+   8'd19 :  begin 
+             err_bit_w <= 1'b1 ;
+             end
+     
+ 
+   8'd24 : begin
+            err_bit_w <= 1'b1 ;
+            end
+     
+ 
+   8'd25 : begin
+            err_bit_w <= 1'b1 ;
+              end
+     
+ 
+   8'd26 :  begin  
+              reg_awqos_m2            <= wdata [`miet_dw_axi_ic_AXI_QOSW-1:0];  
+             err_bit_w <= 1'b0 ; 
+               end
+   
+ 
+   8'd27 :  begin
+            err_bit_w <= 1'b1 ;
+               end
+     
+ 
   default : begin
       err_bit_w                         <= 1'b1;
       end
@@ -558,6 +609,60 @@
     
    
 
+   8'd16 : begin
+            rdata    = 32'b0;
+            err_bit_r  =  1'b1;
+      end
+     
+ 
+   8'd17 : begin 
+            rdata    = 32'b0;
+            err_bit_r  =  1'b1;
+      end
+     
+ 
+   8'd18 : begin
+             rdata[31:0]  = {{(32-`miet_dw_axi_ic_AXI_QOSW){1'b0}},
+                             reg_arqos_m2 };
+           err_bit_r  =  1'b0; 
+               end
+
+   
+ 
+   8'd19 : begin
+            rdata    = 32'b0;
+            err_bit_r  = 1'b1 ;
+      end
+     
+ 
+   8'd24 : begin 
+            rdata    = 32'b0;
+            err_bit_r  =  1'b1;
+      end
+       
+ 
+   8'd25 : begin
+            rdata    = 32'b0;
+            err_bit_r  =  1'b1;
+      end
+
+       
+ 
+   8'd26 : begin
+              rdata[31:0]  = {{(32-`miet_dw_axi_ic_AXI_QOSW){1'b0}},
+                             reg_awqos_m2 };
+            err_bit_r  =  1'b0 ; 
+               end
+
+   
+ 
+   8'd27 : begin
+          rdata    = 32'b0;
+          err_bit_r  =  1'b1;
+      end
+
+    
+   
 
 
 

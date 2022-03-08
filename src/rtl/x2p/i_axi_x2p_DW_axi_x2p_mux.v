@@ -27,26 +27,24 @@
 // Description : Output multiplexor.
 //-----------------------------------------------------------------------------
 
-`include "DW_axi_x2p_all_includes.vh"
+`include "i_axi_x2p_DW_axi_x2p_all_includes.vh"
 
-module DW_axi_x2p_mux (/*AUTOARG*/
+module i_axi_x2p_DW_axi_x2p_mux (/*AUTOARG*/
   // Outputs
   prdata, 
-                       prdata_s1_s,
                        // Inputs
                        psel, 
                        prdata_s0_s
                        );
   
-  input [`X2P_NUM_APB_SLAVES-1:0]        psel;
-  input [`X2P_APB_DATA_WIDTH-1:0]        prdata_s0_s;
-  input [`X2P_APB_DATA_WIDTH-1:0]        prdata_s1_s;
+  input [`i_axi_x2p_X2P_NUM_APB_SLAVES-1:0]        psel;
+  input [`i_axi_x2p_X2P_APB_DATA_WIDTH-1:0]        prdata_s0_s;
   
 
   
-  output [`X2P_APB_DATA_WIDTH-1:0]       prdata;
+  output [`i_axi_x2p_X2P_APB_DATA_WIDTH-1:0]       prdata;
 
-  reg [`X2P_APB_DATA_WIDTH-1:0]          prdata_s;
+  reg [`i_axi_x2p_X2P_APB_DATA_WIDTH-1:0]          prdata_s;
 
   assign                                 prdata = prdata_s;
   
@@ -54,8 +52,7 @@ module DW_axi_x2p_mux (/*AUTOARG*/
         begin: PRDATA_PROC
             case (psel)
               1:     prdata_s = prdata_s0_s;
-              2:     prdata_s = prdata_s1_s;
-              default:  prdata_s = {`X2P_APB_DATA_WIDTH{1'b0}};
+              default:  prdata_s = {`i_axi_x2p_X2P_APB_DATA_WIDTH{1'b0}};
             endcase // case(psel)
         end // always@ (prdata_s0 or prdata_s1 or prdata_s10...
 

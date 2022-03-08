@@ -31,7 +31,7 @@
 //==============================================================================
 // Start Guard: prevent re-compilation of includes
 //==============================================================================
-`define __GUARD__DW_AXI_X2P_CC_CONSTANTS__VH__
+`define i_axi_x2p___GUARD__DW_AXI_X2P_CC_CONSTANTS__VH__
 
 // AXI INTERFACE SETUP
 
@@ -42,21 +42,21 @@
 // Enabled:      [<functionof> %item]
 // 
 // Select AXI Interface Type as AXI3 or AXI4. By default, DW_axi_x2p supports the AXI3 interface.
-`define X2P_AXI_INTERFACE_TYPE 1
+`define i_axi_x2p_X2P_AXI_INTERFACE_TYPE 0
 
 //Creates a define if AXI3 is Enabled.
 
-// `define X2P_AXI3_INTERFACE
+`define i_axi_x2p_X2P_AXI3_INTERFACE
 
 //Creates a define if AXI4 is Enabled.
 
-`define X2P_AXI4_INTERFACE
+// `define i_axi_x2p_X2P_AXI4_INTERFACE
 
 
 //Width of the AXI Lock bus.
 //2 bits in AXI3 and 1 bit in AXI4
 
-`define X2P_AXI_LTW 1
+`define i_axi_x2p_X2P_AXI_LTW 2
 
 
 
@@ -67,7 +67,7 @@
 // Address bus width of the AXI system to which the bridge is attached as an AXI slave. The legal values comprise the full 
 // range from 32 bits to 64 bits. The full range is used for the psel select signals, but only the lower 32 bits are passed 
 // on to paddr.
-`define X2P_AXI_AW 32
+`define i_axi_x2p_X2P_AXI_AW 32
 
 
 // Name:         X2P_AXI_SIDW
@@ -75,7 +75,7 @@
 // Values:       1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
 // 
 // Read and write ID width of the AXI system to which the bridge is attached as an AXI slave.
-`define X2P_AXI_SIDW 4
+`define i_axi_x2p_X2P_AXI_SIDW 4
 
 
 // Name:         X2P_IDLE_VAL
@@ -83,7 +83,7 @@
 // Values:       0 1
 // 
 // Parameter to decide the values to be driven during an idle cycle
-`define X2P_IDLE_VAL 0
+`define i_axi_x2p_X2P_IDLE_VAL 0
 
 
 // Name:         X2P_DEFAULT_VAL
@@ -91,7 +91,7 @@
 // Values:       0 1
 // 
 // Parameter to decide the default value of ready signals.
-`define X2P_DEFAULT_VAL 0
+`define i_axi_x2p_X2P_DEFAULT_VAL 0
 
 
 // Name:         X2P_AXI_DW
@@ -100,7 +100,7 @@
 // 
 // Read and write data bus width of the AXI system to which the bridge is attached as an AXI slave. Data bus width for the 
 // AXI slave interface must be greater than or equal to that of the APB master interface.
-`define X2P_AXI_DW 32
+`define i_axi_x2p_X2P_AXI_DW 32
 
 
 // Name:         X2P_AXI_BLW
@@ -108,7 +108,7 @@
 // Values:       4 5 6 7 8
 // 
 // Width used for the AWLEN and ARLEN burst count field.
-`define X2P_AXI_BLW 8
+`define i_axi_x2p_X2P_AXI_BLW 4
 
 
 // Name:         X2P_AXI_ENDIANNESS
@@ -120,15 +120,15 @@
 //  - 1: AXI bus is big-endian  
 // The APB bus is always little endian. For more information, see the "Endian Adaptation (Byte Re-ordering)" section in 
 // the DW_axi_x2p Databook.
-`define X2P_AXI_ENDIANNESS 0
+`define i_axi_x2p_X2P_AXI_ENDIANNESS 0
 
 //Creates a define for enabling Big endian
 
-// `define BIV_ENDIAN_ENABLE
+// `define i_axi_x2p_BIV_ENDIAN_ENABLE
 
 //Creates a define for enabling Little endian
 
-`define LITTLE_ENDIAN_ENABLE
+`define i_axi_x2p_LITTLE_ENDIAN_ENABLE
 
 // APB INTERFACE SETUP
 
@@ -138,7 +138,7 @@
 // Values:       32
 // 
 // Address bus width of the APB system to which the bridge is attached as an APB master.
-`define X2P_APB_ADDR_WIDTH 32
+`define i_axi_x2p_X2P_APB_ADDR_WIDTH 32
 
 
 // Name:         X2P_APB_DATA_WIDTH
@@ -147,7 +147,7 @@
 // 
 // Read and write data bus width of the APB system to which the bridge is attached as an APB master. This width must be 
 // equal or smaller than the width of the AXI data bus.
-`define X2P_APB_DATA_WIDTH 32
+`define i_axi_x2p_X2P_APB_DATA_WIDTH 32
 
 
 
@@ -160,11 +160,11 @@
 //  Interface. 
 //  - False (0) - DW_axi_x2p generates an error resonse for sparse transfers. 
 // For more information, see the "AXI-to-APB Sparse Transfers" section in the DW_axi_x2p Databook.
-`define X2P_ALLOW_SPARSE_TRANSFER 0
+`define i_axi_x2p_X2P_ALLOW_SPARSE_TRANSFER 0
 
 //Creates a define for Allow Sparse transfer on APB interface
 
-// `define X2P_ALLOW_SPARSE_TRANSFER_EN
+// `define i_axi_x2p_X2P_ALLOW_SPARSE_TRANSFER_EN
 
 
 
@@ -173,7 +173,7 @@
 // Values:       1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
 // 
 // Number of APB Slave Ports.
-`define X2P_NUM_APB_SLAVES 2
+`define i_axi_x2p_X2P_NUM_APB_SLAVES 1
 
 
 // Name:         X2P_AXI_NUM_SLAVES
@@ -181,7 +181,7 @@
 // Values:       0, ..., 16
 // 
 // Number of AXI Slave Ports.
-`define X2P_AXI_NUM_SLAVES 0
+`define i_axi_x2p_X2P_AXI_NUM_SLAVES 0
 
 
 // Name:         X2P_AXI_NUM_MASTERS
@@ -189,17 +189,17 @@
 // Values:       1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
 // 
 // Number of AXI Master Ports.
-`define X2P_AXI_NUM_MASTERS 1
+`define i_axi_x2p_X2P_AXI_NUM_MASTERS 1
 
 //This is a testbench parameter. The design does not depend on this
 //parameter. This parameter specifies the clock period of the primary AXI system
 
-`define SIM_AXI_CLK_PERIOD 100
+`define i_axi_x2p_SIM_AXI_CLK_PERIOD 100
 
 //This is a testbench parameter. The design does not depend on this
 //parameter. This parameter specifies the clock period of the APB system
 
-`define SIM_APB_CLK_PERIOD 100
+`define i_axi_x2p_SIM_APB_CLK_PERIOD 100
 
 
 // Name:         X2P_CLK_MODE
@@ -211,7 +211,7 @@
 //  - Dual Clock: aclk and pclk are different (asynchronous or quasi-synchronous) using synchronization register stages to 
 //  a depth of X2P_DUAL_CLK_SYNC_DEPTH. 
 //  - Single Clock: aclk and pclk are driven by the same clock signal.
-`define X2P_CLK_MODE 2
+`define i_axi_x2p_X2P_CLK_MODE 2
 
 
 
@@ -224,17 +224,17 @@
 // and APB. When aclk and pclk are quasi-synchronous it should be possible to set this parameter to 0 to reduce the latency 
 // across the bridge. This parameter is enabled only if dual clock mode is selected. If dual clock mode is not selected this 
 // parameter is irrelevant.
-`define X2P_DUAL_CLK_SYNC_DEPTH 2
+`define i_axi_x2p_X2P_DUAL_CLK_SYNC_DEPTH 2
 
 
 //Creates a define for enabling Single clock mode
 
-`define X2P_CLK_MODE_2
+`define i_axi_x2p_X2P_CLK_MODE_2
 
 
 //Creates a define for enabling dual clock mode
 
-// `define X2P_CLK_MODE_0
+// `define i_axi_x2p_X2P_CLK_MODE_0
 
 
 
@@ -248,22 +248,22 @@
 // 
 // If true, the low-power handshaking interface (csysreq, csysack and cactive signals) and associated logic is implemented. 
 // If false, support for low-power handshaking interface is not provided.
-`define X2P_LOWPWR_HS_IF 0
+`define i_axi_x2p_X2P_LOWPWR_HS_IF 0
 
 
 // Legacy low power interface selection
 
-`define X2P_LOWPWR_LEGACY_IF 0
+`define i_axi_x2p_X2P_LOWPWR_LEGACY_IF 0
 
 //Creates a define for whether or not the low power handshaking interface
 //exists.
 
-// `define X2P_HAS_LOWPWR_HS_IF
+// `define i_axi_x2p_X2P_HAS_LOWPWR_HS_IF
 
 //Creates a define for whether or not the legacy low power handshaking
 //interface exists.
 
-// `define X2P_HAS_LOWPWR_LEGACY_IF
+// `define i_axi_x2p_X2P_HAS_LOWPWR_LEGACY_IF
 
 
 
@@ -278,11 +278,11 @@
 // transaction is initiated during the wait period, the counting will be halted, cactive will not de-assert, and the counting will 
 // be re-initiated when there are no pending transactions. 
 // Available only if X2P_LOWPWR_HS_IF is true
-`define X2P_LOWPWR_NOPX_CNT 32'd0
+`define i_axi_x2p_X2P_LOWPWR_NOPX_CNT 32'd0
 
 //This is the log2 of (X2P_LOWPWR_NOPX_CNT )
 
-`define X2P_LOG2_LOWPWR_NOPX_CNT 1
+`define i_axi_x2p_X2P_LOG2_LOWPWR_NOPX_CNT 1
 
 
 
@@ -292,7 +292,7 @@
 // 
 // Number of locations in the common command queue. Depth must be at least 2 when in dual-clock mode. The depth 1 is 
 // allowed in only single-clock mode.
-`define X2P_CMD_QUEUE_DEPTH 4
+`define i_axi_x2p_X2P_CMD_QUEUE_DEPTH 4
 
 
 // Name:         X2P_WRITE_BUFFER_DEPTH
@@ -301,7 +301,7 @@
 // 
 // Number of locations in the write data buffer. Depth must be at least 2 when in dual-clock mode. The depth 1 is allowed 
 // in only single-clock mode.
-`define X2P_WRITE_BUFFER_DEPTH 2
+`define i_axi_x2p_X2P_WRITE_BUFFER_DEPTH 2
 
 
 // Name:         X2P_WRITE_RESP_BUFFER_DEPTH
@@ -310,7 +310,7 @@
 // 
 // Number of locations in the write response buffer. Depth must be at least 2 when in dual-clock mode. The depth 1 is 
 // allowed in only single-clock mode.
-`define X2P_WRITE_RESP_BUFFER_DEPTH 2
+`define i_axi_x2p_X2P_WRITE_RESP_BUFFER_DEPTH 2
 
 
 // Name:         X2P_READ_BUFFER_DEPTH
@@ -319,7 +319,7 @@
 // 
 // Number of locations in the read data buffer. Depth must be at least 2 when in dual-clock mode. The depth 1 is allowed in 
 // only single-clock mode.
-`define X2P_READ_BUFFER_DEPTH 2
+`define i_axi_x2p_X2P_READ_BUFFER_DEPTH 2
 
 
 
@@ -351,7 +351,7 @@
 //  - i = 13: 0x0000000000003800 
 //  - i = 14: 0x0000000000003c00 
 //  - i = 15: 0x0000000000004000
-`define X2P_START_PADDR_S0 64'h0000000000000400
+`define i_axi_x2p_X2P_START_PADDR_S0 64'h0000000000000000
 
 
 // Name:         X2P_END_PADDR_S0
@@ -375,7 +375,7 @@
 //  - i = 13: 0x0000000000003bff 
 //  - i = 14: 0x0000000000003fff 
 //  - i = 15: 0x00000000000043ff
-`define X2P_END_PADDR_S0 64'h00000000000007ff
+`define i_axi_x2p_X2P_END_PADDR_S0 64'h0000000000000fff
 
 
 // Name:         X2P_IS_APB3_S0
@@ -383,11 +383,11 @@
 // Values:       false (0), true (1)
 // 
 // AMBA 3 support for APB slave. Slave 0 has the additional ports PREADY and PSLVERR according to the AMBA3 specification.
-`define X2P_IS_APB3_S0 0
+`define i_axi_x2p_X2P_IS_APB3_S0 0
 
 //Creates a define for enabling APB3 in Slave 0
 
-// `define X2P_APB3_S0
+// `define i_axi_x2p_X2P_APB3_S0
 
 
 // Name:         X2P_START_PADDR_S1
@@ -399,7 +399,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_START_PADDR_S1 64'h0000000000000800
+`define i_axi_x2p_X2P_START_PADDR_S1 64'h0000000000000800
 
 
 // Name:         X2P_END_PADDR_S1
@@ -411,7 +411,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_END_PADDR_S1 64'h0000000000000bff
+`define i_axi_x2p_X2P_END_PADDR_S1 64'h0000000000000bff
 
 
 // Name:         X2P_IS_APB3_S1
@@ -421,11 +421,11 @@
 // 
 // Slave 1 has the additional ports PREADY and PSLVERR 
 // according to the AMBA3 specification.
-`define X2P_IS_APB3_S1 0
+`define i_axi_x2p_X2P_IS_APB3_S1 0
 
 //Creates a define for enabling APB3 in Slave 1 
 
-// `define X2P_APB3_S1
+// `define i_axi_x2p_X2P_APB3_S1
 
 
 // Name:         X2P_START_PADDR_S2
@@ -437,7 +437,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_START_PADDR_S2 64'h0000000000000c00
+`define i_axi_x2p_X2P_START_PADDR_S2 64'h0000000000000c00
 
 
 // Name:         X2P_END_PADDR_S2
@@ -449,7 +449,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_END_PADDR_S2 64'h0000000000000fff
+`define i_axi_x2p_X2P_END_PADDR_S2 64'h0000000000000fff
 
 
 // Name:         X2P_IS_APB3_S2
@@ -459,11 +459,11 @@
 // 
 // Slave 2 has the additional ports PREADY and PSLVERR 
 // according to the AMBA3 specification.
-`define X2P_IS_APB3_S2 0
+`define i_axi_x2p_X2P_IS_APB3_S2 0
 
 //Creates a define for enabling APB3 in Slave 2
 
-// `define X2P_APB3_S2
+// `define i_axi_x2p_X2P_APB3_S2
 
 
 // Name:         X2P_START_PADDR_S3
@@ -475,7 +475,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_START_PADDR_S3 64'h0000000000001000
+`define i_axi_x2p_X2P_START_PADDR_S3 64'h0000000000001000
 
 
 // Name:         X2P_END_PADDR_S3
@@ -487,7 +487,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_END_PADDR_S3 64'h00000000000013ff
+`define i_axi_x2p_X2P_END_PADDR_S3 64'h00000000000013ff
 
 
 // Name:         X2P_IS_APB3_S3
@@ -497,11 +497,11 @@
 // 
 // Slave 3 has the additional ports PREADY and PSLVERR 
 // according to the AMBA3 specification.
-`define X2P_IS_APB3_S3 0
+`define i_axi_x2p_X2P_IS_APB3_S3 0
 
 //Creates a define for enabling APB3 in Slave 3
 
-// `define X2P_APB3_S3
+// `define i_axi_x2p_X2P_APB3_S3
 
 
 // Name:         X2P_START_PADDR_S4
@@ -513,7 +513,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_START_PADDR_S4 64'h0000000000001400
+`define i_axi_x2p_X2P_START_PADDR_S4 64'h0000000000001400
 
 
 // Name:         X2P_END_PADDR_S4
@@ -525,7 +525,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_END_PADDR_S4 64'h00000000000017ff
+`define i_axi_x2p_X2P_END_PADDR_S4 64'h00000000000017ff
 
 
 // Name:         X2P_IS_APB3_S4
@@ -535,11 +535,11 @@
 // 
 // Slave 4 has the additional ports PREADY and PSLVERR 
 // according to the AMBA3 specification.
-`define X2P_IS_APB3_S4 0
+`define i_axi_x2p_X2P_IS_APB3_S4 0
 
 //Creates a define for enabling APB3 in Slave 4
 
-// `define X2P_APB3_S4
+// `define i_axi_x2p_X2P_APB3_S4
 
 
 // Name:         X2P_START_PADDR_S5
@@ -551,7 +551,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_START_PADDR_S5 64'h0000000000001800
+`define i_axi_x2p_X2P_START_PADDR_S5 64'h0000000000001800
 
 
 // Name:         X2P_END_PADDR_S5
@@ -563,7 +563,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_END_PADDR_S5 64'h0000000000001bff
+`define i_axi_x2p_X2P_END_PADDR_S5 64'h0000000000001bff
 
 
 // Name:         X2P_IS_APB3_S5
@@ -573,11 +573,11 @@
 // 
 // Slave 5 has the additional ports PREADY and PSLVERR 
 // according to the AMBA3 specification.
-`define X2P_IS_APB3_S5 0
+`define i_axi_x2p_X2P_IS_APB3_S5 0
 
 //Creates a define for enabling APB3 in Slave 5
 
-// `define X2P_APB3_S5
+// `define i_axi_x2p_X2P_APB3_S5
 
 
 // Name:         X2P_START_PADDR_S6
@@ -589,7 +589,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_START_PADDR_S6 64'h0000000000001c00
+`define i_axi_x2p_X2P_START_PADDR_S6 64'h0000000000001c00
 
 
 // Name:         X2P_END_PADDR_S6
@@ -601,7 +601,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_END_PADDR_S6 64'h0000000000001fff
+`define i_axi_x2p_X2P_END_PADDR_S6 64'h0000000000001fff
 
 
 // Name:         X2P_IS_APB3_S6
@@ -611,11 +611,11 @@
 // 
 // Slave 6 has the additional ports PREADY and PSLVERR 
 // according to the AMBA3 specification.
-`define X2P_IS_APB3_S6 0
+`define i_axi_x2p_X2P_IS_APB3_S6 0
 
 //Creates a define for enabling APB3 in Slave 6
 
-// `define X2P_APB3_S6
+// `define i_axi_x2p_X2P_APB3_S6
 
 
 // Name:         X2P_START_PADDR_S7
@@ -627,7 +627,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_START_PADDR_S7 64'h0000000000002000
+`define i_axi_x2p_X2P_START_PADDR_S7 64'h0000000000002000
 
 
 // Name:         X2P_END_PADDR_S7
@@ -639,7 +639,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_END_PADDR_S7 64'h00000000000023ff
+`define i_axi_x2p_X2P_END_PADDR_S7 64'h00000000000023ff
 
 
 // Name:         X2P_IS_APB3_S7
@@ -649,11 +649,11 @@
 // 
 // slave 7 has the additional ports PREADY and PSLVERR 
 // according to the AMBA3 specification.
-`define X2P_IS_APB3_S7 0
+`define i_axi_x2p_X2P_IS_APB3_S7 0
 
 //Creates a define for enabling APB3 in Slave 7
 
-// `define X2P_APB3_S7
+// `define i_axi_x2p_X2P_APB3_S7
 
 
 // Name:         X2P_START_PADDR_S8
@@ -665,7 +665,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_START_PADDR_S8 64'h0000000000002400
+`define i_axi_x2p_X2P_START_PADDR_S8 64'h0000000000002400
 
 
 // Name:         X2P_END_PADDR_S8
@@ -677,7 +677,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_END_PADDR_S8 64'h00000000000027ff
+`define i_axi_x2p_X2P_END_PADDR_S8 64'h00000000000027ff
 
 
 // Name:         X2P_IS_APB3_S8
@@ -687,11 +687,11 @@
 // 
 // slave 8 has the additional ports PREADY and PSLVERR 
 // according to the AMBA3 specification.
-`define X2P_IS_APB3_S8 0
+`define i_axi_x2p_X2P_IS_APB3_S8 0
 
 //Creates a define for enabling APB3 in Slave 8
 
-// `define X2P_APB3_S8
+// `define i_axi_x2p_X2P_APB3_S8
 
 
 
@@ -704,7 +704,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_START_PADDR_S9 64'h0000000000002800
+`define i_axi_x2p_X2P_START_PADDR_S9 64'h0000000000002800
 
 
 // Name:         X2P_END_PADDR_S9
@@ -716,7 +716,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_END_PADDR_S9 64'h0000000000002bff
+`define i_axi_x2p_X2P_END_PADDR_S9 64'h0000000000002bff
 
 
 // Name:         X2P_IS_APB3_S9
@@ -726,11 +726,11 @@
 // 
 // Slave 9 has the additional ports PREADY and PSLVERR 
 // according to the AMBA3 specification.
-`define X2P_IS_APB3_S9 0
+`define i_axi_x2p_X2P_IS_APB3_S9 0
 
 //Creates a define for enabling APB3 in Slave 9
 
-// `define X2P_APB3_S9
+// `define i_axi_x2p_X2P_APB3_S9
 
 
 // Name:         X2P_START_PADDR_S10
@@ -742,7 +742,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_START_PADDR_S10 64'h0000000000002c00
+`define i_axi_x2p_X2P_START_PADDR_S10 64'h0000000000002c00
 
 
 // Name:         X2P_END_PADDR_S10
@@ -754,7 +754,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_END_PADDR_S10 64'h0000000000002fff
+`define i_axi_x2p_X2P_END_PADDR_S10 64'h0000000000002fff
 
 
 // Name:         X2P_IS_APB3_S10
@@ -764,11 +764,11 @@
 // 
 // slave 10 has the additional ports PREADY and PSLVERR 
 // according to the AMBA3 specification.
-`define X2P_IS_APB3_S10 0
+`define i_axi_x2p_X2P_IS_APB3_S10 0
 
 //Creates a define for enabling APB3 in Slave 10
 
-// `define X2P_APB3_S10
+// `define i_axi_x2p_X2P_APB3_S10
 
 
 // Name:         X2P_START_PADDR_S11
@@ -780,7 +780,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_START_PADDR_S11 64'h0000000000003000
+`define i_axi_x2p_X2P_START_PADDR_S11 64'h0000000000003000
 
 
 // Name:         X2P_END_PADDR_S11
@@ -792,7 +792,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_END_PADDR_S11 64'h00000000000033ff
+`define i_axi_x2p_X2P_END_PADDR_S11 64'h00000000000033ff
 
 
 // Name:         X2P_IS_APB3_S11
@@ -802,11 +802,11 @@
 // 
 // Slave 11 has the additional ports PREADY and PSLVERR 
 // according to the AMBA3 specification.
-`define X2P_IS_APB3_S11 0
+`define i_axi_x2p_X2P_IS_APB3_S11 0
 
 //Creates a define for enabling APB3 in Slave 11
 
-// `define X2P_APB3_S11
+// `define i_axi_x2p_X2P_APB3_S11
 
 
 // Name:         X2P_START_PADDR_S12
@@ -818,7 +818,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_START_PADDR_S12 64'h0000000000003400
+`define i_axi_x2p_X2P_START_PADDR_S12 64'h0000000000003400
 
 
 // Name:         X2P_END_PADDR_S12
@@ -830,7 +830,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_END_PADDR_S12 64'h00000000000037ff
+`define i_axi_x2p_X2P_END_PADDR_S12 64'h00000000000037ff
 
 
 // Name:         X2P_IS_APB3_S12
@@ -840,11 +840,11 @@
 // 
 // Slave 12 has the additional ports PREADY and PSLVERR 
 // according to the AMBA3 specification.
-`define X2P_IS_APB3_S12 0
+`define i_axi_x2p_X2P_IS_APB3_S12 0
 
 //Creates a define for enabling APB3 in Slave 12
 
-// `define X2P_APB3_S12
+// `define i_axi_x2p_X2P_APB3_S12
 
 
 // Name:         X2P_START_PADDR_S13
@@ -856,7 +856,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_START_PADDR_S13 64'h0000000000003800
+`define i_axi_x2p_X2P_START_PADDR_S13 64'h0000000000003800
 
 
 // Name:         X2P_END_PADDR_S13
@@ -868,7 +868,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_END_PADDR_S13 64'h0000000000003bff
+`define i_axi_x2p_X2P_END_PADDR_S13 64'h0000000000003bff
 
 
 // Name:         X2P_IS_APB3_S13
@@ -878,11 +878,11 @@
 // 
 // Slave 13 has the additional ports PREADY and PSLVERR 
 // according to the AMBA3 specification.
-`define X2P_IS_APB3_S13 0
+`define i_axi_x2p_X2P_IS_APB3_S13 0
 
 //Creates a define for enabling APB3 in Slave 13
 
-// `define X2P_APB3_S13
+// `define i_axi_x2p_X2P_APB3_S13
 
 
 
@@ -895,7 +895,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_START_PADDR_S14 64'h0000000000003c00
+`define i_axi_x2p_X2P_START_PADDR_S14 64'h0000000000003c00
 
 
 // Name:         X2P_END_PADDR_S14
@@ -907,7 +907,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_END_PADDR_S14 64'h0000000000003fff
+`define i_axi_x2p_X2P_END_PADDR_S14 64'h0000000000003fff
 
 
 // Name:         X2P_IS_APB3_S14
@@ -917,11 +917,11 @@
 // 
 // slave 14 has the additional ports PREADY and PSLVERR 
 // according to the AMBA3 specification.
-`define X2P_IS_APB3_S14 0
+`define i_axi_x2p_X2P_IS_APB3_S14 0
 
 //Creates a define for enabling APB3 in Slave 14
 
-// `define X2P_APB3_S14
+// `define i_axi_x2p_X2P_APB3_S14
 
 
 
@@ -934,7 +934,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_START_PADDR_S15 64'h0000000000004000
+`define i_axi_x2p_X2P_START_PADDR_S15 64'h0000000000004000
 
 
 // Name:         X2P_END_PADDR_S15
@@ -946,7 +946,7 @@
 //  
 // Dependencies: Any address must not be contained in any other range and 
 // must have a minimum size of 1 KB, and must be aligned to a 1 KB boundary.
-`define X2P_END_PADDR_S15 64'h00000000000043ff
+`define i_axi_x2p_X2P_END_PADDR_S15 64'h00000000000043ff
 
 
 // Name:         X2P_IS_APB3_S15
@@ -956,32 +956,32 @@
 // 
 // Slave 15 has the additional ports PREADY and PSLVERR 
 // according to the AMBA3 specification.
-`define X2P_IS_APB3_S15 0
+`define i_axi_x2p_X2P_IS_APB3_S15 0
 
 //Creates a define for enabling APB3 in Slave 15
 
-// `define X2P_APB3_S15
+// `define i_axi_x2p_X2P_APB3_S15
 
 
-`define X2P_AXI_START_ADDR 64'h400
+`define i_axi_x2p_X2P_AXI_START_ADDR 64'h0
 
 
-`define X2P_AXI_END_ADDR 64'hbff
+`define i_axi_x2p_X2P_AXI_END_ADDR 64'hfff
 
 
 
 // Name:         X2P_START_PADDR_32_S0
-// Default:      0x00000400 (X2P_START_PADDR_S0 & 0x00000000ffffffff)
+// Default:      0x00000000 (X2P_START_PADDR_S0 & 0x00000000ffffffff)
 // Values:       0x00000000, ..., 0xfffffc00
 // Enabled:      0
 // 
 // Start Address for APB Slave #0 that the component will use to decode the addressed APB Slave. This parameter is 
 // non-editable and is used for visual purposes only in the coreConsultant GUI.
-`define X2P_START_PADDR_32_S0 32'h00000400
+`define i_axi_x2p_X2P_START_PADDR_32_S0 32'h00000000
 
 
 // Name:         X2P_END_PADDR_32_S0
-// Default:      0x000007ff (X2P_END_PADDR_S0 & 0x00000000ffffffff)
+// Default:      0x00000fff (X2P_END_PADDR_S0 & 0x00000000ffffffff)
 // Values:       0x000003ff, ..., 0xffffffff
 // Enabled:      0
 // 
@@ -989,7 +989,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_END_PADDR_32_S0 32'h000007ff
+`define i_axi_x2p_X2P_END_PADDR_32_S0 32'h00000fff
 
 
 // Name:         X2P_START_PADDR_32_S1
@@ -1001,7 +1001,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_START_PADDR_32_S1 32'h00000800
+`define i_axi_x2p_X2P_START_PADDR_32_S1 32'h00000800
 
 
 // Name:         X2P_END_PADDR_32_S1
@@ -1011,7 +1011,7 @@
 // 
 // End Address for APB Slave #1 that the component will use to decode the addressed APB Slave. This parameter is 
 // non-editable and is used for visual purposes only in the coreConsultant GUI.
-`define X2P_END_PADDR_32_S1 32'h00000bff
+`define i_axi_x2p_X2P_END_PADDR_32_S1 32'h00000bff
 
 
 // Name:         X2P_START_PADDR_32_S2
@@ -1023,7 +1023,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_START_PADDR_32_S2 32'h00000c00
+`define i_axi_x2p_X2P_START_PADDR_32_S2 32'h00000c00
 
 
 // Name:         X2P_END_PADDR_32_S2
@@ -1035,7 +1035,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_END_PADDR_32_S2 32'h00000fff
+`define i_axi_x2p_X2P_END_PADDR_32_S2 32'h00000fff
 
 
 // Name:         X2P_START_PADDR_32_S3
@@ -1047,7 +1047,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_START_PADDR_32_S3 32'h00001000
+`define i_axi_x2p_X2P_START_PADDR_32_S3 32'h00001000
 
 
 // Name:         X2P_END_PADDR_32_S3
@@ -1059,7 +1059,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_END_PADDR_32_S3 32'h000013ff
+`define i_axi_x2p_X2P_END_PADDR_32_S3 32'h000013ff
 
 
 // Name:         X2P_START_PADDR_32_S4
@@ -1071,7 +1071,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_START_PADDR_32_S4 32'h00001400
+`define i_axi_x2p_X2P_START_PADDR_32_S4 32'h00001400
 
 
 // Name:         X2P_END_PADDR_32_S4
@@ -1083,7 +1083,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_END_PADDR_32_S4 32'h000017ff
+`define i_axi_x2p_X2P_END_PADDR_32_S4 32'h000017ff
 
 
 // Name:         X2P_START_PADDR_32_S5
@@ -1095,7 +1095,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_START_PADDR_32_S5 32'h00001800
+`define i_axi_x2p_X2P_START_PADDR_32_S5 32'h00001800
 
 
 // Name:         X2P_END_PADDR_32_S5
@@ -1107,7 +1107,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_END_PADDR_32_S5 32'h00001bff
+`define i_axi_x2p_X2P_END_PADDR_32_S5 32'h00001bff
 
 
 // Name:         X2P_START_PADDR_32_S6
@@ -1119,7 +1119,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_START_PADDR_32_S6 32'h00001c00
+`define i_axi_x2p_X2P_START_PADDR_32_S6 32'h00001c00
 
 
 // Name:         X2P_END_PADDR_32_S6
@@ -1131,7 +1131,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_END_PADDR_32_S6 32'h00001fff
+`define i_axi_x2p_X2P_END_PADDR_32_S6 32'h00001fff
 
 
 // Name:         X2P_START_PADDR_32_S7
@@ -1143,7 +1143,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_START_PADDR_32_S7 32'h00002000
+`define i_axi_x2p_X2P_START_PADDR_32_S7 32'h00002000
 
 
 // Name:         X2P_END_PADDR_32_S7
@@ -1155,7 +1155,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_END_PADDR_32_S7 32'h000023ff
+`define i_axi_x2p_X2P_END_PADDR_32_S7 32'h000023ff
 
 
 // Name:         X2P_START_PADDR_32_S8
@@ -1167,7 +1167,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_START_PADDR_32_S8 32'h00002400
+`define i_axi_x2p_X2P_START_PADDR_32_S8 32'h00002400
 
 
 // Name:         X2P_END_PADDR_32_S8
@@ -1179,7 +1179,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_END_PADDR_32_S8 32'h000027ff
+`define i_axi_x2p_X2P_END_PADDR_32_S8 32'h000027ff
 
 
 // Name:         X2P_START_PADDR_32_S9
@@ -1191,7 +1191,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_START_PADDR_32_S9 32'h00002800
+`define i_axi_x2p_X2P_START_PADDR_32_S9 32'h00002800
 
 
 // Name:         X2P_END_PADDR_32_S9
@@ -1203,7 +1203,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_END_PADDR_32_S9 32'h00002bff
+`define i_axi_x2p_X2P_END_PADDR_32_S9 32'h00002bff
 
 
 // Name:         X2P_START_PADDR_32_S10
@@ -1215,7 +1215,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_START_PADDR_32_S10 32'h00002c00
+`define i_axi_x2p_X2P_START_PADDR_32_S10 32'h00002c00
 
 
 // Name:         X2P_END_PADDR_32_S10
@@ -1227,7 +1227,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_END_PADDR_32_S10 32'h00002fff
+`define i_axi_x2p_X2P_END_PADDR_32_S10 32'h00002fff
 
 
 // Name:         X2P_START_PADDR_32_S11
@@ -1239,7 +1239,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_START_PADDR_32_S11 32'h00003000
+`define i_axi_x2p_X2P_START_PADDR_32_S11 32'h00003000
 
 
 // Name:         X2P_END_PADDR_32_S11
@@ -1251,7 +1251,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_END_PADDR_32_S11 32'h000033ff
+`define i_axi_x2p_X2P_END_PADDR_32_S11 32'h000033ff
 
 
 // Name:         X2P_START_PADDR_32_S12
@@ -1263,7 +1263,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_START_PADDR_32_S12 32'h00003400
+`define i_axi_x2p_X2P_START_PADDR_32_S12 32'h00003400
 
 
 // Name:         X2P_END_PADDR_32_S12
@@ -1275,7 +1275,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_END_PADDR_32_S12 32'h000037ff
+`define i_axi_x2p_X2P_END_PADDR_32_S12 32'h000037ff
 
 
 // Name:         X2P_START_PADDR_32_S13
@@ -1287,7 +1287,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_START_PADDR_32_S13 32'h00003800
+`define i_axi_x2p_X2P_START_PADDR_32_S13 32'h00003800
 
 
 // Name:         X2P_END_PADDR_32_S13
@@ -1299,7 +1299,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_END_PADDR_32_S13 32'h00003bff
+`define i_axi_x2p_X2P_END_PADDR_32_S13 32'h00003bff
 
 
 // Name:         X2P_START_PADDR_32_S14
@@ -1311,7 +1311,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_START_PADDR_32_S14 32'h00003c00
+`define i_axi_x2p_X2P_START_PADDR_32_S14 32'h00003c00
 
 
 // Name:         X2P_END_PADDR_32_S14
@@ -1323,7 +1323,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_END_PADDR_32_S14 32'h00003fff
+`define i_axi_x2p_X2P_END_PADDR_32_S14 32'h00003fff
 
 
 // Name:         X2P_START_PADDR_32_S15
@@ -1335,7 +1335,7 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_START_PADDR_32_S15 32'h00004000
+`define i_axi_x2p_X2P_START_PADDR_32_S15 32'h00004000
 
 
 // Name:         X2P_END_PADDR_32_S15
@@ -1347,196 +1347,196 @@
 // to decode the addressed APB Slave. This parameter 
 // is non-editable and is used for visual purposes only 
 // in the coreConsultant GUI.
-`define X2P_END_PADDR_32_S15 32'h000043ff
+`define i_axi_x2p_X2P_END_PADDR_32_S15 32'h000043ff
 
 
 //Creates a define for enabling Slave 1
 
-`define X2P_HAS_S1
+// `define i_axi_x2p_X2P_HAS_S1
 
 //Creates a define for enabling Slave 2
 
-// `define X2P_HAS_S2
+// `define i_axi_x2p_X2P_HAS_S2
 
 //Creates a define for enabling Slave 3
 
-// `define X2P_HAS_S3
+// `define i_axi_x2p_X2P_HAS_S3
 
 //Creates a define for enabling Slave 4
 
-// `define X2P_HAS_S4
+// `define i_axi_x2p_X2P_HAS_S4
 
 //Creates a define for enabling Slave 5
 
-// `define X2P_HAS_S5
+// `define i_axi_x2p_X2P_HAS_S5
 
 //Creates a define for enabling Slave 6
 
-// `define X2P_HAS_S6
+// `define i_axi_x2p_X2P_HAS_S6
 
 //Creates a define for enabling Slave 7
 
-// `define X2P_HAS_S7
+// `define i_axi_x2p_X2P_HAS_S7
 
 //Creates a define for enabling Slave 8
 
-// `define X2P_HAS_S8
+// `define i_axi_x2p_X2P_HAS_S8
 
 //Creates a define for enabling Slave 9
 
-// `define X2P_HAS_S9
+// `define i_axi_x2p_X2P_HAS_S9
 
 //Creates a define for enabling Slave 10
 
-// `define X2P_HAS_S10
+// `define i_axi_x2p_X2P_HAS_S10
 
 //Creates a define for enabling Slave 11
 
-// `define X2P_HAS_S11
+// `define i_axi_x2p_X2P_HAS_S11
 
 //Creates a define for enabling Slave 12
 
-// `define X2P_HAS_S12
+// `define i_axi_x2p_X2P_HAS_S12
 
 //Creates a define for enabling Slave 13
 
-// `define X2P_HAS_S13
+// `define i_axi_x2p_X2P_HAS_S13
 
 //Creates a define for enabling Slave 14
 
-// `define X2P_HAS_S14
+// `define i_axi_x2p_X2P_HAS_S14
 
 //Creates a define for enabling Slave 15
 
-// `define X2P_HAS_S15
+// `define i_axi_x2p_X2P_HAS_S15
 
 //Creates a define for enabling PREADY Signal in Slave 0
 
-// `define X2P_PREADY_S0
+// `define i_axi_x2p_X2P_PREADY_S0
 
 //Creates a define for enabling SLVERR Signal in Slave 0
 
-// `define X2P_PSLVERR_S0
+// `define i_axi_x2p_X2P_PSLVERR_S0
 
 //Creates a define for enabling PREADY Signal in Slave 1
 
-// `define X2P_PREADY_S1
+// `define i_axi_x2p_X2P_PREADY_S1
 
 //Creates a define for enabling SLVERR Signal in Slave 1
 
-// `define X2P_PSLVERR_S1
+// `define i_axi_x2p_X2P_PSLVERR_S1
 
 //Creates a define for enabling PREADY Signal in Slave 2
 
-// `define X2P_PREADY_S2
+// `define i_axi_x2p_X2P_PREADY_S2
 
 //Creates a define for enabling SLVERR Signal in Slave 2
 
-// `define X2P_PSLVERR_S2
+// `define i_axi_x2p_X2P_PSLVERR_S2
 
 //Creates a define for enabling PREADY Signal in Slave 3
 
-// `define X2P_PREADY_S3
+// `define i_axi_x2p_X2P_PREADY_S3
 
 //Creates a define for enabling SLVERR Signal in Slave 3
 
-// `define X2P_PSLVERR_S3
+// `define i_axi_x2p_X2P_PSLVERR_S3
 
 //Creates a define for enabling PREADY Signal in Slave 4
 
-// `define X2P_PREADY_S4
+// `define i_axi_x2p_X2P_PREADY_S4
 
 //Creates a define for enabling SLVERR Signal in Slave 4
 
-// `define X2P_PSLVERR_S4
+// `define i_axi_x2p_X2P_PSLVERR_S4
 
 //Creates a define for enabling PREADY Signal in Slave 5
 
-// `define X2P_PREADY_S5
+// `define i_axi_x2p_X2P_PREADY_S5
 
 //Creates a define for enabling SLVERR Signal in Slave 5
 
-// `define X2P_PSLVERR_S5
+// `define i_axi_x2p_X2P_PSLVERR_S5
 
 //Creates a define for enabling PREADY Signal in Slave 6
 
-// `define X2P_PREADY_S6
+// `define i_axi_x2p_X2P_PREADY_S6
 
 //Creates a define for enabling SLVERR Signal in Slave 6
 
-// `define X2P_PSLVERR_S6
+// `define i_axi_x2p_X2P_PSLVERR_S6
 
 //Creates a define for enabling PREADY Signal in Slave 7
 
-// `define X2P_PREADY_S7
+// `define i_axi_x2p_X2P_PREADY_S7
 
 //Creates a define for enabling SLVERR Signal in Slave 7
 
-// `define X2P_PSLVERR_S7
+// `define i_axi_x2p_X2P_PSLVERR_S7
 
 //Creates a define for enabling PREADY Signal in Slave 8
 
-// `define X2P_PREADY_S8
+// `define i_axi_x2p_X2P_PREADY_S8
 
 //Creates a define for enabling SLVERR Signal in Slave 8
 
-// `define X2P_PSLVERR_S8
+// `define i_axi_x2p_X2P_PSLVERR_S8
 
 //Creates a define for enabling PREADY Signal in Slave 9
 
-// `define X2P_PREADY_S9
+// `define i_axi_x2p_X2P_PREADY_S9
 
 //Creates a define for enabling SLVERR Signal in Slave 9
 
-// `define X2P_PSLVERR_S9
+// `define i_axi_x2p_X2P_PSLVERR_S9
 
 //Creates a define for enabling PREADY Signal in Slave 10
 
-// `define X2P_PREADY_S10
+// `define i_axi_x2p_X2P_PREADY_S10
 
 //Creates a define for enabling SLVERR Signal in Slave 10
 
-// `define X2P_PSLVERR_S10
+// `define i_axi_x2p_X2P_PSLVERR_S10
 
 //Creates a define for enabling PREADY Signal in Slave 11
 
-// `define X2P_PREADY_S11
+// `define i_axi_x2p_X2P_PREADY_S11
 
 //Creates a define for enabling SLVERR Signal in Slave 11
 
-// `define X2P_PSLVERR_S11
+// `define i_axi_x2p_X2P_PSLVERR_S11
 
 //Creates a define for enabling PREADY Signal in Slave 12
 
-// `define X2P_PREADY_S12
+// `define i_axi_x2p_X2P_PREADY_S12
 
 //Creates a define for enabling SLVERR Signal in Slave 12
 
-// `define X2P_PSLVERR_S12
+// `define i_axi_x2p_X2P_PSLVERR_S12
 
 //Creates a define for enabling PREADY Signal in Slave 13
 
-// `define X2P_PREADY_S13
+// `define i_axi_x2p_X2P_PREADY_S13
 
 //Creates a define for enabling SLVERR Signal in Slave 13
 
-// `define X2P_PSLVERR_S13
+// `define i_axi_x2p_X2P_PSLVERR_S13
 
 //Creates a define for enabling PREADY Signal in Slave 14
 
-// `define X2P_PREADY_S14
+// `define i_axi_x2p_X2P_PREADY_S14
 
 //Creates a define for enabling SLVERR Signal in Slave 14
 
-// `define X2P_PSLVERR_S14
+// `define i_axi_x2p_X2P_PSLVERR_S14
 
 //Creates a define for enabling PREADY Signal in Slave 15
 
-// `define X2P_PREADY_S15
+// `define i_axi_x2p_X2P_PREADY_S15
 
 //Creates a define for enabling SLVERR Signal in Slave 15
 
-// `define X2P_PSLVERR_S15
+// `define i_axi_x2p_X2P_PSLVERR_S15
 
 
 
@@ -1548,24 +1548,24 @@
 //AXI system (also called AXI system "A") used in the testbench to drive
 //the Bridge slave interface.
 
-`define SIM_A_CLK_PERIOD 100
+`define i_axi_x2p_SIM_A_CLK_PERIOD 100
 
 //This is a testbench parameter. The design does not depend from this
 //parameter. This parameter specifies the clock period of the secondary
 //APB system (also called APB system "B") used in the testbench to drive
 //the Bridge master interface.
 
-`define SIM_B_CLK_PERIOD 100
+`define i_axi_x2p_SIM_B_CLK_PERIOD 100
 
 // this enables tests to produce additional dump files with information about the
 // random transfers generated, the addresses values observed on the bus etc.
 
-`define SIM_DEBUG_LEVEL 0
+`define i_axi_x2p_SIM_DEBUG_LEVEL 0
 
 // this enables tests to use a variable seed (related with the OS time) to
 // initialize random generators.
 
-`define SIM_USE_VARIABLE_SEED 0
+`define i_axi_x2p_SIM_USE_VARIABLE_SEED 0
 
 // Verification uses the following parameter if SIM_USE_CC_RAND_SEED
 // is set. Use's get_systime value otherwise. Note the
@@ -1574,14 +1574,14 @@
 
 
 
-`define SIM_RAND_SEED 0
+`define i_axi_x2p_SIM_RAND_SEED 0
 
 
-`define SIM_USE_CC_RAND_SEED 0
+`define i_axi_x2p_SIM_USE_CC_RAND_SEED 0
 
 
 
-`define USE_FOUNDATION 0
+`define i_axi_x2p_USE_FOUNDATION 0
 
 
 // ------------------------------------------
@@ -1590,24 +1590,24 @@
 // ------------------------------------------
 
 // clock cycles in a time tick
-`define SIM_A_TTICK_CLK_CYCLES 100000
-`define SIM_B_TTICK_CLK_CYCLES 51
+`define i_axi_x2p_SIM_A_TTICK_CLK_CYCLES 100000
+`define i_axi_x2p_SIM_B_TTICK_CLK_CYCLES 51
 
 // primary bus memory map
-`define SIM_A_START_ADDR_S1 32'h10000000  /* slave A1 */
-`define SIM_A_END_ADDR_S1   32'h1fffffff
-`define SIM_A_START_ADDR_S2 32'h20000000  /* bridge A->B */
-`define SIM_A_END_ADDR_S2   32'h2fffffff
-`define SIM_A_START_ADDR_S3 32'h30000000  /* slave A3 */
-`define SIM_A_END_ADDR_S3   32'h3fffffff
+`define i_axi_x2p_SIM_A_START_ADDR_S1 32'h10000000  /* slave A1 */
+`define i_axi_x2p_SIM_A_END_ADDR_S1   32'h1fffffff
+`define i_axi_x2p_SIM_A_START_ADDR_S2 32'h20000000  /* bridge A->B */
+`define i_axi_x2p_SIM_A_END_ADDR_S2   32'h2fffffff
+`define i_axi_x2p_SIM_A_START_ADDR_S3 32'h30000000  /* slave A3 */
+`define i_axi_x2p_SIM_A_END_ADDR_S3   32'h3fffffff
 
 // secondary bus memory map
-`define SIM_B_START_ADDR_S1 32'h20000000  /* slave B1 */
-`define SIM_B_END_ADDR_S1   32'h27ffffff
-`define SIM_B_START_ADDR_S3 32'h28000000  /* slave B3 */
-`define SIM_B_END_ADDR_S3   32'h2fffffff
-`define SIM_B_START_ADDR_S2 32'h30000000  /* bridge A->B */
-`define SIM_B_END_ADDR_S2   32'h3fffffff
+`define i_axi_x2p_SIM_B_START_ADDR_S1 32'h20000000  /* slave B1 */
+`define i_axi_x2p_SIM_B_END_ADDR_S1   32'h27ffffff
+`define i_axi_x2p_SIM_B_START_ADDR_S3 32'h28000000  /* slave B3 */
+`define i_axi_x2p_SIM_B_END_ADDR_S3   32'h2fffffff
+`define i_axi_x2p_SIM_B_START_ADDR_S2 32'h30000000  /* bridge A->B */
+`define i_axi_x2p_SIM_B_END_ADDR_S2   32'h3fffffff
 
 
 //----------------------------------------------
@@ -1616,7 +1616,7 @@
 
 // This sets the number of transactions the random test will run
 
-`define AXI_TEST_RAND_XACTNS 1000
+`define i_axi_x2p_AXI_TEST_RAND_XACTNS 1000
 
 //----------------------------------------------
 // used for the axi to apb bridge
@@ -1631,20 +1631,20 @@
 //   1   prev
 //   2   hign
 
-`define AXI_TEST_INACTIVE_SIGNALS 2
+`define i_axi_x2p_AXI_TEST_INACTIVE_SIGNALS 2
 
 /*****************************************/
 /*                                       */
 /*          MAXI BUS SIZES               */
 /*                                       */
 /*****************************************/
-`define MAX_X2P_AXI_DATA_WIDTH  512
-`define MAX_X2P_AXI_ADDR_WIDTH  64
-`define MAX_X2P_AXI_ID_WIDTH 20
+`define i_axi_x2p_MAX_X2P_AXI_DATA_WIDTH  512
+`define i_axi_x2p_MAX_X2P_AXI_ADDR_WIDTH  64
+`define i_axi_x2p_MAX_X2P_AXI_ID_WIDTH 20
 
 
 
-`define RM_ENDIAN 1
+`define i_axi_x2p_RM_ENDIAN 1
 /*****************************************/
 /*                                       */
 /*          Derived Values               */
@@ -1654,32 +1654,32 @@
 // the following will be derived from the X2P_CLK_MODE
 
 
-`define X2P_AXI_WSTRB_WIDTH  `X2P_AXI_DW/8
-`define X2P_APB_WSTRB_WIDTH  `X2P_APB_DATA_WIDTH/8
+`define i_axi_x2p_X2P_AXI_WSTRB_WIDTH  `i_axi_x2p_X2P_AXI_DW/8
+`define i_axi_x2p_X2P_APB_WSTRB_WIDTH  `i_axi_x2p_X2P_APB_DATA_WIDTH/8
 
-`define APB_DW_32
+`define i_axi_x2p_APB_DW_32
 
-`define X2P_AXI_WDFIFO_WIDTH  `X2P_AXI_DW + `X2P_AXI_WSTRB_WIDTH + 1
+`define i_axi_x2p_X2P_AXI_WDFIFO_WIDTH  `i_axi_x2p_X2P_AXI_DW + `i_axi_x2p_X2P_AXI_WSTRB_WIDTH + 1
 
 // the LEN is the cmd queue will be the larger of the write and read
-`define LEN_WIDTH `X2P_AXI_BLW
+`define i_axi_x2p_LEN_WIDTH `i_axi_x2p_X2P_AXI_BLW
 
 // keep the axi addr width allowing selects to span the whole X2P_AXI_AW range
-//`define X2P_CMD_ADDR_WIDTH  `X2P_AXI_AW
-//`define X2P_CMD_QUEUE_WIDTH  `X2P_AXI_AW + `X2P_AXI_SIDW + `X2P_AXI_BLW + 2 + 2 + 1
-`define X2P_CMD_ADDR_WIDTH  32
-`define X2P_CMD_QUEUE_WIDTH 32 + `X2P_AXI_SIDW + `X2P_AXI_BLW + 2 + 2 + 1
+//`define i_axi_x2p_X2P_CMD_ADDR_WIDTH  `i_axi_x2p_X2P_AXI_AW
+//`define i_axi_x2p_X2P_CMD_QUEUE_WIDTH  `i_axi_x2p_X2P_AXI_AW + `i_axi_x2p_X2P_AXI_SIDW + `i_axi_x2p_X2P_AXI_BLW + 2 + 2 + 1
+`define i_axi_x2p_X2P_CMD_ADDR_WIDTH  32
+`define i_axi_x2p_X2P_CMD_QUEUE_WIDTH 32 + `i_axi_x2p_X2P_AXI_SIDW + `i_axi_x2p_X2P_AXI_BLW + 2 + 2 + 1
 
 // based on the AXI data width define the max SIZE that can be issued
-`define X2P_MAX_AXI_SIZE ((`X2P_AXI_DW == 512) ? 6 :((`X2P_AXI_DW == 256) ? 5 : ((`X2P_AXI_DW == 128) ? 4 : ((`X2P_AXI_DW == 64 ? 3 :((`X2P_AXI_DW == 32) ? 2 : ((`X2P_AXI_DW == 16) ? 1: 0)))))))
+`define i_axi_x2p_X2P_MAX_AXI_SIZE ((`i_axi_x2p_X2P_AXI_DW == 512) ? 6 :((`i_axi_x2p_X2P_AXI_DW == 256) ? 5 : ((`i_axi_x2p_X2P_AXI_DW == 128) ? 4 : ((`i_axi_x2p_X2P_AXI_DW == 64 ? 3 :((`i_axi_x2p_X2P_AXI_DW == 32) ? 2 : ((`i_axi_x2p_X2P_AXI_DW == 16) ? 1: 0)))))))
 // provide the fixed size of the APB
-`define X2P_APB_SIZE ((`X2P_APB_DATA_WIDTH == 512) ? 6 :((`X2P_APB_DATA_WIDTH == 256) ? 5 : ((`X2P_APB_DATA_WIDTH == 128) ? 4 : ((`X2P_APB_DATA_WIDTH == 64 ? 3 :((`X2P_APB_DATA_WIDTH == 32) ? 2 : ((`X2P_APB_DATA_WIDTH == 16) ? 1: 0)))))))
+`define i_axi_x2p_X2P_APB_SIZE ((`i_axi_x2p_X2P_APB_DATA_WIDTH == 512) ? 6 :((`i_axi_x2p_X2P_APB_DATA_WIDTH == 256) ? 5 : ((`i_axi_x2p_X2P_APB_DATA_WIDTH == 128) ? 4 : ((`i_axi_x2p_X2P_APB_DATA_WIDTH == 64 ? 3 :((`i_axi_x2p_X2P_APB_DATA_WIDTH == 32) ? 2 : ((`i_axi_x2p_X2P_APB_DATA_WIDTH == 16) ? 1: 0)))))))
 
 
-`define APB_BUS_SIZE ((`X2P_APB_DATA_WIDTH == 32) ? 2 : (`X2P_APB_DATA_WIDTH == 16) ? 1 : 0)
+`define i_axi_x2p_APB_BUS_SIZE ((`i_axi_x2p_X2P_APB_DATA_WIDTH == 32) ? 2 : (`i_axi_x2p_X2P_APB_DATA_WIDTH == 16) ? 1 : 0)
 
 
-// `define X2P_ENCRYPT
+// `define i_axi_x2p_X2P_ENCRYPT
 
 
 // Name:         X2P_HAS_APB3
@@ -1691,28 +1691,28 @@
 // Values:       -2147483648, ..., 2147483647
 // 
 // IF X2P HAS A APB3 SLAVE
-`define X2P_HAS_APB3 0
+`define i_axi_x2p_X2P_HAS_APB3 0
 
 
 //Used to insert internal tests
 
 
-`define X2P_VERIF_EN 1
+`define i_axi_x2p_X2P_VERIF_EN 1
 
 //**************************************************************************************************
 // Parameters to remove init and test ports in bcm
 //**************************************************************************************************
 
 
-`define DWC_NO_TST_MODE
+`define i_axi_x2p_DWC_NO_TST_MODE
 
-`define DWC_NO_CDC_INIT
+`define i_axi_x2p_DWC_NO_CDC_INIT
+
+`define i_axi_x2p_X2P_AXI_BLW_4
 
 
 
 
-
-`define X2P_AXI_BLW_8
 
 //==============================================================================
 // End Guard

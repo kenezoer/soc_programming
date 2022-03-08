@@ -24,9 +24,9 @@
 //==============================================================================
 // Start Guard: prevent re-compilation of includes
 //==============================================================================
-  `define __GUARD__DW_AXI_X2P_ALL_INCLUDES__VH__
-  `include "DW_axi_x2p_cc_constants.vh"
-  `include "DW_axi_x2p_bcm_params.vh"
+  `define i_axi_x2p___GUARD__DW_AXI_X2P_ALL_INCLUDES__VH__
+`include "i_axi_x2p_DW_axi_x2p_cc_constants.vh"
+`include "i_axi_x2p_DW_axi_x2p_bcm_params.vh"
 //==============================================================================
 // End Guard
 //==============================================================================  

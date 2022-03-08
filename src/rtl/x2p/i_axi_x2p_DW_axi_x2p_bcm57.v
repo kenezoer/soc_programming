@@ -26,7 +26,7 @@
 
 
 
-  module DW_axi_x2p_bcm57 (
+  module i_axi_x2p_DW_axi_x2p_bcm57 (
         clk,
         rst_n,
         wr_n,

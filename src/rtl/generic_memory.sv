@@ -25,20 +25,28 @@ module generic_memory#(
     output  logic   [SRAM_BANK_DATA_WIDTH-1:0]      mem_rdata
 );
 
-    logic   [2**SRAM_BANK_ADDR_WIDTH-1:0] [SRAM_BANK_DATA_WIDTH-1:0] memory_array; // if we put 2 ** 32 array will be size -1, too big value
+    logic    [SRAM_BANK_DATA_WIDTH-1:0] memory_array_init [2**SRAM_BANK_ADDR_WIDTH-1:0]; // if we put 2 ** 32 array will be size -1, too big value
+    logic    [SRAM_BANK_DATA_WIDTH-1:0] memory_array [2**SRAM_BANK_ADDR_WIDTH-1:0]; // if we put 2 ** 32 array will be size -1, too big value
     string                              hex_data;
     int                                 fd, status;
 
     initial begin
-        hex_data = "../compile/user_programm/build/user_programm.hex";
+        hex_data = "../compile/user_programm/build/user_programm2.hex";
 
         fd = $fopen (hex_data, "rb");
 
         if (!fd)
             $error("Could not open \" ***.hex for SRAM SCR1!\"");
 
-        status = $fread (memory_array,fd);
+        $readmemh(hex_data, memory_array_init);
         $fclose(fd);
+
+        foreach(memory_array[i]) begin
+            memory_array[i][31:24] = memory_array_init[i][7 : 0];
+            memory_array[i][23:16] = memory_array_init[i][15: 8];
+            memory_array[i][15: 8] = memory_array_init[i][23:16];
+            memory_array[i][7 : 0] = memory_array_init[i][31:24];
+        end
     end
 
     always@(posedge i_clk)

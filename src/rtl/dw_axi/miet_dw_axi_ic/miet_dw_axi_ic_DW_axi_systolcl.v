@@ -351,7 +351,7 @@ module miet_dw_axi_ic_DW_axi_systolcl (
 
   always @(*)
   begin: bidi_mp1_dec_PROC     
-   bidi_mp1_dec     = dummy_wire;
+    bidi_mp1_dec =  ~{bidi_mp_dec_bus[`miet_dw_axi_ic_AXI_NUM_MASTERS-1:1]}; 
   end
  
 

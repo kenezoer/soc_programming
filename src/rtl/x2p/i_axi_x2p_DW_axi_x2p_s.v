@@ -30,9 +30,9 @@
 // Description : APB Master for DW_axi_x2p bridge.
 //-----------------------------------------------------------------------------
 
-`include "DW_axi_x2p_all_includes.vh"
+`include "i_axi_x2p_DW_axi_x2p_all_includes.vh"
 
-module DW_axi_x2p_s (/*AUTOARG*/
+module i_axi_x2p_DW_axi_x2p_s (/*AUTOARG*/
   // Outputs
   pop_hcmd_int_n, 
                      pop_wdata_int_n, 
@@ -65,13 +65,13 @@ module DW_axi_x2p_s (/*AUTOARG*/
 
 // Interface to Common CMD Queue
 
-   input   [`X2P_CMD_QUEUE_WIDTH:0] hcmd_queue_wd_int;   // Contains several fields
+   input   [`i_axi_x2p_X2P_CMD_QUEUE_WIDTH:0] hcmd_queue_wd_int;   // Contains several fields
    input                              hcmd_rdy_int_n;      // Low means not empty
    output                             pop_hcmd_int_n;      // Low-true POP
 
 // Interface to Write Data FIFO
 
-   input  [`X2P_AXI_WDFIFO_WIDTH-1:0] hwword_int;          // DATA, WSTRB, LAST
+   input  [`i_axi_x2p_X2P_AXI_WDFIFO_WIDTH-1:0] hwword_int;          // DATA, WSTRB, LAST
    input                              hwdata_rdy_int_n;    // Low means not empty
    output                             pop_wdata_int_n;     // Low-true POP
 
@@ -79,7 +79,7 @@ module DW_axi_x2p_s (/*AUTOARG*/
    // the contents of the write data buffer is registered
 
    input                              hresp_rdy_int_n;     // Low means: OK to push
-   output             [`X2P_AXI_SIDW-1:0] hwid_int;
+   output             [`i_axi_x2p_X2P_AXI_SIDW-1:0] hwid_int;
    output                             hwstatus_int;
    output                             push_resp_int_n;     // Low-true PUSH
 
@@ -87,8 +87,8 @@ module DW_axi_x2p_s (/*AUTOARG*/
 // Interface to the RDFIFO
 
    input                              read_buffer_full;
-   output             [`X2P_AXI_SIDW-1:0] hrid_int;
-   output               [`X2P_AXI_DW-1:0] hrdata_int; 
+   output             [`i_axi_x2p_X2P_AXI_SIDW-1:0] hrid_int;
+   output               [`i_axi_x2p_X2P_AXI_DW-1:0] hrdata_int; 
    output                             hrstatus_int;
    output                             hrlast_int;
    output                             push_data_int_n;
@@ -96,27 +96,27 @@ module DW_axi_x2p_s (/*AUTOARG*/
  // APB master inputs 
    // raw is right off the buss when not APB3 
    // he raw signals will be bypassed and tied appropriatly 
-  input   [`X2P_APB_DATA_WIDTH-1:0] prdata;
+  input   [`i_axi_x2p_X2P_APB_DATA_WIDTH-1:0] prdata;
 
   // APB master outputs
-  output  [`X2P_NUM_APB_SLAVES-1:0] psel;
-  output  [`X2P_APB_ADDR_WIDTH-1:0] paddr; 
+  output  [`i_axi_x2p_X2P_NUM_APB_SLAVES-1:0] psel;
+  output  [`i_axi_x2p_X2P_APB_ADDR_WIDTH-1:0] paddr; 
   output                            penable;
-  output  [`X2P_APB_DATA_WIDTH-1:0] pwdata;
+  output  [`i_axi_x2p_X2P_APB_DATA_WIDTH-1:0] pwdata;
   output                            pwrite;
 
-  wire   [`X2P_CMD_QUEUE_WIDTH:0] hcmd_queue_wd_int;   // Contains several fields
-  wire  [`X2P_AXI_WDFIFO_WIDTH-1:0] hwword_int;          // DATA, WSTRB, LAST
-  wire   [`X2P_APB_DATA_WIDTH-1:0] prdata;
+  wire   [`i_axi_x2p_X2P_CMD_QUEUE_WIDTH:0] hcmd_queue_wd_int;   // Contains several fields
+  wire  [`i_axi_x2p_X2P_AXI_WDFIFO_WIDTH-1:0] hwword_int;          // DATA, WSTRB, LAST
+  wire   [`i_axi_x2p_X2P_APB_DATA_WIDTH-1:0] prdata;
   
-  wire [`X2P_NUM_APB_SLAVES-1:0]   psel;
-  wire [`X2P_NUM_APB_SLAVES-1:0]   psel_ungated;
+  wire [`i_axi_x2p_X2P_NUM_APB_SLAVES-1:0]   psel;
+  wire [`i_axi_x2p_X2P_NUM_APB_SLAVES-1:0]   psel_ungated;
    
 // these are after the AMBA compatibility adjustments   
 
-   wire [`X2P_APB_ADDR_WIDTH-1:0]  paddr;
+   wire [`i_axi_x2p_X2P_APB_ADDR_WIDTH-1:0]  paddr;
    
-   wire [(`X2P_APB_DATA_WIDTH/8)-1:0] selected_strobes;
+   wire [(`i_axi_x2p_X2P_APB_DATA_WIDTH/8)-1:0] selected_strobes;
    wire [7:0] next_apb_wd_sel;
 
    wire [7:0] last_strobe;
@@ -125,16 +125,16 @@ module DW_axi_x2p_s (/*AUTOARG*/
    wire save_id,set_data,clr_data_reg;
    wire update_address,psel_en,enable_pack,last_push_read;
 
-   wire [`X2P_CMD_ADDR_WIDTH-1:0] cmd_queue_addr; 
-   wire [`X2P_AXI_SIDW-1:0]       cmd_id;
+   wire [`i_axi_x2p_X2P_CMD_ADDR_WIDTH-1:0] cmd_queue_addr; 
+   wire [`i_axi_x2p_X2P_AXI_SIDW-1:0]       cmd_id;
    
-   wire [`X2P_AXI_DW-1:0]         conditioned_write_data;
-   wire [(`X2P_AXI_DW/8)-1:0]     conditioned_write_strobes;
+   wire [`i_axi_x2p_X2P_AXI_DW-1:0]         conditioned_write_data;
+   wire [(`i_axi_x2p_X2P_AXI_DW/8)-1:0]     conditioned_write_strobes;
 
-   wire [`X2P_AXI_DW-1:0]         packed_read_data;
+   wire [`i_axi_x2p_X2P_AXI_DW-1:0]         packed_read_data;
    
-   reg [`X2P_AXI_DW-1:0]          next_write_data,write_data_reg;
-   reg [(`X2P_AXI_DW/8)-1:0]      next_write_strobes,write_strobes_reg;
+   reg [`i_axi_x2p_X2P_AXI_DW-1:0]          next_write_data,write_data_reg;
+   reg [(`i_axi_x2p_X2P_AXI_DW/8)-1:0]      next_write_strobes,write_strobes_reg;
    reg                            next_write_last,write_last_reg;
    wire                           rd_error;   
    
@@ -145,22 +145,22 @@ module DW_axi_x2p_s (/*AUTOARG*/
   //spyglass disable_block SelfDeterminedExpr-ML
   //SMD: Self determined expression present in the design.
   //SJ : The expression indexing the vector/array will never exceed the boundary of the vector/array.
-   assign cmd_id[`X2P_AXI_SIDW-1:0] = hcmd_queue_wd_int[(`LEN_WIDTH+`X2P_AXI_SIDW +5):(`LEN_WIDTH+6)];
+   assign cmd_id[`i_axi_x2p_X2P_AXI_SIDW-1:0] = hcmd_queue_wd_int[(`i_axi_x2p_LEN_WIDTH+`i_axi_x2p_X2P_AXI_SIDW +5):(`i_axi_x2p_LEN_WIDTH+6)];
   //spyglass enable_block SelfDeterminedExpr-ML
-//   assign cmd_queue_addr[`X2P_CMD_ADDR_WIDTH-1:0] = hcmd_queue_wd_int >> (`LEN_WIDTH+`X2P_AXI_SIDW +6); 
-   assign cmd_queue_addr[`X2P_CMD_ADDR_WIDTH-1:0] = hcmd_queue_wd_int[`X2P_CMD_QUEUE_WIDTH:`X2P_CMD_QUEUE_WIDTH-31]; 
+//   assign cmd_queue_addr[`i_axi_x2p_X2P_CMD_ADDR_WIDTH-1:0] = hcmd_queue_wd_int >> (`i_axi_x2p_LEN_WIDTH+`i_axi_x2p_X2P_AXI_SIDW +6); 
+   assign cmd_queue_addr[`i_axi_x2p_X2P_CMD_ADDR_WIDTH-1:0] = hcmd_queue_wd_int[`i_axi_x2p_X2P_CMD_QUEUE_WIDTH:`i_axi_x2p_X2P_CMD_QUEUE_WIDTH-31]; 
    
   
    
    assign conditioned_write_data = 
-            hwword_int[`X2P_AXI_WDFIFO_WIDTH-1:`X2P_AXI_WDFIFO_WIDTH-`X2P_AXI_DW];
-   assign conditioned_write_strobes = hwword_int[(`X2P_AXI_DW/8):1];
+            hwword_int[`i_axi_x2p_X2P_AXI_WDFIFO_WIDTH-1:`i_axi_x2p_X2P_AXI_WDFIFO_WIDTH-`i_axi_x2p_X2P_AXI_DW];
+   assign conditioned_write_strobes = hwword_int[(`i_axi_x2p_X2P_AXI_DW/8):1];
    assign hrdata_int = packed_read_data; 
    
 
    
 /// monitor the write buffer output determine from the strobes the 1's APB and the last APB word
-    DW_axi_x2p_first_last_strobe
+    i_axi_x2p_DW_axi_x2p_first_last_strobe
      U_x2ps_first_last_strb(
                                    .clk(clk),
                                                         .rstn(rst_n),
@@ -170,7 +170,7 @@ module DW_axi_x2p_s (/*AUTOARG*/
       
     
 // the control module contains all the state machines (read and write)
-    DW_axi_x2p_s_control
+    i_axi_x2p_DW_axi_x2p_s_control
      U_x2ps_ctrl(
                                      .clk(clk)
                                      ,.rstn(rst_n)
@@ -206,7 +206,7 @@ module DW_axi_x2p_s (/*AUTOARG*/
                                      ,.save_id(save_id)
                                      );
    
-   DW_axi_x2p_s_packer
+   i_axi_x2p_DW_axi_x2p_s_packer
     U_x2ps_pack(
                                    .clk(clk),
                                    .rstn(rst_n),
@@ -225,7 +225,7 @@ module DW_axi_x2p_s (/*AUTOARG*/
                                    .axi_last(hrlast_int)
                                    );
    
-   DW_axi_x2p_s_unpack
+   i_axi_x2p_DW_axi_x2p_s_unpack
     U_x2ps_unpack(.clk(clk),
                                      .rstn(rst_n),
                                     // Outputs
@@ -239,7 +239,7 @@ module DW_axi_x2p_s (/*AUTOARG*/
                                     .set_data(set_data)
                                      );
 // this will issue responses to the write response buffer
-   DW_axi_x2p_s_response
+   i_axi_x2p_DW_axi_x2p_s_response
     U_x2ps_resp(.clk(clk),
                                      .rstn(rst_n),
                                      // inputs
@@ -256,7 +256,7 @@ module DW_axi_x2p_s (/*AUTOARG*/
    // address generation for the APB and decode of address will issue 
    // an error upon address generated out of any APB slave address range
    
-   DW_axi_x2p_s_addr_dcd
+   i_axi_x2p_DW_axi_x2p_s_addr_dcd
     U_x2ps_addr (
                                       .clk(clk),
                                       .rstn(rst_n),
@@ -267,7 +267,7 @@ module DW_axi_x2p_s (/*AUTOARG*/
                                       //spyglass disable_block SelfDeterminedExpr-ML
                                       //SMD: Self determined expression present in the design.
                                       //SJ : The expression indexing the vector/array will never exceed the boundary of the vector/array.
-                                      .cmd_len(hcmd_queue_wd_int[5+`LEN_WIDTH:6]),
+                                      .cmd_len(hcmd_queue_wd_int[5+`i_axi_x2p_LEN_WIDTH:6]),
                                       //spyglass enable_block SelfDeterminedExpr-ML
                                       .cmd_direction(hcmd_queue_wd_int[0]),
                                       .incr_addr(incr_addr),
@@ -280,7 +280,7 @@ module DW_axi_x2p_s (/*AUTOARG*/
                                       .paddr(paddr)
                                       );
 // gate out the psel on active ops
-   assign psel = (psel_en == 1'b1) ? psel_ungated : {`X2P_NUM_APB_SLAVES{1'b0}};   
+   assign psel = (psel_en == 1'b1) ? psel_ungated : {`i_axi_x2p_X2P_NUM_APB_SLAVES{1'b0}};   
 
    
 // register the outputs of the write data buffer
@@ -305,8 +305,8 @@ module DW_axi_x2p_s (/*AUTOARG*/
      begin: WRITE_DATA_PROC
        if (!rst_n)
        begin
-         write_data_reg <= {`X2P_AXI_DW{1'b0}};
-         write_strobes_reg <= {(`X2P_AXI_DW/8){1'b0}};
+         write_data_reg <= {`i_axi_x2p_X2P_AXI_DW{1'b0}};
+         write_strobes_reg <= {(`i_axi_x2p_X2P_AXI_DW/8){1'b0}};
          write_last_reg <= 1'b0;
        end
        else

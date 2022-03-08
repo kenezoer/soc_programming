@@ -7,6 +7,7 @@
 `include "scr1_arch_types.svh"
 `include "scr1_csr.svh"
 
+`define SCR1_TRACE_LOG_EN
 `ifdef SCR1_TRGT_SIMULATION
 
 module scr1_tracelog (

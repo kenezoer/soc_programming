@@ -25,7 +25,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
-module DW_axi_x2p_bcm05 (
+module i_axi_x2p_DW_axi_x2p_bcm05 (
         clk,
         rst_n,
         init_n,
@@ -296,7 +296,7 @@ endgenerate
   assign next_error         = next_error_int && init_n;
 
 
-  DW_axi_x2p_bcm21
+  i_axi_x2p_DW_axi_x2p_bcm21
    #(COUNT_WIDTH, SYNC_DEPTH_P8, GRAY_VERIF_EN, 2) U_sync(
     .clk_d(clk),
     .rst_d_n(rst_n),

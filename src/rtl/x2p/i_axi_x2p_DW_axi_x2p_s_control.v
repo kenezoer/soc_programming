@@ -40,9 +40,9 @@
 /*                                                                   */
 /*********************************************************************/
 
-`include "DW_axi_x2p_all_includes.vh"
+`include "i_axi_x2p_DW_axi_x2p_all_includes.vh"
 
-module DW_axi_x2p_s_control(/*AUTOARG*/
+module i_axi_x2p_DW_axi_x2p_s_control(/*AUTOARG*/
   // Outputs
   push_read_buffer_n, 
                             rd_error, 
@@ -81,7 +81,7 @@ module DW_axi_x2p_s_control(/*AUTOARG*/
    input rstn; 
   // these are used for the command queue
   //Not all the bits of this signal are used in this module. (For example the AXI-ID bits and the higher addr MSbits are unused).
-  input [`X2P_CMD_QUEUE_WIDTH:0] cmd_queue_wd;
+  input [`i_axi_x2p_X2P_CMD_QUEUE_WIDTH:0] cmd_queue_wd;
   input                          cmd_queue_empty;
  
   //the write buffer
@@ -91,7 +91,7 @@ module DW_axi_x2p_s_control(/*AUTOARG*/
 // coming from the  data unpacking module
 // strobes set for current APB word to write 
 // address decode error from the address generation
-   input [(`X2P_APB_DATA_WIDTH/8)-1:0] selected_strobes; // strobes for current APB word to write 
+   input [(`i_axi_x2p_X2P_APB_DATA_WIDTH/8)-1:0] selected_strobes; // strobes for current APB word to write 
 // address decode error from the address generation
    input                      dcd_error;
 
@@ -156,7 +156,7 @@ module DW_axi_x2p_s_control(/*AUTOARG*/
    
    reg [7:0]                  apb_wds_in_axi_wd, next_apb_wds_in_axi_wd; 
 
-   wire  [`X2P_CMD_QUEUE_WIDTH:0] cmd_queue_wd;
+   wire  [`i_axi_x2p_X2P_CMD_QUEUE_WIDTH:0] cmd_queue_wd;
    wire                       write_buffer_last; 
 
    // break up the command word
@@ -164,9 +164,9 @@ module DW_axi_x2p_s_control(/*AUTOARG*/
    wire [1:0] cmd_type = cmd_queue_wd[2:1];
    wire [2:0] cmd_size = cmd_queue_wd[5:3];
    
-   wire [`LEN_WIDTH-1:0]      cmd_len = cmd_queue_wd[`LEN_WIDTH+5:6];
-//   wire [`X2P_AXI_AW-1:0]       cmd_addr;
-   wire [`APB_BUS_SIZE+7:0]   cmd_addr;
+   wire [`i_axi_x2p_LEN_WIDTH-1:0]      cmd_len = cmd_queue_wd[`i_axi_x2p_LEN_WIDTH+5:6];
+//   wire [`i_axi_x2p_X2P_AXI_AW-1:0]       cmd_addr;
+   wire [`i_axi_x2p_APB_BUS_SIZE+7:0]   cmd_addr;
    
    wire                       wr_pop_cmd, save_id;
    reg                        rd_pop_cmd;
@@ -188,7 +188,7 @@ module DW_axi_x2p_s_control(/*AUTOARG*/
    wire                       next_push_read_buffer_n;
    
    // keeps count of the rmaning words to transfer in a read
-   reg [`LEN_WIDTH-1:0]       apb_axi_beat, next_apb_axi_beat;
+   reg [`i_axi_x2p_LEN_WIDTH-1:0]       apb_axi_beat, next_apb_axi_beat;
 
 
    reg                        write_buff_empty,write_buff_empty_ns;
@@ -201,9 +201,9 @@ module DW_axi_x2p_s_control(/*AUTOARG*/
    wire                       wr_incr_addr,rd_incr_addr;
    
                                
-  /* AUTO_CONSTANT (`APB_BUS_SIZE, `X2P_MAX_AXI_SIZE, `X2P_APB_DATA_WIDTH) */
-//    assign cmd_addr = cmd_queue_wd >> (`X2P_AXI_SIDW + `LEN_WIDTH + 6);
-    assign cmd_addr = cmd_queue_wd[(`X2P_AXI_SIDW + `LEN_WIDTH + 6) + (`APB_BUS_SIZE+7) : (`X2P_AXI_SIDW + `LEN_WIDTH + 6)];
+  /* AUTO_CONSTANT (`i_axi_x2p_APB_BUS_SIZE, `i_axi_x2p_X2P_MAX_AXI_SIZE, `i_axi_x2p_X2P_APB_DATA_WIDTH) */
+//    assign cmd_addr = cmd_queue_wd >> (`i_axi_x2p_X2P_AXI_SIDW + `i_axi_x2p_LEN_WIDTH + 6);
+    assign cmd_addr = cmd_queue_wd[(`i_axi_x2p_X2P_AXI_SIDW + `i_axi_x2p_LEN_WIDTH + 6) + (`i_axi_x2p_APB_BUS_SIZE+7) : (`i_axi_x2p_X2P_AXI_SIDW + `i_axi_x2p_LEN_WIDTH + 6)];
 
 
    reg [5:0]                  next_state, state, next_state_check_on_strobes;
@@ -225,12 +225,12 @@ module DW_axi_x2p_s_control(/*AUTOARG*/
    parameter                   PREPURGE= 6'b100000; // used to put a blank cycle to allow a push before a purge
    
 
-//   wire [(`X2P_APB_DATA_WIDTH/8)-1:0] all_apb_strobes = {(`X2P_APB_DATA_WIDTH/8){1'b1}}; //-1;
+//   wire [(`i_axi_x2p_X2P_APB_DATA_WIDTH/8)-1:0] all_apb_strobes = {(`i_axi_x2p_X2P_APB_DATA_WIDTH/8){1'b1}}; //-1;
    
 // function to get the initial APB WD SEL
    function automatic [7:0] get_initial_apb_wd_sel;
       input [2:0] size;
-      input [`APB_BUS_SIZE+7:0] addr;
+      input [`i_axi_x2p_APB_BUS_SIZE+7:0] addr;
       // set the initial wd sel based on the address SIZE and the APB size
       // adjusts the count based on the address displacement
       // the value will end up pointing to the first byte of the first beat
@@ -244,8 +244,8 @@ module DW_axi_x2p_s_control(/*AUTOARG*/
              //spyglass disable_block SelfDeterminedExpr-ML
              //SMD: Self determined expression present in the design.
              //SJ : The expression used in if condition is intented as per design requirement, hence design remains unchanged.
-           if ((sel_index+`APB_BUS_SIZE) < size) 
-             get_initial_apb_wd_sel[sel_index] = addr[`APB_BUS_SIZE + sel_index];
+           if ((sel_index+`i_axi_x2p_APB_BUS_SIZE) < size) 
+             get_initial_apb_wd_sel[sel_index] = addr[`i_axi_x2p_APB_BUS_SIZE + sel_index];
              //spyglass enable_block SelfDeterminedExpr-ML
          end
       end
@@ -563,7 +563,7 @@ module DW_axi_x2p_s_control(/*AUTOARG*/
    // check for address alignment size smaller than the APB size
    // 
       // if the SIZE is less than the APB error or any other error
-      assign  initial_cmd_error = (cmd_size < `APB_BUS_SIZE) ? 1'b1 : ((cmd_addr[1:0] != 2'b00) ? 1'b1 : 1'b0);
+      assign  initial_cmd_error = (cmd_size < `i_axi_x2p_APB_BUS_SIZE) ? 1'b1 : ((cmd_addr[1:0] != 2'b00) ? 1'b1 : 1'b0);
     
       
    //******************************************************************************
@@ -598,7 +598,7 @@ module DW_axi_x2p_s_control(/*AUTOARG*/
       begin
         // there are strobes set check
         // to see if this goes on to the APB 
-        if (selected_strobes == ({(`X2P_APB_DATA_WIDTH/8){1'b1}}))
+        if (selected_strobes == ({(`i_axi_x2p_X2P_APB_DATA_WIDTH/8){1'b1}}))
           next_state_check_on_strobes = WSEL;
         else
           if (selected_strobes == 0)
@@ -650,9 +650,9 @@ module DW_axi_x2p_s_control(/*AUTOARG*/
      // initialize the beat count
        if (state == IDLE)
        begin
-         next_apb_axi_beat = {`LEN_WIDTH{1'b0}};
+         next_apb_axi_beat = {`i_axi_x2p_LEN_WIDTH{1'b0}};
          // if going to PURGE adjust the beat for the early push
-         if (next_state == PURGE) next_apb_axi_beat = {`LEN_WIDTH{1'b0}};
+         if (next_state == PURGE) next_apb_axi_beat = {`i_axi_x2p_LEN_WIDTH{1'b0}};
        end
        // incriment the beat count
        // spyglass disable_block W415a
@@ -772,7 +772,7 @@ module DW_axi_x2p_s_control(/*AUTOARG*/
    //spyglass disable_block SelfDeterminedExpr-ML
    //SMD: Self determined expression present in the design
    //SJ : RHS will never exceed the boundary of LHS. 
-          next_apb_wds_in_axi_wd = ( 8'd1 << (cmd_size - `APB_BUS_SIZE));
+          next_apb_wds_in_axi_wd = ( 8'd1 << (cmd_size - `i_axi_x2p_APB_BUS_SIZE));
    //spyglass enable_block SelfDeterminedExpr-ML
    //spyglass enable_block TA_09
         end
@@ -1125,7 +1125,7 @@ always @(*)
            error <= 1'b0;
            apb_wds_in_axi_wd <= 8'h00;
            push_read_buffer_reg <= 1'b1;
-           apb_axi_beat <= {`LEN_WIDTH{1'b0}};
+           apb_axi_beat <= {`i_axi_x2p_LEN_WIDTH{1'b0}};
            last_push_read <= 1'b0;
            write_buff_empty <= 1'b0; 
            write_buffer_last_reg <= 1'b0;

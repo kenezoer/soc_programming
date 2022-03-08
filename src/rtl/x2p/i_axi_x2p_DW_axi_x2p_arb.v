@@ -35,9 +35,9 @@
 //
 //-----------------------------------------------------------------------------
 
-`include "DW_axi_x2p_all_includes.vh"
+`include "i_axi_x2p_DW_axi_x2p_all_includes.vh"
 
-module DW_axi_x2p_arb (/*AUTOARG*/
+module i_axi_x2p_DW_axi_x2p_arb (/*AUTOARG*/
    // Outputs
    wvalid_gtd, wready, awvalid_gtd, arvalid_gtd, awready, arready,
    // Inputs

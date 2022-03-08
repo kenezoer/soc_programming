@@ -77,17 +77,17 @@
 
 
 // Name:         AXI_NUM_MASTERS
-// Default:      1 (([<functionof> equal $::shell_activity_mode 
+// Default:      2 (([<functionof> equal $::shell_activity_mode 
 //               "assembler"])?([<functionof> %item master]):2)
 // Values:       1, ..., 16
 // Enabled:      [<functionof> {$::shell_activity_mode ne "assembler"}]
 // 
 // This is the number of AXI masters connecting to DW_axi. A master port is instantiated for each external AXI master.
-`define miet_dw_axi_ic_AXI_NUM_MASTERS 1
+`define miet_dw_axi_ic_AXI_NUM_MASTERS 2
 
 // Defined if there this is a single master configuration.
 
-`define miet_dw_axi_ic_AXI_NUM_MASTERS_1
+// `define miet_dw_axi_ic_AXI_NUM_MASTERS_1
 
 
 
@@ -113,27 +113,27 @@
 
 
 // Name:         AXI_NUM_SYS_MASTERS
-// Default:      1 (AXI_NUM_MASTERS)
+// Default:      2 (AXI_NUM_MASTERS)
 // Values:       1, ..., 64
 // Enabled:      AXI_HAS_BICMD == 1
 // 
 // This is the number of AXI masters in the entire system. (System in this instance being all connected DW_axi) Excluding 
 // interconnecting Master ports
-`define miet_dw_axi_ic_AXI_NUM_SYS_MASTERS 1
+`define miet_dw_axi_ic_AXI_NUM_SYS_MASTERS 2
 
 
 // Name:         AXI_NUM_SLAVES
-// Default:      2 (([<functionof> equal $::shell_activity_mode 
+// Default:      3 (([<functionof> equal $::shell_activity_mode 
 //               "assembler"])?([<functionof> %item slave]):4)
 // Values:       1, ..., 16
 // Enabled:      [<functionof> {$::shell_activity_mode ne "assembler"}]
 // 
 // This is the number of AXI slaves connecting to DW_axi. A slave port is instantiated for each external AXI slave.
-`define miet_dw_axi_ic_AXI_NUM_SLAVES 2
+`define miet_dw_axi_ic_AXI_NUM_SLAVES 3
 
 //This is the log2 of (AXI_NUM_SLAVES )
 
-`define miet_dw_axi_ic_AXI_LOG2_NS 1
+`define miet_dw_axi_ic_AXI_LOG2_NS 2
 
 //This is the log2 of (AXI_NUM_SYS_MASTERS)
 
@@ -141,7 +141,7 @@
 
 //This is the log2 of (AXI_NUM_SYS_MASTERS + 1)
 
-`define miet_dw_axi_ic_AXI_LOG2_LCL_NMP1 1
+`define miet_dw_axi_ic_AXI_LOG2_LCL_NMP1 2
 
 //This is the log2 of (AXI_NUM_MASTERS)
 
@@ -161,12 +161,12 @@
 //For 16 slaves, the decoder needs to respresent 17, which is
 //4 in log2 format
 
-`define miet_dw_axi_ic_AXI_NSP1 3
+`define miet_dw_axi_ic_AXI_NSP1 4
 
 //This is the log2 of (AXI_NUM_SLAVES + 2)
 //Required as a paramter to one of the internal arbiters.
 
-`define miet_dw_axi_ic_AXI_LOG2_NSP2 2
+`define miet_dw_axi_ic_AXI_LOG2_NSP2 3
 
 
 // Name:         AXI_MIDW
@@ -184,7 +184,7 @@
 
 
 // Name:         AXI_SIDW
-// Default:      4 ([<functionof> AXI_NUM_SYS_MASTERS AXI_MIDW])
+// Default:      5 ([<functionof> AXI_NUM_SYS_MASTERS AXI_MIDW])
 // Values:       1, ..., 20
 // 
 // Read-only parameter. This is the ID bus width of all five AXI channels connected to an external slave. It is a function 
@@ -194,7 +194,7 @@
 // bits because they are a concatenation of the ID bus from the master and the master number from which the transfer 
 // originated. All slaves have the same ID width for all five AXI channels. Fore more information about this feature, see the "ID 
 // Bus" section in the DW_axi Databook.
-`define miet_dw_axi_ic_AXI_SIDW 4
+`define miet_dw_axi_ic_AXI_SIDW 5
 
 
 // Name:         AXI_BLW
@@ -635,7 +635,7 @@
 
 //This selects whether Slave j is visible by Master x in Normal Mode.
 
-`define miet_dw_axi_ic_AXI_NV_S0_BY_M2 0
+`define miet_dw_axi_ic_AXI_NV_S0_BY_M2 1
 
 //This selects whether Slave j is visible by Master x in Normal Mode.
 
@@ -704,12 +704,12 @@
 
 
 // Name:         AXI_NV_S1_BY_M2
-// Default:      false ((AXI_NUM_SLAVES >= 1) && (AXI_NUM_MASTERS >= 2))
+// Default:      true ((AXI_NUM_SLAVES >= 1) && (AXI_NUM_MASTERS >= 2))
 // Values:       false (0), true (1)
 // Enabled:      ((AXI_NUM_SLAVES >= 1) && (AXI_NUM_MASTERS >= 2))
 // 
 // This selects whether Slave j is visible by Master x in Normal Mode.
-`define miet_dw_axi_ic_AXI_NV_S1_BY_M2 0
+`define miet_dw_axi_ic_AXI_NV_S1_BY_M2 1
 
 
 // Name:         AXI_NV_S1_BY_M3
@@ -848,12 +848,12 @@
 
 
 // Name:         AXI_NV_S2_BY_M2
-// Default:      false ((AXI_NUM_SLAVES >= 2) && (AXI_NUM_MASTERS >= 2))
+// Default:      true ((AXI_NUM_SLAVES >= 2) && (AXI_NUM_MASTERS >= 2))
 // Values:       false (0), true (1)
 // Enabled:      ((AXI_NUM_SLAVES >= 2) && (AXI_NUM_MASTERS >= 2))
 // 
 // This selects whether Slave j is visible by Master x in Normal Mode.
-`define miet_dw_axi_ic_AXI_NV_S2_BY_M2 0
+`define miet_dw_axi_ic_AXI_NV_S2_BY_M2 1
 
 
 // Name:         AXI_NV_S2_BY_M3
@@ -983,21 +983,21 @@
 
 
 // Name:         AXI_NV_S3_BY_M1
-// Default:      false ((AXI_NUM_SLAVES >= 3) && (AXI_NUM_MASTERS >= 1))
+// Default:      true ((AXI_NUM_SLAVES >= 3) && (AXI_NUM_MASTERS >= 1))
 // Values:       false (0), true (1)
 // Enabled:      ((AXI_NUM_SLAVES >= 3) && (AXI_NUM_MASTERS >= 1))
 // 
 // This selects whether Slave j is visible by Master x in Normal Mode.
-`define miet_dw_axi_ic_AXI_NV_S3_BY_M1 0
+`define miet_dw_axi_ic_AXI_NV_S3_BY_M1 1
 
 
 // Name:         AXI_NV_S3_BY_M2
-// Default:      false ((AXI_NUM_SLAVES >= 3) && (AXI_NUM_MASTERS >= 2))
+// Default:      true ((AXI_NUM_SLAVES >= 3) && (AXI_NUM_MASTERS >= 2))
 // Values:       false (0), true (1)
 // Enabled:      ((AXI_NUM_SLAVES >= 3) && (AXI_NUM_MASTERS >= 2))
 // 
 // This selects whether Slave j is visible by Master x in Normal Mode.
-`define miet_dw_axi_ic_AXI_NV_S3_BY_M2 0
+`define miet_dw_axi_ic_AXI_NV_S3_BY_M2 1
 
 
 // Name:         AXI_NV_S3_BY_M3
@@ -3010,7 +3010,7 @@
 
 //This shows whether Slave 3 is visible by any master in Normal Mode.
 
-`define miet_dw_axi_ic_AXI_NV_S3_BY_ANY_M 0
+`define miet_dw_axi_ic_AXI_NV_S3_BY_ANY_M 1
 
 
 //This shows whether Slave 4 is visible by any master in Normal Mode.
@@ -6055,8 +6055,9 @@
 //For slaves greater than the number of slaves this is 0.
 //For masters greater than the number of masters this is 0.
 
-`define miet_dw_axi_ic_AXI_VV_S0_BY_M2 0
+`define miet_dw_axi_ic_AXI_VV_S0_BY_M2 1
 
+`define miet_dw_axi_ic_AXI_V_S0_BY_M2
 
 
 
@@ -6232,8 +6233,9 @@
 //For slaves greater than the number of slaves this is 0.
 //For masters greater than the number of masters this is 0.
 
-`define miet_dw_axi_ic_AXI_VV_S1_BY_M2 0
+`define miet_dw_axi_ic_AXI_VV_S1_BY_M2 1
 
+`define miet_dw_axi_ic_AXI_V_S1_BY_M2
 
 
 
@@ -6409,8 +6411,9 @@
 //For slaves greater than the number of slaves this is 0.
 //For masters greater than the number of masters this is 0.
 
-`define miet_dw_axi_ic_AXI_VV_S2_BY_M2 0
+`define miet_dw_axi_ic_AXI_VV_S2_BY_M2 1
 
+`define miet_dw_axi_ic_AXI_V_S2_BY_M2
 
 
 
@@ -6574,8 +6577,9 @@
 //For slaves greater than the number of slaves this is 0.
 //For masters greater than the number of masters this is 0.
 
-`define miet_dw_axi_ic_AXI_VV_S3_BY_M1 0
+`define miet_dw_axi_ic_AXI_VV_S3_BY_M1 1
 
+`define miet_dw_axi_ic_AXI_V_S3_BY_M1
 
 
 
@@ -6585,8 +6589,9 @@
 //For slaves greater than the number of slaves this is 0.
 //For masters greater than the number of masters this is 0.
 
-`define miet_dw_axi_ic_AXI_VV_S3_BY_M2 0
+`define miet_dw_axi_ic_AXI_VV_S3_BY_M2 1
 
+`define miet_dw_axi_ic_AXI_V_S3_BY_M2
 
 
 
@@ -9035,33 +9040,33 @@
 
 //This is the number of Master that have access to Slave 1
 
-`define miet_dw_axi_ic_AXI_NMV_S1 1
+`define miet_dw_axi_ic_AXI_NMV_S1 2
 
 //This is the number of Master that have access to Slave 1
 `define miet_dw_axi_ic_AXI_LOG2_NMV_S1 1
 
 
-`define miet_dw_axi_ic_AXI_LOG2_NMP1V_S1 1
+`define miet_dw_axi_ic_AXI_LOG2_NMP1V_S1 2
 
 //This is the number of Master that have access to Slave 2
 
-`define miet_dw_axi_ic_AXI_NMV_S2 1
+`define miet_dw_axi_ic_AXI_NMV_S2 2
 
 //This is the number of Master that have access to Slave 2
 `define miet_dw_axi_ic_AXI_LOG2_NMV_S2 1
 
 
-`define miet_dw_axi_ic_AXI_LOG2_NMP1V_S2 1
+`define miet_dw_axi_ic_AXI_LOG2_NMP1V_S2 2
 
 //This is the number of Master that have access to Slave 3
 
-`define miet_dw_axi_ic_AXI_NMV_S3 1
+`define miet_dw_axi_ic_AXI_NMV_S3 2
 
 //This is the number of Master that have access to Slave 3
 `define miet_dw_axi_ic_AXI_LOG2_NMV_S3 1
 
 
-`define miet_dw_axi_ic_AXI_LOG2_NMP1V_S3 1
+`define miet_dw_axi_ic_AXI_LOG2_NMP1V_S3 2
 
 //This is the number of Master that have access to Slave 4
 
@@ -9195,19 +9200,19 @@
 
 //This is the number of Slave that are visible by Master 1
 
-`define miet_dw_axi_ic_AXI_NSV_M1 2
+`define miet_dw_axi_ic_AXI_NSV_M1 3
 
 //This is the number of Slave that are visible by Master 1
-`define miet_dw_axi_ic_AXI_LOG2_NSV_M1 1
+`define miet_dw_axi_ic_AXI_LOG2_NSV_M1 2
 
 
 
 //This is the number of Slave that are visible by Master 2
 
-`define miet_dw_axi_ic_AXI_NSV_M2 1
+`define miet_dw_axi_ic_AXI_NSV_M2 3
 
 //This is the number of Slave that are visible by Master 2
-`define miet_dw_axi_ic_AXI_LOG2_NSV_M2 1
+`define miet_dw_axi_ic_AXI_LOG2_NSV_M2 2
 
 
 
@@ -9340,7 +9345,7 @@
 //This is the number of masters that are visible to slave 1
 //in normal address mode.
 
-`define miet_dw_axi_ic_AXI_NNMV_S1 1
+`define miet_dw_axi_ic_AXI_NNMV_S1 2
 
 //This is the number of masters that are visible to slave 1
 //in boot address mode.
@@ -9351,7 +9356,7 @@
 //This is the number of masters that are visible to slave 2
 //in normal address mode.
 
-`define miet_dw_axi_ic_AXI_NNMV_S2 1
+`define miet_dw_axi_ic_AXI_NNMV_S2 2
 
 //This is the number of masters that are visible to slave 2
 //in boot address mode.
@@ -9362,7 +9367,7 @@
 //This is the number of masters that are visible to slave 3
 //in normal address mode.
 
-`define miet_dw_axi_ic_AXI_NNMV_S3 0
+`define miet_dw_axi_ic_AXI_NNMV_S3 2
 
 //This is the number of masters that are visible to slave 3
 //in boot address mode.
@@ -9516,7 +9521,7 @@
 //This is the number of Slaves (plus 1) that are visible by Master 1
 //This includes the default slave.
 
-`define miet_dw_axi_ic_AXI_NSP1V_M1 3
+`define miet_dw_axi_ic_AXI_NSP1V_M1 4
 
 //This is the log2 of the number of Slaves (plus 1) that are visible by Master 1
 //This includes the default slave.
@@ -9529,13 +9534,13 @@
 //This is the number of Slaves (plus 1) that are visible by Master 2
 //This includes the default slave.
 
-`define miet_dw_axi_ic_AXI_NSP1V_M2 1
+`define miet_dw_axi_ic_AXI_NSP1V_M2 4
 
 //This is the log2 of the number of Slaves (plus 1) that are visible by Master 2
 //This includes the default slave.
-`define miet_dw_axi_ic_AXI_LOG2_NSP1V_M2 1
+`define miet_dw_axi_ic_AXI_LOG2_NSP1V_M2 2
 
-`define miet_dw_axi_ic_AXI_LOG2_NSP2V_M2 2
+`define miet_dw_axi_ic_AXI_LOG2_NSP2V_M2 3
 
 
 
@@ -30387,13 +30392,13 @@
 // Number of masters visible to slave 0 on the read address channel,
 // including the shared to dedicated link if it exists.
 
-`define miet_dw_axi_ic_AXI_AR_S0_NMV 1
+`define miet_dw_axi_ic_AXI_AR_S0_NMV 2
 
 // Log base 2 of AXI_AR_S0_NMV.
 `define miet_dw_axi_ic_AXI_AR_S0_NMV_LOG2 1
 
 // Log base 2 of (AXI_AR_S0_NMV + 1).
-`define miet_dw_axi_ic_AXI_AR_S0_NMV_P1_LOG2 1
+`define miet_dw_axi_ic_AXI_AR_S0_NMV_P1_LOG2 2
 
 
 
@@ -30413,13 +30418,13 @@
 // Number of masters visible to slave 0 on the write address channel,
 // including the shared to dedicated link if it exists.
 
-`define miet_dw_axi_ic_AXI_AW_S0_NMV 1
+`define miet_dw_axi_ic_AXI_AW_S0_NMV 2
 
 // Log base 2 of AXI_AW_S0_NMV.
 `define miet_dw_axi_ic_AXI_AW_S0_NMV_LOG2 1
 
 // Log base 2 of (AXI_AW_S0_NMV + 1).
-`define miet_dw_axi_ic_AXI_AW_S0_NMV_P1_LOG2 1
+`define miet_dw_axi_ic_AXI_AW_S0_NMV_P1_LOG2 2
 
 
 
@@ -30439,13 +30444,13 @@
 // Number of masters visible to slave 0 on the write data channel,
 // including the shared to dedicated link if it exists.
 
-`define miet_dw_axi_ic_AXI_W_S0_NMV 1
+`define miet_dw_axi_ic_AXI_W_S0_NMV 2
 
 // Log base 2 of AXI_W_S0_NMV.
 `define miet_dw_axi_ic_AXI_W_S0_NMV_LOG2 1
 
 // Log base 2 of (AXI_W_S0_NMV + 1).
-`define miet_dw_axi_ic_AXI_W_S0_NMV_P1_LOG2 1
+`define miet_dw_axi_ic_AXI_W_S0_NMV_P1_LOG2 2
 
 
 
@@ -30465,13 +30470,13 @@
 // Number of masters visible to slave 1 on the read address channel,
 // including the shared to dedicated link if it exists.
 
-`define miet_dw_axi_ic_AXI_AR_S1_NMV 1
+`define miet_dw_axi_ic_AXI_AR_S1_NMV 2
 
 // Log base 2 of AXI_AR_S1_NMV.
 `define miet_dw_axi_ic_AXI_AR_S1_NMV_LOG2 1
 
 // Log base 2 of (AXI_AR_S1_NMV + 1).
-`define miet_dw_axi_ic_AXI_AR_S1_NMV_P1_LOG2 1
+`define miet_dw_axi_ic_AXI_AR_S1_NMV_P1_LOG2 2
 
 
 
@@ -30491,13 +30496,13 @@
 // Number of masters visible to slave 1 on the write address channel,
 // including the shared to dedicated link if it exists.
 
-`define miet_dw_axi_ic_AXI_AW_S1_NMV 1
+`define miet_dw_axi_ic_AXI_AW_S1_NMV 2
 
 // Log base 2 of AXI_AW_S1_NMV.
 `define miet_dw_axi_ic_AXI_AW_S1_NMV_LOG2 1
 
 // Log base 2 of (AXI_AW_S1_NMV + 1).
-`define miet_dw_axi_ic_AXI_AW_S1_NMV_P1_LOG2 1
+`define miet_dw_axi_ic_AXI_AW_S1_NMV_P1_LOG2 2
 
 
 
@@ -30517,13 +30522,13 @@
 // Number of masters visible to slave 1 on the write data channel,
 // including the shared to dedicated link if it exists.
 
-`define miet_dw_axi_ic_AXI_W_S1_NMV 1
+`define miet_dw_axi_ic_AXI_W_S1_NMV 2
 
 // Log base 2 of AXI_W_S1_NMV.
 `define miet_dw_axi_ic_AXI_W_S1_NMV_LOG2 1
 
 // Log base 2 of (AXI_W_S1_NMV + 1).
-`define miet_dw_axi_ic_AXI_W_S1_NMV_P1_LOG2 1
+`define miet_dw_axi_ic_AXI_W_S1_NMV_P1_LOG2 2
 
 
 
@@ -30543,13 +30548,13 @@
 // Number of masters visible to slave 2 on the read address channel,
 // including the shared to dedicated link if it exists.
 
-`define miet_dw_axi_ic_AXI_AR_S2_NMV 1
+`define miet_dw_axi_ic_AXI_AR_S2_NMV 2
 
 // Log base 2 of AXI_AR_S2_NMV.
 `define miet_dw_axi_ic_AXI_AR_S2_NMV_LOG2 1
 
 // Log base 2 of (AXI_AR_S2_NMV + 1).
-`define miet_dw_axi_ic_AXI_AR_S2_NMV_P1_LOG2 1
+`define miet_dw_axi_ic_AXI_AR_S2_NMV_P1_LOG2 2
 
 
 
@@ -30569,13 +30574,13 @@
 // Number of masters visible to slave 2 on the write address channel,
 // including the shared to dedicated link if it exists.
 
-`define miet_dw_axi_ic_AXI_AW_S2_NMV 1
+`define miet_dw_axi_ic_AXI_AW_S2_NMV 2
 
 // Log base 2 of AXI_AW_S2_NMV.
 `define miet_dw_axi_ic_AXI_AW_S2_NMV_LOG2 1
 
 // Log base 2 of (AXI_AW_S2_NMV + 1).
-`define miet_dw_axi_ic_AXI_AW_S2_NMV_P1_LOG2 1
+`define miet_dw_axi_ic_AXI_AW_S2_NMV_P1_LOG2 2
 
 
 
@@ -30595,13 +30600,13 @@
 // Number of masters visible to slave 2 on the write data channel,
 // including the shared to dedicated link if it exists.
 
-`define miet_dw_axi_ic_AXI_W_S2_NMV 1
+`define miet_dw_axi_ic_AXI_W_S2_NMV 2
 
 // Log base 2 of AXI_W_S2_NMV.
 `define miet_dw_axi_ic_AXI_W_S2_NMV_LOG2 1
 
 // Log base 2 of (AXI_W_S2_NMV + 1).
-`define miet_dw_axi_ic_AXI_W_S2_NMV_P1_LOG2 1
+`define miet_dw_axi_ic_AXI_W_S2_NMV_P1_LOG2 2
 
 
 
@@ -30621,13 +30626,13 @@
 // Number of masters visible to slave 3 on the read address channel,
 // including the shared to dedicated link if it exists.
 
-`define miet_dw_axi_ic_AXI_AR_S3_NMV 1
+`define miet_dw_axi_ic_AXI_AR_S3_NMV 2
 
 // Log base 2 of AXI_AR_S3_NMV.
 `define miet_dw_axi_ic_AXI_AR_S3_NMV_LOG2 1
 
 // Log base 2 of (AXI_AR_S3_NMV + 1).
-`define miet_dw_axi_ic_AXI_AR_S3_NMV_P1_LOG2 1
+`define miet_dw_axi_ic_AXI_AR_S3_NMV_P1_LOG2 2
 
 
 
@@ -30647,13 +30652,13 @@
 // Number of masters visible to slave 3 on the write address channel,
 // including the shared to dedicated link if it exists.
 
-`define miet_dw_axi_ic_AXI_AW_S3_NMV 1
+`define miet_dw_axi_ic_AXI_AW_S3_NMV 2
 
 // Log base 2 of AXI_AW_S3_NMV.
 `define miet_dw_axi_ic_AXI_AW_S3_NMV_LOG2 1
 
 // Log base 2 of (AXI_AW_S3_NMV + 1).
-`define miet_dw_axi_ic_AXI_AW_S3_NMV_P1_LOG2 1
+`define miet_dw_axi_ic_AXI_AW_S3_NMV_P1_LOG2 2
 
 
 
@@ -30673,13 +30678,13 @@
 // Number of masters visible to slave 3 on the write data channel,
 // including the shared to dedicated link if it exists.
 
-`define miet_dw_axi_ic_AXI_W_S3_NMV 1
+`define miet_dw_axi_ic_AXI_W_S3_NMV 2
 
 // Log base 2 of AXI_W_S3_NMV.
 `define miet_dw_axi_ic_AXI_W_S3_NMV_LOG2 1
 
 // Log base 2 of (AXI_W_S3_NMV + 1).
-`define miet_dw_axi_ic_AXI_W_S3_NMV_P1_LOG2 1
+`define miet_dw_axi_ic_AXI_W_S3_NMV_P1_LOG2 2
 
 
 
@@ -31711,13 +31716,13 @@
 // Number of slaves visible to master 1 on the read data channel,
 // including the shared to dedicated link if it exists.
 
-`define miet_dw_axi_ic_AXI_R_M1_NSV 3
+`define miet_dw_axi_ic_AXI_R_M1_NSV 4
 
 // Log base 2 of AXI_R_M1_NMV.
 `define miet_dw_axi_ic_AXI_R_M1_NSV_LOG2 2
 
 // Log base 2 of (AXI_R_M1_NMV + 1).
-`define miet_dw_axi_ic_AXI_R_M1_NSV_P1_LOG2 2
+`define miet_dw_axi_ic_AXI_R_M1_NSV_P1_LOG2 3
 
 
 
@@ -31735,13 +31740,13 @@
 // Number of slaves visible to master 1 on the burst response channel,
 // including the shared to dedicated link if it exists.
 
-`define miet_dw_axi_ic_AXI_B_M1_NSV 3
+`define miet_dw_axi_ic_AXI_B_M1_NSV 4
 
 // Log base 2 of AXI_B_M1_NMV.
 `define miet_dw_axi_ic_AXI_B_M1_NSV_LOG2 2
 
 // Log base 2 of (AXI_B_M1_NMV + 1).
-`define miet_dw_axi_ic_AXI_B_M1_NSV_P1_LOG2 2
+`define miet_dw_axi_ic_AXI_B_M1_NSV_P1_LOG2 3
 
 
 
@@ -31759,13 +31764,13 @@
 // Number of slaves visible to master 2 on the read data channel,
 // including the shared to dedicated link if it exists.
 
-`define miet_dw_axi_ic_AXI_R_M2_NSV 1
+`define miet_dw_axi_ic_AXI_R_M2_NSV 4
 
 // Log base 2 of AXI_R_M2_NMV.
-`define miet_dw_axi_ic_AXI_R_M2_NSV_LOG2 1
+`define miet_dw_axi_ic_AXI_R_M2_NSV_LOG2 2
 
 // Log base 2 of (AXI_R_M2_NMV + 1).
-`define miet_dw_axi_ic_AXI_R_M2_NSV_P1_LOG2 1
+`define miet_dw_axi_ic_AXI_R_M2_NSV_P1_LOG2 3
 
 
 
@@ -31783,13 +31788,13 @@
 // Number of slaves visible to master 2 on the burst response channel,
 // including the shared to dedicated link if it exists.
 
-`define miet_dw_axi_ic_AXI_B_M2_NSV 1
+`define miet_dw_axi_ic_AXI_B_M2_NSV 4
 
 // Log base 2 of AXI_B_M2_NMV.
-`define miet_dw_axi_ic_AXI_B_M2_NSV_LOG2 1
+`define miet_dw_axi_ic_AXI_B_M2_NSV_LOG2 2
 
 // Log base 2 of (AXI_B_M2_NMV + 1).
-`define miet_dw_axi_ic_AXI_B_M2_NSV_P1_LOG2 1
+`define miet_dw_axi_ic_AXI_B_M2_NSV_P1_LOG2 3
 
 
 
@@ -32649,11 +32654,11 @@
 
 // Defined if slave 3 connects to only the shared read address channel.
 
-`define miet_dw_axi_ic_AXI_S3_ON_AR_SHARED_ONLY
+// `define miet_dw_axi_ic_AXI_S3_ON_AR_SHARED_ONLY
 
 // 1 if slave 3 connects to only the shared read address channel.
 
-`define miet_dw_axi_ic_AXI_S3_ON_AR_SHARED_ONLY_VAL 1
+`define miet_dw_axi_ic_AXI_S3_ON_AR_SHARED_ONLY_VAL 0
 
 
 
@@ -33049,11 +33054,11 @@
 
 // Defined if slave 3 connects to only the shared write address channel.
 
-`define miet_dw_axi_ic_AXI_S3_ON_AW_SHARED_ONLY
+// `define miet_dw_axi_ic_AXI_S3_ON_AW_SHARED_ONLY
 
 // 1 if slave 3 connects to only the shared write address channel.
 
-`define miet_dw_axi_ic_AXI_S3_ON_AW_SHARED_ONLY_VAL 1
+`define miet_dw_axi_ic_AXI_S3_ON_AW_SHARED_ONLY_VAL 0
 
 
 
@@ -33449,11 +33454,11 @@
 
 // Defined if slave 3 connects to only the shared write data channel.
 
-`define miet_dw_axi_ic_AXI_S3_ON_W_SHARED_ONLY
+// `define miet_dw_axi_ic_AXI_S3_ON_W_SHARED_ONLY
 
 // 1 if slave 3 connects to only the shared write data channel.
 
-`define miet_dw_axi_ic_AXI_S3_ON_W_SHARED_ONLY_VAL 1
+`define miet_dw_axi_ic_AXI_S3_ON_W_SHARED_ONLY_VAL 0
 
 
 
@@ -33806,11 +33811,11 @@
 
 // Defined if master 2 connects to only the shared read data channel.
 
-`define miet_dw_axi_ic_AXI_M2_ON_R_SHARED_ONLY
+// `define miet_dw_axi_ic_AXI_M2_ON_R_SHARED_ONLY
 
 // 1 if master 2 connects to only the shared read data channel.
 
-`define miet_dw_axi_ic_AXI_M2_ON_R_SHARED_ONLY_VAL 1
+`define miet_dw_axi_ic_AXI_M2_ON_R_SHARED_ONLY_VAL 0
 
 
 
@@ -34165,11 +34170,11 @@
 
 // Defined if master 2 connects to only the shared burst response channel.
 
-`define miet_dw_axi_ic_AXI_M2_ON_B_SHARED_ONLY
+// `define miet_dw_axi_ic_AXI_M2_ON_B_SHARED_ONLY
 
 // 1 if master 2 connects to only the shared burst response channel.
 
-`define miet_dw_axi_ic_AXI_M2_ON_B_SHARED_ONLY_VAL 1
+`define miet_dw_axi_ic_AXI_M2_ON_B_SHARED_ONLY_VAL 0
 
 
 
@@ -43392,7 +43397,7 @@
 //  - Region 7: 0x80100000 to 0x8000000 
 //  - Region 8: 0x90100000 to 0x9000000 
 //  Note: Default values for regions 1 to 8 are mentioned for AXI bus width (AXI_AW) of 32 bits
-`define miet_dw_axi_ic_AXI_R1_NSA_S3 32'hc000000
+`define miet_dw_axi_ic_AXI_R1_NSA_S3 32'h100000
 
 
 // Name:         AXI_R1_NEA_S3
@@ -43415,7 +43420,7 @@
 //  - Region 7: 0x8010ffff to 0x800ffff 
 //  - Region 8: 0x9010ffff to 0x900ffff 
 //  Note: Default values for regions 1 to 8 are mentioned for AXI bus width (AXI_AW) of 32 bits
-`define miet_dw_axi_ic_AXI_R1_NEA_S3 32'hc00ffff
+`define miet_dw_axi_ic_AXI_R1_NEA_S3 32'h5fffff
  
 
 // Name:         AXI_R1_NSA_S4
@@ -51031,44 +51036,46 @@
 //the Read Address Channel. It does not include the valid or the ready.
 //It does include the width of the sideband signal provided these are
 //required and included by the user.
-`define miet_dw_axi_ic_AXI_AR_PYLD_S_W 57
+`define miet_dw_axi_ic_AXI_AR_PYLD_S_W 58
 
 
 //This is the sum of all the pieces that make up the payload of 
 //the Write Address Channel. It does not include the valid or the ready.
 //It does include the width of the sideband signal provided these are
 //required and included by the user.
-`define miet_dw_axi_ic_AXI_AW_PYLD_S_W 57
+`define miet_dw_axi_ic_AXI_AW_PYLD_S_W 58
 
 
 //This is the sum of all the pieces that make up the payload of 
 //the Write Data Channel. It does not include the valid or the ready.
 //It does include the width of the sideband signal provided these are
 //required and included by the user.
-`define miet_dw_axi_ic_AXI_W_PYLD_S_W 41
+`define miet_dw_axi_ic_AXI_W_PYLD_S_W 42
 
 
 //This is the sum of all the pieces that make up the payload of 
 //the Read Data Channel. It does not include the valid or the ready.
 //It does include the width of the sideband signal provided these are
 //required and included by the user.
-`define miet_dw_axi_ic_AXI_R_PYLD_S_W 39
+`define miet_dw_axi_ic_AXI_R_PYLD_S_W 40
 
 
 //This is the sum of all the pieces that make up the payload of 
 //the Write Response Channel. It does not include the valid or the ready.
 //It does include the width of the sideband signal provided these are
 //required and included by the user.
-`define miet_dw_axi_ic_AXI_B_PYLD_S_W 6
+`define miet_dw_axi_ic_AXI_B_PYLD_S_W 7
 
 
 //  Define for each slave present
 `define miet_dw_axi_ic_AXI_HAS_S0
 `define miet_dw_axi_ic_AXI_HAS_S1
 `define miet_dw_axi_ic_AXI_HAS_S2
+`define miet_dw_axi_ic_AXI_HAS_S3
 
 //  Define for each master present
 `define miet_dw_axi_ic_AXI_HAS_M1
+`define miet_dw_axi_ic_AXI_HAS_M2
 
 // Each master can see the default slave
 `define miet_dw_axi_ic_AXI_NMV_S0 `miet_dw_axi_ic_AXI_NUM_MASTERS
@@ -51880,7 +51887,7 @@
 `define miet_dw_axi_ic_AXI_PNUM_FOR_SYS_NUM_M1 1
 
 
-`define miet_dw_axi_ic_AXI_PNUM_FOR_SYS_NUM_M2 0
+`define miet_dw_axi_ic_AXI_PNUM_FOR_SYS_NUM_M2 2
 
 
 `define miet_dw_axi_ic_AXI_PNUM_FOR_SYS_NUM_M3 0
@@ -52085,7 +52092,7 @@
 
 //SLAVES with QOS Arbiter for AR  Channel visible for M2.
 
-`define miet_dw_axi_ic_AXI_NSPV_M2_AR_QOSARB 1
+`define miet_dw_axi_ic_AXI_NSPV_M2_AR_QOSARB 0
 
 
 //SLAVES with QOS Arbiter for AR  Channel visible for M3.
@@ -52165,7 +52172,7 @@
 
 //SLAVES with QOS Arbiter for AW  Channel visible for M2.
 
-`define miet_dw_axi_ic_AXI_NSPV_M2_AW_QOSARB 1
+`define miet_dw_axi_ic_AXI_NSPV_M2_AW_QOSARB 0
 
 
 //SLAVES with QOS Arbiter for AW  Channel visible for M3.
@@ -52861,7 +52868,7 @@
 
 
 
-// `define miet_dw_axi_ic_AXI_ARQOS_INT_M2
+`define miet_dw_axi_ic_AXI_ARQOS_INT_M2
 
 
  
@@ -53261,7 +53268,7 @@
 
 
 
-// `define miet_dw_axi_ic_AXI_AWQOS_INT_M2
+`define miet_dw_axi_ic_AXI_AWQOS_INT_M2
 
 
  

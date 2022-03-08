@@ -1,6 +1,6 @@
 src_dir := $(dir $(lastword $(MAKEFILE_LIST)))
 
-c_src := sc_print.c hello.c
+c_src := sc_print.c main.c
 
 include $(inc_dir)/common.mk
 

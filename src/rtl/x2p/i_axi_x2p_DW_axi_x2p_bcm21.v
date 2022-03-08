@@ -26,7 +26,7 @@
 
 
 
-module DW_axi_x2p_bcm21 (
+module i_axi_x2p_DW_axi_x2p_bcm21 (
     clk_d,
     rst_d_n,
     data_s,
@@ -392,17 +392,7 @@ event                   data_s_ms_vld;
 
 // { START Latency Accurate modeling
   initial begin : set_setup_hold_delay_PROC
-    `ifndef DW_HOLD_MUX_DELAY
-      `define DW_HOLD_MUX_DELAY  1
-      if (((F_SYNC_TYPE & 7) == 2) && (VERIF_EN == 5))
-        $display("Information: %m: *** Warning: `DW_HOLD_MUX_DELAY is not defined so it is being set to: %0d ***", `DW_HOLD_MUX_DELAY);
-    `endif
 
-    `ifndef DW_SETUP_MUX_DELAY
-      `define DW_SETUP_MUX_DELAY  1
-      if (((F_SYNC_TYPE & 7) == 2) && (VERIF_EN == 5))
-        $display("Information: %m: *** Warning: `DW_SETUP_MUX_DELAY is not defined so it is being set to: %0d ***", `DW_SETUP_MUX_DELAY);
-    `endif
   end // set_setup_hold_delay_PROC
 
   initial begin
@@ -424,13 +414,13 @@ event                   data_s_ms_vld;
   
   //Delay the destination clock
   always @ (posedge clk_d)
-  #`DW_HOLD_MUX_DELAY clk_d_q = 1'b1;
+  #`i_axi_x2p_DW_HOLD_MUX_DELAY clk_d_q = 1'b1;
 
   always @ (negedge clk_d)
-  #`DW_HOLD_MUX_DELAY clk_d_q = 1'b0;
+  #`i_axi_x2p_DW_HOLD_MUX_DELAY clk_d_q = 1'b0;
   
   //Delay the source data
-  assign #`DW_SETUP_MUX_DELAY data_s_q = (!rst_d_n) ? {WIDTH{1'b0}}:data_s;
+  assign #`i_axi_x2p_DW_SETUP_MUX_DELAY data_s_q = (!rst_d_n) ? {WIDTH{1'b0}}:data_s;
 
   //setup_mux_ctrl controls the data entering the flip flop 
   always @ (data_s or data_s_q or setup_mux_ctrl) begin

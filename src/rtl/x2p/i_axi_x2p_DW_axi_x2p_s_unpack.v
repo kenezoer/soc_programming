@@ -30,9 +30,9 @@
 // Description : APB write data unpacking for DW_axi_x2p bridge.
 //-----------------------------------------------------------------------------
 
-`include "DW_axi_x2p_all_includes.vh"
+`include "i_axi_x2p_DW_axi_x2p_all_includes.vh"
 
-module DW_axi_x2p_s_unpack (/*AUTOARG*/
+module i_axi_x2p_DW_axi_x2p_s_unpack (/*AUTOARG*/
   // Outputs
   selected_data, selected_strobes, 
   // Inputs
@@ -43,49 +43,49 @@ module DW_axi_x2p_s_unpack (/*AUTOARG*/
 
    input                                clk;
    input                                rstn;
-   input [`X2P_AXI_DW-1:0]              write_buff_data;
-   input [(`X2P_AXI_DW/8)-1:0]          write_buff_strobes;
+   input [`i_axi_x2p_X2P_AXI_DW-1:0]              write_buff_data;
+   input [(`i_axi_x2p_X2P_AXI_DW/8)-1:0]          write_buff_strobes;
    input [7:0]                          next_apb_wd_sel;
    input                                set_data;
    
-   output [`X2P_APB_DATA_WIDTH-1:0]     selected_data;
-   output [(`X2P_APB_DATA_WIDTH/8)-1:0] selected_strobes;
+   output [`i_axi_x2p_X2P_APB_DATA_WIDTH-1:0]     selected_data;
+   output [(`i_axi_x2p_X2P_APB_DATA_WIDTH/8)-1:0] selected_strobes;
    
-   reg [`X2P_APB_DATA_WIDTH-1:0]    selected_data;
-   wire [`X2P_AXI_DW-1:0]           write_buff_data;
-   wire [(`X2P_AXI_DW/8)-1:0]       write_buff_strobes;
+   reg [`i_axi_x2p_X2P_APB_DATA_WIDTH-1:0]    selected_data;
+   wire [`i_axi_x2p_X2P_AXI_DW-1:0]           write_buff_data;
+   wire [(`i_axi_x2p_X2P_AXI_DW/8)-1:0]       write_buff_strobes;
    wire [7:0]                       next_apb_wd_sel;
-   reg [`X2P_APB_DATA_WIDTH-1:0]    next_selected_data;
-   wire [`X2P_APB_DATA_WIDTH-1:0]   selected_data_ns;
-   reg [(`X2P_APB_DATA_WIDTH/8)-1:0] selected_strobes_ns;
-   wire [(`X2P_APB_DATA_WIDTH/8)-1:0] selected_strobes;
+   reg [`i_axi_x2p_X2P_APB_DATA_WIDTH-1:0]    next_selected_data;
+   wire [`i_axi_x2p_X2P_APB_DATA_WIDTH-1:0]   selected_data_ns;
+   reg [(`i_axi_x2p_X2P_APB_DATA_WIDTH/8)-1:0] selected_strobes_ns;
+   wire [(`i_axi_x2p_X2P_APB_DATA_WIDTH/8)-1:0] selected_strobes;
 
   integer                               i;
   integer                               j;
 
   always@(/*AUTOSENSE*/next_apb_wd_sel or write_buff_data)
-    /*AUTO_CONSTANT(`X2P_APB_DATA_WIDTH)*/
+    /*AUTO_CONSTANT(`i_axi_x2p_X2P_APB_DATA_WIDTH)*/
     begin: NEXT_SEL_DATA_PROC
-      for(i=0; i<`X2P_APB_DATA_WIDTH; i=i+1)
+      for(i=0; i<`i_axi_x2p_X2P_APB_DATA_WIDTH; i=i+1)
         begin
          // spyglass disable_block SelfDeterminedExpr-ML
          // SMD: Self determined expression present in the design
          // SJ : The expression indexing the vector/array will never exceed the boundary of the vector/array.
-          next_selected_data[i] = write_buff_data[i+(next_apb_wd_sel*`X2P_APB_DATA_WIDTH)];
+          next_selected_data[i] = write_buff_data[i+(next_apb_wd_sel*`i_axi_x2p_X2P_APB_DATA_WIDTH)];
          // spyglass enable_block SelfDeterminedExpr-ML
         end
     end // always@ (...
   
   always@(/*AUTOSENSE*/next_apb_wd_sel or write_buff_strobes)
-    /*AUTO_CONSTANT(`X2P_APB_WSTRB_WIDTH)*/
+    /*AUTO_CONSTANT(`i_axi_x2p_X2P_APB_WSTRB_WIDTH)*/
     begin:SEL_STROBES_NS_PROC
-      for(j=0; j<`X2P_APB_WSTRB_WIDTH; j=j+1)
+      for(j=0; j<`i_axi_x2p_X2P_APB_WSTRB_WIDTH; j=j+1)
         begin
 
          // spyglass disable_block SelfDeterminedExpr-ML
          // SMD: Self determined expression present in the design
          // SJ : The expression indexing the vector/array will never exceed the boundary of the vector/array.
-          selected_strobes_ns[j] = write_buff_strobes[j+(next_apb_wd_sel*`X2P_APB_WSTRB_WIDTH)];
+          selected_strobes_ns[j] = write_buff_strobes[j+(next_apb_wd_sel*`i_axi_x2p_X2P_APB_WSTRB_WIDTH)];
          // spyglass enable_block SelfDeterminedExpr-ML
         end
     end // always@ (...
@@ -98,7 +98,7 @@ module DW_axi_x2p_s_unpack (/*AUTOARG*/
     begin:S_SEL_DATA_PROC
       if (!rstn)
         begin
-          selected_data <= {`X2P_APB_DATA_WIDTH{1'b0}};
+          selected_data <= {`i_axi_x2p_X2P_APB_DATA_WIDTH{1'b0}};
         end
       else
         begin

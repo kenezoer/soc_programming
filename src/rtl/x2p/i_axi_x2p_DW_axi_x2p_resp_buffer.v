@@ -35,9 +35,9 @@
 //   
 //-----------------------------------------------------------------------------
 
-`include "DW_axi_x2p_all_includes.vh"
+`include "i_axi_x2p_DW_axi_x2p_all_includes.vh"
 
-module DW_axi_x2p_resp_buffer(/*AUTOARG*/
+module i_axi_x2p_DW_axi_x2p_resp_buffer(/*AUTOARG*/
    // Outputs
    hresp_rdy_int_n, 
                               aresp_rdy_int_n, 
@@ -61,17 +61,17 @@ module DW_axi_x2p_resp_buffer(/*AUTOARG*/
 //                         2 = single clock implies a single clock fifo
   input                   clk_apb; 
   input                   hwstatus_int;
-  input [`X2P_AXI_SIDW-1:0] hwid_int;
+  input [`i_axi_x2p_X2P_AXI_SIDW-1:0] hwid_int;
   input       push_resp_int_n;
   output      hresp_rdy_int_n;
   output      aresp_rdy_int_n;
   output      awstatus_int;
-  output [`X2P_AXI_SIDW-1:0] awid_int;
+  output [`i_axi_x2p_X2P_AXI_SIDW-1:0] awid_int;
   input        pop_resp_int_n;
   input        push_rst_n;
   
-parameter FIFO_WIDTH=`X2P_AXI_SIDW+1;                // fixed for ID plus status
-parameter DEPTH=`X2P_WRITE_RESP_BUFFER_DEPTH;
+parameter FIFO_WIDTH=`i_axi_x2p_X2P_AXI_SIDW+1;                // fixed for ID plus status
+parameter DEPTH=`i_axi_x2p_X2P_WRITE_RESP_BUFFER_DEPTH;
 // push and pop syncs for dual clock systems.
 // if the clock are sync use 1 reg between domains
 // if async use the constraint
@@ -82,7 +82,7 @@ parameter DW_ADDR_WIDTH= (COUNT_WIDTH-1);
    // if FIFO is  dual-clocked adjusting the RAM depth for odd and non-power of 2 compatibility with the control
 parameter DW_EFFECTIVE_DEPTH_S1=DEPTH;
 parameter DW_EFFECTIVE_DEPTH_S2=((DEPTH == (1 << DW_ADDR_WIDTH))? DEPTH : DEPTH + ((DEPTH & 1) ? 1: 2));
-parameter DW_EFFECTIVE_DEPTH=((`X2P_CLK_MODE==2) ? DW_EFFECTIVE_DEPTH_S1 : DW_EFFECTIVE_DEPTH_S2);
+parameter DW_EFFECTIVE_DEPTH=((`i_axi_x2p_X2P_CLK_MODE==2) ? DW_EFFECTIVE_DEPTH_S1 : DW_EFFECTIVE_DEPTH_S2);
 
   wire  [DW_ADDR_WIDTH-1:0] wr_addr,rd_addr;
   wire                      mem_rst_n;
@@ -124,7 +124,7 @@ wire                      nxt_error_unconn;
   //SMD: A signal or variable is set but never read.
   //SJ : BCM components are configurable to use in various scenarios in this particular design we are not using certain ports. Hence although those signals are read we are not driving them. Therefore waiving this warning.
    // single clock
-  DW_axi_x2p_bcm06
+  i_axi_x2p_DW_axi_x2p_bcm06
    #(DEPTH,TST_MODE, DW_ADDR_WIDTH)
       U_RESP_FIFO_CONTROL_S1(
                 .clk(clk_push),
@@ -152,16 +152,16 @@ wire                      nxt_error_unconn;
   // spyglass enable_block W528
   // The RAM
   wire                     pushsf_hwstatus_int;
-  wire [`X2P_AXI_SIDW-1:0] pushsf_hwid_int;
+  wire [`i_axi_x2p_X2P_AXI_SIDW-1:0] pushsf_hwid_int;
   wire                     spushsf_awstatus_int;
-  wire [`X2P_AXI_SIDW-1:0] spushsf_awid_int;
+  wire [`i_axi_x2p_X2P_AXI_SIDW-1:0] spushsf_awid_int;
   
   assign pushsf_hwstatus_int = hwstatus_int;
   assign pushsf_hwid_int     = hwid_int;
   assign awstatus_int        = spushsf_awstatus_int;
   assign awid_int            = spushsf_awid_int;
 
-  DW_axi_x2p_bcm57
+  i_axi_x2p_DW_axi_x2p_bcm57
    #(FIFO_WIDTH,DW_EFFECTIVE_DEPTH,0,DW_ADDR_WIDTH)
      U_RESP_FIFO_RAM( .clk(clk_push)
                      ,.rst_n(mem_rst_n)

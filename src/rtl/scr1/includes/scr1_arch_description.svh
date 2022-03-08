@@ -167,7 +167,7 @@ parameter int unsigned SCR1_TDU_TRIG_NUM = 2;   // number of hardware triggers
 
 `ifndef SCR1_ARCH_CUSTOM
 // Default address constants (if scr1_arch_custom.svh is not used)
-parameter bit [`SCR1_XLEN-1:0]          SCR1_ARCH_RST_VECTOR        = 'h000;            // Reset vector value (start address after reset)
+parameter bit [`SCR1_XLEN-1:0]          SCR1_ARCH_RST_VECTOR        = 'h00100200;       // Reset vector value (start address after reset)
 parameter bit [`SCR1_XLEN-1:0]          SCR1_ARCH_MTVEC_BASE        = 'h1C0;            // MTVEC.base field reset value, or constant value for MTVEC.base bits that are hardwired
 
 parameter bit [`SCR1_DMEM_AWIDTH-1:0]   SCR1_TCM_ADDR_MASK          = 'hFFFF0000;       // TCM mask and size; size in bytes is two's complement of the mask value
@@ -202,8 +202,8 @@ parameter bit [`SCR1_DMEM_AWIDTH-1:0]   SCR1_TIMER_ADDR_PATTERN     = 'h00490000
 // SIMULATION OPTIONS
 //------------------------------------------------------------------------------
 
-//`define SCR1_TRGT_SIMULATION            // enable simulation code (automatically defined by root makefile)
-//`define SCR1_TRACE_LOG_EN               // enable tracelog
+`define SCR1_TRGT_SIMULATION            // enable simulation code (automatically defined by root makefile)
+`define SCR1_TRACE_LOG_EN               // enable tracelog
 //`define SCR1_XPROP_EN                   // enable X-propagation
 
 // Addresses used in testbench

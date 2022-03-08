@@ -1,2 +1,3 @@
 src/simulation/*
+src/compile/user_programm/build/*
 !src/simulation/Makefile

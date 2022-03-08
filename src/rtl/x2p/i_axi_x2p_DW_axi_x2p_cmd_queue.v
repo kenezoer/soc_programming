@@ -35,9 +35,9 @@
 //   
 //-----------------------------------------------------------------------------
 
-`include "DW_axi_x2p_all_includes.vh"
+`include "i_axi_x2p_DW_axi_x2p_all_includes.vh"
 
-module DW_axi_x2p_cmd_queue(/*AUTOARG*/
+module i_axi_x2p_DW_axi_x2p_cmd_queue(/*AUTOARG*/
    // Outputs
    acmd_rdy_int_n, 
                             push_af, 
@@ -60,13 +60,13 @@ module DW_axi_x2p_cmd_queue(/*AUTOARG*/
 //                        2 = single clock implies a single clock fifo
          
   input                              clk_axi;
-  input [`X2P_CMD_QUEUE_WIDTH:0]   acmd_queue_wd_int;    // consisting of all the inputs
+  input [`i_axi_x2p_X2P_CMD_QUEUE_WIDTH:0]   acmd_queue_wd_int;    // consisting of all the inputs
   input                              push_acmd_int_n;
   output                             acmd_rdy_int_n;
   output                             push_af;
   
   input                              pop_hcmd_int_n;
-  output [`X2P_CMD_QUEUE_WIDTH:0]  hcmd_queue_wd_int;
+  output [`i_axi_x2p_X2P_CMD_QUEUE_WIDTH:0]  hcmd_queue_wd_int;
   output                             hcmd_rdy_int_n;
 
   input                              push_rst_n;
@@ -76,8 +76,8 @@ module DW_axi_x2p_cmd_queue(/*AUTOARG*/
 
   
    
-parameter FIFO_WIDTH=`X2P_CMD_QUEUE_WIDTH + 1;
-parameter DEPTH=`X2P_CMD_QUEUE_DEPTH;
+parameter FIFO_WIDTH=`i_axi_x2p_X2P_CMD_QUEUE_WIDTH + 1;
+parameter DEPTH=`i_axi_x2p_X2P_CMD_QUEUE_DEPTH;
 // push and pop syncs for dual clock systems.
 // if the clocks are 0 use 2 clocks between domains
 //  clock 1 use 3
@@ -89,7 +89,7 @@ parameter DW_ADDR_WIDTH= (COUNT_WIDTH-1);
    // if FIFO is  dual-clocked adjusting the RAM DEPTH for odd and non-power of 2 compatibility with the control
 parameter DW_EFFECTIVE_DEPTH_S1=DEPTH;
 parameter DW_EFFECTIVE_DEPTH_S2=((DEPTH == (1 << DW_ADDR_WIDTH))? DEPTH : DEPTH + ((DEPTH & 1) ? 1: 2));
-parameter DW_EFFECTIVE_DEPTH=((`X2P_CLK_MODE==2) ? DW_EFFECTIVE_DEPTH_S1 : DW_EFFECTIVE_DEPTH_S2);
+parameter DW_EFFECTIVE_DEPTH=((`i_axi_x2p_X2P_CLK_MODE==2) ? DW_EFFECTIVE_DEPTH_S1 : DW_EFFECTIVE_DEPTH_S2);
 
    wire [DW_ADDR_WIDTH-1:0]          wr_addr,rd_addr;
    wire                              mem_rst_n;
@@ -128,7 +128,7 @@ wire                       nxt_error_unconn;
   //SMD: A signal or variable is set but never read.
   //SJ : BCM components are configurable to use in various scenarios in this particular design we are not using certain ports. Hence although those signals are read we are not driving them. Therefore waiving this warning.
   // Single clock
-  DW_axi_x2p_bcm06
+  i_axi_x2p_DW_axi_x2p_bcm06
    #(DEPTH,TST_MODE, DW_ADDR_WIDTH)
       U_CMD_FIFO_CONTROL_S1(
                 .clk(clk_push),
@@ -156,13 +156,13 @@ wire                       nxt_error_unconn;
   // spyglass enable_block W528
   //      
   // The RAM
-  wire [`X2P_CMD_QUEUE_WIDTH:0]   pushsf_acmd_queue_wd_int; 
-  wire [`X2P_CMD_QUEUE_WIDTH:0]   spushsf_hcmd_queue_wd_int; 
+  wire [`i_axi_x2p_X2P_CMD_QUEUE_WIDTH:0]   pushsf_acmd_queue_wd_int; 
+  wire [`i_axi_x2p_X2P_CMD_QUEUE_WIDTH:0]   spushsf_hcmd_queue_wd_int; 
   
   assign pushsf_acmd_queue_wd_int = acmd_queue_wd_int;
   assign hcmd_queue_wd_int        = spushsf_hcmd_queue_wd_int;
 
-  DW_axi_x2p_bcm57
+  i_axi_x2p_DW_axi_x2p_bcm57
    #(FIFO_WIDTH,DW_EFFECTIVE_DEPTH,0,DW_ADDR_WIDTH)
      U_CMD_FIFO_RAM( .clk(clk_push)
                     ,.rst_n(mem_rst_n)

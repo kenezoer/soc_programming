@@ -40,14 +40,13 @@
 //==============================================================================
 // Start License Usage
 //==============================================================================
-// Key Used   : DWC-AMBA-Fabric-Source (IP access)
 //==============================================================================
 // End License Usage
 //==============================================================================
 
-`include "DW_axi_x2p_all_includes.vh"
+`include "i_axi_x2p_DW_axi_x2p_all_includes.vh"
 
-module DW_axi_x2p (
+module i_axi_x2p_DW_axi_x2p (
 
 
 
@@ -67,7 +66,6 @@ module DW_axi_x2p (
                    ,rlast 
                    ,rvalid
                    ,psel_s0 
-                   ,psel_s1 
                    ,paddr 
                    ,penable 
                    ,pwdata
@@ -97,6 +95,7 @@ module DW_axi_x2p (
                    ,arsize 
                    ,arprot 
                    ,awid 
+                   ,wid 
                    ,awlen 
                    ,awcache 
                    ,wstrb 
@@ -104,61 +103,59 @@ module DW_axi_x2p (
                    ,arlen 
                    ,arcache 
                    ,prdata_s0 
-                   ,prdata_s1 
                    );
 
   input                             aclk; // AXI clock
   input                             aresetn; // AXI reset
   //Only the lower 32 bits are used. The extra MSBs are unused.
-  input [`X2P_AXI_AW-1:0]               araddr; // AXI read address
-  input [`X2P_AXI_AW-1:0]               awaddr; // AXI write address
+  input [`i_axi_x2p_X2P_AXI_AW-1:0]               araddr; // AXI read address
+  input [`i_axi_x2p_X2P_AXI_AW-1:0]               awaddr; // AXI write address
   input [1:0]                       arburst; // AXI read burst
-  input [`X2P_AXI_SIDW-1:0]             arid; // AXI read ID
-  input [`LEN_WIDTH-1:0]            arlen; // AXI read length
+  input [`i_axi_x2p_X2P_AXI_SIDW-1:0]             arid; // AXI read ID
+  input [`i_axi_x2p_LEN_WIDTH-1:0]            arlen; // AXI read length
   input [2:0]                       arsize; // AXI read size
   input                             arvalid; // AXI read valid
   input [1:0]                       awburst; // AXI write burst
-  input [`X2P_AXI_SIDW-1:0]             awid; // AXI write ID
-  input [`LEN_WIDTH-1:0]            awlen; // AXI write length
+  input [`i_axi_x2p_X2P_AXI_SIDW-1:0]             awid; // AXI write ID
+  input [`i_axi_x2p_LEN_WIDTH-1:0]            awlen; // AXI write length
   //spyglass disable_block W240
   //SMD: An input has been declared but is not read.
   //SJ : arcache, arprot, arlock, awcache, awprot, wid and awlock these signals are unused. These are included for interface consistency only.
   input  [3:0] arcache;
   input  [2:0] arprot;
-  input [`X2P_AXI_LTW-1:0]          arlock; // AXI read lock 
+  input [`i_axi_x2p_X2P_AXI_LTW-1:0]          arlock; // AXI read lock 
   input  [3:0] awcache;
   input  [2:0] awprot;
-  input [`X2P_AXI_LTW-1:0]          awlock; // AXI write lock
+  input [`i_axi_x2p_X2P_AXI_SIDW-1:0]             wid; // AXI write data ID
+  input [`i_axi_x2p_X2P_AXI_LTW-1:0]          awlock; // AXI write lock
   //spyglass enable_block W240
   input [2:0]                       awsize; // AXI write size
   input                             awvalid; // AXI write valid
   input                             bready; // AXI write response ready
   input                             rready; // AXI read response ready
-  input [`X2P_AXI_DW-1:0]               wdata; // AXI write data
+  input [`i_axi_x2p_X2P_AXI_DW-1:0]               wdata; // AXI write data
   input                             wlast; // AXI write data last
-  input [`X2P_AXI_WSTRB_WIDTH-1:0]  wstrb; // AXI write data strobes
+  input [`i_axi_x2p_X2P_AXI_WSTRB_WIDTH-1:0]  wstrb; // AXI write data strobes
   input                             wvalid; // AXI write data valid
 
-  input [`X2P_APB_DATA_WIDTH-1:0]   prdata_s0; // APB read data slave 0
-  input [`X2P_APB_DATA_WIDTH-1:0]   prdata_s1; // APB read data slave 1
+  input [`i_axi_x2p_X2P_APB_DATA_WIDTH-1:0]   prdata_s0; // APB read data slave 0
 
   output                            arready; // AXI read ready
   output                            awready; // AXI write ready
-  output [`X2P_AXI_SIDW-1:0]            bid; // AXI write response ID
+  output [`i_axi_x2p_X2P_AXI_SIDW-1:0]            bid; // AXI write response ID
   output [1:0]                      bresp; // AXI write response
   output                            bvalid; // AXI write response valid
-  output [`X2P_AXI_DW-1:0]              rdata; // AXI read data
-  output [`X2P_AXI_SIDW-1:0]            rid; // AXI read data ID
+  output [`i_axi_x2p_X2P_AXI_DW-1:0]              rdata; // AXI read data
+  output [`i_axi_x2p_X2P_AXI_SIDW-1:0]            rid; // AXI read data ID
   output                            rlast; // AXI read data last
   output [1:0]                      rresp; // AXI read response
   output                            rvalid; // AXI read valid
   output                            wready; // AXI write ready
 
-  output [`X2P_APB_ADDR_WIDTH-1:0]  paddr; // APB address
+  output [`i_axi_x2p_X2P_APB_ADDR_WIDTH-1:0]  paddr; // APB address
   output                            penable; // APB enable
   output                            psel_s0; // APB select slave 0
-  output                            psel_s1; // APB select slave 1
-  output [`X2P_APB_DATA_WIDTH-1:0]  pwdata; // APB write data
+  output [`i_axi_x2p_X2P_APB_DATA_WIDTH-1:0]  pwdata; // APB write data
   output                            pwrite; // APB write indicator
 
   // Low-power Channel
@@ -166,11 +163,11 @@ module DW_axi_x2p (
 
 
   // "Command" words
-  wire [`X2P_CMD_QUEUE_WIDTH:0]     hcmd_queue_wd_int,
+  wire [`i_axi_x2p_X2P_CMD_QUEUE_WIDTH:0]     hcmd_queue_wd_int,
                                     cmd_queue_wd;
 
   // Write data (actually {WDATA,WSTRB,WLAST}
-  wire [`X2P_AXI_WDFIFO_WIDTH-1:0]  awr_buff_wd,
+  wire [`i_axi_x2p_X2P_AXI_WDFIFO_WIDTH-1:0]  awr_buff_wd,
                                     hwword_int;
 
   // Responses returned through write response, read data buffers
@@ -180,24 +177,23 @@ module DW_axi_x2p (
   wire                              arstatus_int;
 
   // IDs returned through write response, read data buffers
-  wire [`X2P_AXI_SIDW-1:0]              hwid_int,
+  wire [`i_axi_x2p_X2P_AXI_SIDW-1:0]              hwid_int,
                                     pop_resp_id_wd,
                                     hrid_int,
                                     arid_int;
 
   // Read data
-  wire [`X2P_AXI_DW-1:0]                ardata_int,
+  wire [`i_axi_x2p_X2P_AXI_DW-1:0]                ardata_int,
                                     hrdata_int;
   wire                              read_buff_full;
 
   // read data from the APB muxed in from the slaves
-  wire [`X2P_APB_DATA_WIDTH-1:0]    prdata;
+  wire [`i_axi_x2p_X2P_APB_DATA_WIDTH-1:0]    prdata;
 
 
 
 
-  wire [`X2P_APB_DATA_WIDTH-1:0]    prdata_s0_s;
-  wire [`X2P_APB_DATA_WIDTH-1:0]    prdata_s1_s;
+  wire [`i_axi_x2p_X2P_APB_DATA_WIDTH-1:0]    prdata_s0_s;
 
   // Internal wires in the AXI-clock domain
   wire                              awvalid_gtd;
@@ -235,34 +231,31 @@ module DW_axi_x2p (
   assign                            pclk_int =  aclk;
   assign                            presetn_int = aresetn;
 
-  wire [`X2P_NUM_APB_SLAVES-1:0]    psel;
+  wire [`i_axi_x2p_X2P_NUM_APB_SLAVES-1:0]    psel;
 
   assign {
-          psel_s1,
          psel_s0} = psel;
 
 
   assign prdata_s0_s = prdata_s0;
 
-  assign prdata_s1_s = prdata_s1;
 
 
 
 
 
 
-  DW_axi_x2p_mux
+  i_axi_x2p_DW_axi_x2p_mux
    U_MUX (
                         .psel(psel),
                         .prdata_s0_s(prdata_s0_s),
-                        .prdata_s1_s(prdata_s1_s),
                         .prdata(prdata)
                         );
 
- //DW_axi_x2p_p  #(`X2P_AXI_SIDW,`X2P_AXI_AW, `X2P_AXI_DW, `X2P_AXI_WSTRB_WIDTH,
-DW_axi_x2p_p
-  #(`X2P_AXI_SIDW,32, `X2P_AXI_DW, `X2P_AXI_WSTRB_WIDTH,
-         `X2P_CMD_QUEUE_WIDTH,`X2P_AXI_WDFIFO_WIDTH,`LEN_WIDTH)
+ //DW_axi_x2p_p  #(`i_axi_x2p_X2P_AXI_SIDW,`i_axi_x2p_X2P_AXI_AW, `i_axi_x2p_X2P_AXI_DW, `i_axi_x2p_X2P_AXI_WSTRB_WIDTH,
+i_axi_x2p_DW_axi_x2p_p
+  #(`i_axi_x2p_X2P_AXI_SIDW,32, `i_axi_x2p_X2P_AXI_DW, `i_axi_x2p_X2P_AXI_WSTRB_WIDTH,
+         `i_axi_x2p_X2P_CMD_QUEUE_WIDTH,`i_axi_x2p_X2P_AXI_WDFIFO_WIDTH,`i_axi_x2p_LEN_WIDTH)
                U_AXI_SLAVE(
                   .awid(awid),
                            .awaddr(awaddr[31:0]),
@@ -273,7 +266,7 @@ DW_axi_x2p_p
                            //                  .awcache(awcache),
                            //                  .awprot(awprot),
                            //                  .awready(awready_int),
-                           //                  `ifdef X2P_AXI3_INTERFACE
+                           //                  `ifdef i_axi_x2p_X2P_AXI3_INTERFACE
                            //                  .wid(wid),
                            //                  `endif
                            .awvalid(awvalid_gtd),
@@ -326,7 +319,7 @@ DW_axi_x2p_p
 // no low-power in the bridge
    // just a report of internal activity
 
-DW_axi_x2p_arb
+i_axi_x2p_DW_axi_x2p_arb
  U_X2H_ARB (
                  .aclk(aclk),
                  .aresetn(aresetn),
@@ -348,7 +341,7 @@ DW_axi_x2p_arb
 
 // FIFOs
 
-DW_axi_x2p_cmd_queue
+i_axi_x2p_DW_axi_x2p_cmd_queue
  U_CMD_QUEUE (
                // the AXI slave side is pushing
                .clk_axi(aclk),
@@ -362,7 +355,7 @@ DW_axi_x2p_cmd_queue
                                   .hcmd_rdy_int_n(hcmd_rdy_int_n)
                                   );
 
-DW_axi_x2p_write_data_buffer
+i_axi_x2p_DW_axi_x2p_write_data_buffer
  U_WR_DATA_BUFF (
              // AXI Slave Side is pushing
              .clk_axi(aclk),
@@ -376,7 +369,7 @@ DW_axi_x2p_write_data_buffer
                                              );
 
 
-DW_axi_x2p_resp_buffer
+i_axi_x2p_DW_axi_x2p_resp_buffer
  U_RESP_BUFF (
                // the AXI slave side is popping
                                     .awstatus_int(pop_resp_status_wd),
@@ -392,7 +385,7 @@ DW_axi_x2p_resp_buffer
                                     .hresp_rdy_int_n(hresp_rdy_int_n)
                                     );
 
-DW_axi_x2p_read_data_buffer
+i_axi_x2p_DW_axi_x2p_read_data_buffer
  U_RD_DATA_BUFF (
              // AXI Slave Side is popping
                                             .arstatus_int(arstatus_int),
@@ -413,7 +406,7 @@ DW_axi_x2p_read_data_buffer
                                             );
 
 // APB Master interface
- DW_axi_x2p_s
+ i_axi_x2p_DW_axi_x2p_s
    U_APB_MASTER (
              // Inputs
              .clk(pclk_int),
@@ -447,9 +440,8 @@ DW_axi_x2p_read_data_buffer
                              );
 
 
- `undef LITTLE_ENDIAN_ENABLE
- `undef X2P_CLK_MODE_2
- `undef X2P_HAS_S1
+ `undef i_axi_x2p_LITTLE_ENDIAN_ENABLE
+ `undef i_axi_x2p_X2P_CLK_MODE_2
 endmodule // DW_axi_x2p
 
 

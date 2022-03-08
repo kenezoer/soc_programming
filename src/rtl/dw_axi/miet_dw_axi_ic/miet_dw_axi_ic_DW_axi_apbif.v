@@ -46,6 +46,8 @@ module miet_dw_axi_ic_DW_axi_apbif (
      reg_awqos_m1,
      reg_arqos_m1,
   
+     reg_awqos_m2,
+     reg_arqos_m2,
       prdata
  );
 input                           pclk;
@@ -78,6 +80,8 @@ output  [`miet_dw_axi_ic_APB_DATA_WIDTH-1:0]   prdata;
      output  [`miet_dw_axi_ic_AXI_QOSW-1: 0]       reg_awqos_m1;
      output  [`miet_dw_axi_ic_AXI_QOSW-1: 0]       reg_arqos_m1;
   
+    output  [`miet_dw_axi_ic_AXI_QOSW-1: 0]        reg_awqos_m2;
+    output  [`miet_dw_axi_ic_AXI_QOSW-1: 0]        reg_arqos_m2;
 
 
  //local wire assigments
@@ -107,6 +111,8 @@ wire  [`miet_dw_axi_ic_APB_DATA_WIDTH-1:0]   prdata;
      wire  [`miet_dw_axi_ic_AXI_QOSW-1: 0]       reg_awqos_m1;
      wire  [`miet_dw_axi_ic_AXI_QOSW-1: 0]       reg_arqos_m1;
   
+    wire  [`miet_dw_axi_ic_AXI_QOSW-1: 0]        reg_awqos_m2;
+    wire  [`miet_dw_axi_ic_AXI_QOSW-1: 0]        reg_arqos_m2;
   wire [31:0]  data_reg_in_aclk ;
   wire [31:0]  data_reg_o_aclk ;
   wire         qos_reg_wen_aclk;
@@ -277,6 +283,8 @@ miet_dw_axi_ic_DW_axi_bcm21
     .reg_arqos_m1   (reg_arqos_m1),
 
 
+    .reg_awqos_m2   (reg_awqos_m2),
+    .reg_arqos_m2   (reg_arqos_m2),
 
 
 

@@ -32,9 +32,9 @@
 //              
 //-----------------------------------------------------------------------------
 
-`include "DW_axi_x2p_all_includes.vh"
+`include "i_axi_x2p_DW_axi_x2p_all_includes.vh"
 
-module DW_axi_x2p_first_last_strobe (/*AUTOARG*/
+module i_axi_x2p_DW_axi_x2p_first_last_strobe (/*AUTOARG*/
   // Outputs
   last_strobe, 
                                      // Inputs
@@ -43,8 +43,8 @@ module DW_axi_x2p_first_last_strobe (/*AUTOARG*/
                                      sample_strobes
                                      );
 
-   parameter PRIMARY_DATA_WIDTH = `X2P_AXI_DW;
-   parameter SECONDARY_DATA_WIDTH = `X2P_APB_DATA_WIDTH;
+   parameter PRIMARY_DATA_WIDTH = `i_axi_x2p_X2P_AXI_DW;
+   parameter SECONDARY_DATA_WIDTH = `i_axi_x2p_X2P_APB_DATA_WIDTH;
 
    input     clk;
    input     rstn;

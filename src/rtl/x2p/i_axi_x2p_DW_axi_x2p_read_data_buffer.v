@@ -37,9 +37,9 @@
 //               the adddress to the RAM (hrdata_uush_cnt)
 //-----------------------------------------------------------------------------
 
-`include "DW_axi_x2p_all_includes.vh"
+`include "i_axi_x2p_DW_axi_x2p_all_includes.vh"
 
-module DW_axi_x2p_read_data_buffer(/*AUTOARG*/
+module i_axi_x2p_DW_axi_x2p_read_data_buffer(/*AUTOARG*/
    // Outputs
    arstatus_int, 
                                    arid_int, 
@@ -66,8 +66,8 @@ module DW_axi_x2p_read_data_buffer(/*AUTOARG*/
 //                         1 = Two  Clocks  imnplies FIFO with 3 push and pop sync
 //                         2 = single clock implies a single clock fifo
     
-parameter FIFO_WIDTH =`X2P_AXI_DW + `X2P_AXI_SIDW + 2;
-parameter DEPTH=`X2P_READ_BUFFER_DEPTH;
+parameter FIFO_WIDTH =`i_axi_x2p_X2P_AXI_DW + `i_axi_x2p_X2P_AXI_SIDW + 2;
+parameter DEPTH=`i_axi_x2p_X2P_READ_BUFFER_DEPTH;
 // push and pop syns for dual clock systems.
 // if the clock ar sync use 1 reg between domains
 // if async use the constraint
@@ -77,12 +77,12 @@ parameter DW_ADDR_WIDTH= (COUNT_WIDTH-1);
    // if FIFO is  dual-clocked adjusting the RAM depth for odd and non-power of 2 compatibility with the control
 parameter DW_EFFECTIVE_DEPTH_S1=DEPTH;
 parameter DW_EFFECTIVE_DEPTH_S2=((DEPTH == (1 << DW_ADDR_WIDTH))? DEPTH : DEPTH + ((DEPTH & 1) ? 1: 2));
-parameter DW_EFFECTIVE_DEPTH=((`X2P_CLK_MODE==2) ? DW_EFFECTIVE_DEPTH_S1 : DW_EFFECTIVE_DEPTH_S2);
+parameter DW_EFFECTIVE_DEPTH=((`i_axi_x2p_X2P_CLK_MODE==2) ? DW_EFFECTIVE_DEPTH_S1 : DW_EFFECTIVE_DEPTH_S2);
   
   output                                  arstatus_int; 
-  output [`X2P_AXI_SIDW-1:0]              arid_int;
+  output [`i_axi_x2p_X2P_AXI_SIDW-1:0]              arid_int;
   output                                  arlast_int;
-  output [`X2P_AXI_DW-1:0]                ardata_int;
+  output [`i_axi_x2p_X2P_AXI_DW-1:0]                ardata_int;
   input                                   pop_data_int_n;
   output                                  arvalid_int_n;
   output                                  hrdata_rdy_int_n;
@@ -91,9 +91,9 @@ parameter DW_EFFECTIVE_DEPTH=((`X2P_CLK_MODE==2) ? DW_EFFECTIVE_DEPTH_S1 : DW_EF
   input                                   clk_apb;
   input                                   push_data_int_n;
   input                                   hrstatus_int; 
-  input [`X2P_AXI_SIDW-1:0]               hrid_int;
+  input [`i_axi_x2p_X2P_AXI_SIDW-1:0]               hrid_int;
   input                                   hrlast_int;
-  input [`X2P_AXI_DW-1:0]                 hrdata_int;
+  input [`i_axi_x2p_X2P_AXI_DW-1:0]                 hrdata_int;
   
   input                                   push_rst_n;
   
@@ -137,7 +137,7 @@ wire                      nxt_error_unconn;
   //SMD: A signal or variable is set but never read.
   //SJ : BCM components are configurable to use in various scenarios in this particular design we are not using certain ports. Hence although those signals are read we are not driving them. Therefore waiving this warning.
    // single clock
-  DW_axi_x2p_bcm06
+  i_axi_x2p_DW_axi_x2p_bcm06
    #(DEPTH,TST_MODE, DW_ADDR_WIDTH)
       U_READ_FIFO_CONTROL_S1(
                 .clk(clk_push),
@@ -170,7 +170,7 @@ wire                      nxt_error_unconn;
   assign pushsf_data_in_int = data_in_int;
   assign data_out_int       = spushsf_data_out_int;
 
-  DW_axi_x2p_bcm57
+  i_axi_x2p_DW_axi_x2p_bcm57
    #(FIFO_WIDTH,DW_EFFECTIVE_DEPTH,0,DW_ADDR_WIDTH)
      U_READ_DATA_FIFO_RAM( .clk(clk_push)
                           ,.rst_n(mem_rst_n)
@@ -181,10 +181,10 @@ wire                      nxt_error_unconn;
                           ,.data_out(spushsf_data_out_int)
                           );
 
-  assign arstatus_int = data_out_int[`X2P_AXI_DW+`X2P_AXI_SIDW+1];
-  assign arid_int     = data_out_int[`X2P_AXI_DW+`X2P_AXI_SIDW:`X2P_AXI_DW+1];
-  assign arlast_int   = data_out_int[`X2P_AXI_DW];
-  assign ardata_int   = data_out_int[`X2P_AXI_DW-1:0];
+  assign arstatus_int = data_out_int[`i_axi_x2p_X2P_AXI_DW+`i_axi_x2p_X2P_AXI_SIDW+1];
+  assign arid_int     = data_out_int[`i_axi_x2p_X2P_AXI_DW+`i_axi_x2p_X2P_AXI_SIDW:`i_axi_x2p_X2P_AXI_DW+1];
+  assign arlast_int   = data_out_int[`i_axi_x2p_X2P_AXI_DW];
+  assign ardata_int   = data_out_int[`i_axi_x2p_X2P_AXI_DW-1:0];
   
   assign data_in_int  = {hrstatus_int,hrid_int,hrlast_int,hrdata_int};
   

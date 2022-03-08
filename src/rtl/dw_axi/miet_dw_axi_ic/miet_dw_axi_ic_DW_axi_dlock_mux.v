@@ -41,6 +41,12 @@ module miet_dw_axi_ic_DW_axi_dlock_mux (
   dlock_r_m1,
   dlock_id_r_m1,
   dlock_snum_r_m1,
+  dlock_w_m2,
+  dlock_id_w_m2,
+  dlock_snum_w_m2,
+  dlock_r_m2,
+  dlock_id_r_m2,
+  dlock_snum_r_m2,
   dlock_mst,
   dlock_slv,
   dlock_id,
@@ -60,6 +66,12 @@ module miet_dw_axi_ic_DW_axi_dlock_mux (
   input                          dlock_r_m1;
   input [`miet_dw_axi_ic_AXI_MIDW-1:0]          dlock_id_r_m1;
   input [`miet_dw_axi_ic_AXI_LOG2_NSP1-1:0]     dlock_snum_r_m1;
+  input                          dlock_w_m2;
+  input [`miet_dw_axi_ic_AXI_MIDW-1:0]          dlock_id_w_m2;
+  input [`miet_dw_axi_ic_AXI_LOG2_NSP1-1:0]     dlock_snum_w_m2;
+  input                          dlock_r_m2;
+  input [`miet_dw_axi_ic_AXI_MIDW-1:0]          dlock_id_r_m2;
+  input [`miet_dw_axi_ic_AXI_LOG2_NSP1-1:0]     dlock_snum_r_m2;
   output [`miet_dw_axi_ic_AXI_LOG2_LCL_NM-1:0]  dlock_mst;
   output [`miet_dw_axi_ic_AXI_LOG2_NSP1-1:0]    dlock_slv;
   output [`miet_dw_axi_ic_AXI_MIDW-1:0]         dlock_id;
@@ -84,7 +96,7 @@ module miet_dw_axi_ic_DW_axi_dlock_mux (
   begin : dlock_w_PROC
 
   dlock_w[0]  = dlock_w_m1;
-
+  dlock_w[1]  = dlock_w_m2;
 
 
 
@@ -106,7 +118,7 @@ module miet_dw_axi_ic_DW_axi_dlock_mux (
   begin : dlock_id_w_PROC
 
   dlock_id_w[0]  = dlock_id_w_m1;
-
+  dlock_id_w[1]  = dlock_id_w_m2;
 
 
 
@@ -128,7 +140,7 @@ module miet_dw_axi_ic_DW_axi_dlock_mux (
   begin : dlock_snum_w_PROC
 
   dlock_snum_w[0]  = dlock_snum_w_m1;
-
+  dlock_snum_w[1]  = dlock_snum_w_m2;
 
 
 
@@ -150,7 +162,7 @@ module miet_dw_axi_ic_DW_axi_dlock_mux (
   begin : dlock_r_PROC
 
   dlock_r[0]  = dlock_r_m1;
-
+  dlock_r[1]  = dlock_r_m2;
 
 
 
@@ -172,7 +184,7 @@ module miet_dw_axi_ic_DW_axi_dlock_mux (
   begin : dlock_id_r_PROC
 
   dlock_id_r[0]  = dlock_id_r_m1;
-
+  dlock_id_r[1]  = dlock_id_r_m2;
 
 
 
@@ -194,7 +206,7 @@ module miet_dw_axi_ic_DW_axi_dlock_mux (
   begin : dlock_snum_r_PROC
 
   dlock_snum_r[0]  = dlock_snum_r_m1;
-
+  dlock_snum_r[1]  = dlock_snum_r_m2;
 
 
 

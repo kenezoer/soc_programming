@@ -35,9 +35,9 @@
 //   
 //-----------------------------------------------------------------------------
 
-`include "DW_axi_x2p_all_includes.vh"
+`include "i_axi_x2p_DW_axi_x2p_all_includes.vh"
 
-module DW_axi_x2p_write_data_buffer(/*AUTOARG*/
+module i_axi_x2p_DW_axi_x2p_write_data_buffer(/*AUTOARG*/
    // Outputs
    awdata_rdy_int_n, 
                                     hwword_int, 
@@ -60,8 +60,8 @@ module DW_axi_x2p_write_data_buffer(/*AUTOARG*/
 //                         2 = single clock implies a single clock fifo
     
 
-parameter DEPTH=`X2P_WRITE_BUFFER_DEPTH;
-parameter FIFO_WIDTH=`X2P_AXI_DW + `X2P_AXI_WSTRB_WIDTH +1;   // including the last
+parameter DEPTH=`i_axi_x2p_X2P_WRITE_BUFFER_DEPTH;
+parameter FIFO_WIDTH=`i_axi_x2p_X2P_AXI_DW + `i_axi_x2p_X2P_AXI_WSTRB_WIDTH +1;   // including the last
 // push and pop syns for dual clock systes.
 // if the clock ar sync use 1 reg between domains
 // if async use the constraint
@@ -72,7 +72,7 @@ parameter DW_ADDR_WIDTH= (COUNT_WIDTH-1);
    // if FIFO is  dual-clocked adjusting the RAM depth for odd and non-power of 2 compatibility with the control
 parameter DW_EFFECTIVE_DEPTH_S1=DEPTH;
 parameter DW_EFFECTIVE_DEPTH_S2=((DEPTH == (1 << DW_ADDR_WIDTH))? DEPTH : DEPTH + ((DEPTH & 1) ? 1: 2));
-parameter DW_EFFECTIVE_DEPTH=((`X2P_CLK_MODE==2) ? DW_EFFECTIVE_DEPTH_S1 : DW_EFFECTIVE_DEPTH_S2);
+parameter DW_EFFECTIVE_DEPTH=((`i_axi_x2p_X2P_CLK_MODE==2) ? DW_EFFECTIVE_DEPTH_S1 : DW_EFFECTIVE_DEPTH_S2);
    
   input                    clk_axi;
   input [FIFO_WIDTH-1:0]  awword_int;    // consisting of all the inputs
@@ -125,7 +125,7 @@ wire                      nxt_error_unconn;
   //SMD: A signal or variable is set but never read.
   //SJ : BCM components are configurable to use in various scenarios in this particular design we are not using certain ports. Hence although those signals are read we are not driving them. Therefore waiving this warning.
    // single clock
-  DW_axi_x2p_bcm06
+  i_axi_x2p_DW_axi_x2p_bcm06
    #(DEPTH,TST_MODE, DW_ADDR_WIDTH)
       U_WRITE_FIFO_CONTROL_S1(
                 .clk(clk_push),
@@ -159,7 +159,7 @@ wire                      nxt_error_unconn;
   assign pushsf_awword_int = awword_int;
   assign hwword_int        = spushsf_hwword_int;
   
-  DW_axi_x2p_bcm57
+  i_axi_x2p_DW_axi_x2p_bcm57
    #(FIFO_WIDTH,DW_EFFECTIVE_DEPTH,0,DW_ADDR_WIDTH)
      U_WRITE_FIFO_RAM( .clk(clk_push)
                       ,.rst_n(mem_rst_n)

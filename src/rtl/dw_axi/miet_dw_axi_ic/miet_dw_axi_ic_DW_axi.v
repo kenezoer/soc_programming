@@ -196,6 +196,46 @@ module miet_dw_axi_ic_DW_axi (
                ,rresp_m1
                ,rlast_m1
                ,rready_m1
+               // Write Address Channel from Master2
+               ,awvalid_m2
+               ,awaddr_m2
+               ,awid_m2
+               ,awlen_m2
+               ,awsize_m2
+               ,awburst_m2
+               ,awlock_m2
+               ,awcache_m2
+               ,awprot_m2
+               ,awready_m2
+               // Write Data Channel from Master2
+               ,wvalid_m2
+               ,wdata_m2
+               ,wstrb_m2
+               ,wlast_m2
+               ,wready_m2
+               // Write Response Channel from Master2
+               ,bvalid_m2
+               ,bid_m2
+               ,bresp_m2
+               ,bready_m2
+               // Read Address Channel from Master2
+               ,arvalid_m2
+               ,arid_m2
+               ,araddr_m2
+               ,arlen_m2
+               ,arsize_m2
+               ,arburst_m2
+               ,arlock_m2
+               ,arcache_m2
+               ,arprot_m2
+               ,arready_m2
+               // Read Data Channel from Master2
+               ,rvalid_m2
+               ,rid_m2
+               ,rdata_m2
+               ,rresp_m2
+               ,rlast_m2
+               ,rready_m2
                // Write Address Channel from Slave1
                ,awvalid_s1
                ,awaddr_s1
@@ -276,6 +316,46 @@ module miet_dw_axi_ic_DW_axi (
                ,rresp_s2
                ,rlast_s2
                ,rready_s2
+               // Write Address Channel from Slave3
+               ,awvalid_s3
+               ,awaddr_s3
+               ,awid_s3
+               ,awlen_s3
+               ,awsize_s3
+               ,awburst_s3
+               ,awlock_s3
+               ,awcache_s3
+               ,awprot_s3
+               ,awready_s3
+               // Write Data Channel from Slave3
+               ,wvalid_s3
+               ,wdata_s3
+               ,wstrb_s3
+               ,wlast_s3
+               ,wready_s3
+               // Write Response Channel from Slave3
+               ,bvalid_s3
+               ,bid_s3
+               ,bresp_s3
+               ,bready_s3
+               // Read Address Channel from Slave3
+               ,arvalid_s3
+               ,arid_s3
+               ,araddr_s3
+               ,arlen_s3
+               ,arsize_s3
+               ,arburst_s3
+               ,arlock_s3
+               ,arcache_s3
+               ,arprot_s3
+               ,arready_s3
+               // Read Data Channel from Slave3
+               ,rvalid_s3
+               ,rid_s3
+               ,rdata_s3
+               ,rresp_s3
+               ,rlast_s3
+               ,rready_s3
                ,// Default Slave Port Signals
                // Default slave write address channel
                dbg_awid_s0
@@ -376,23 +456,63 @@ module miet_dw_axi_ic_DW_axi (
 
   
 
+// Write Address Channel from Master2
+  input                       awvalid_m2;
+  input  [`miet_dw_axi_ic_AXI_AW-1:0]        awaddr_m2;
 
+  input  [`miet_dw_axi_ic_AXI_IDW_M2-1:0]     awid_m2;
 
+  input  [`miet_dw_axi_ic_AXI_BLW-1:0]       awlen_m2;
+  input  [`miet_dw_axi_ic_AXI_BSW-1:0]       awsize_m2;
+  input  [`miet_dw_axi_ic_AXI_BTW-1:0]       awburst_m2;
+  input  [`miet_dw_axi_ic_AXI_LTW-1:0]       awlock_m2;
+  input  [`miet_dw_axi_ic_AXI_CTW-1:0]       awcache_m2;
+  input  [`miet_dw_axi_ic_AXI_PTW-1:0]       awprot_m2;
+  output                      awready_m2;
 
   
   
 
+// Write Data Channel from Master2
+  input                       wvalid_m2;
 
 
+  input  [`miet_dw_axi_ic_AXI_DW-1:0]        wdata_m2;
+  input  [`miet_dw_axi_ic_AXI_SW-1:0]        wstrb_m2;
+  input                       wlast_m2;
+  output                      wready_m2;
+// Write Response Channel from Master2
+  output                      bvalid_m2;
 
+  output [`miet_dw_axi_ic_AXI_IDW_M2-1:0]     bid_m2;
 
+  output [`miet_dw_axi_ic_AXI_BRW-1:0]       bresp_m2;
+  input                       bready_m2;
+// Read Address Channel from Master2
+  input                       arvalid_m2;
 
+  input  [`miet_dw_axi_ic_AXI_IDW_M2-1:0]     arid_m2;
 
+  input  [`miet_dw_axi_ic_AXI_AW-1:0]        araddr_m2;
+  input  [`miet_dw_axi_ic_AXI_BLW-1:0]       arlen_m2;
+  input  [`miet_dw_axi_ic_AXI_BSW-1:0]       arsize_m2;
+  input  [`miet_dw_axi_ic_AXI_BTW-1:0]       arburst_m2;
+  input  [`miet_dw_axi_ic_AXI_LTW-1:0]       arlock_m2;
+  input  [`miet_dw_axi_ic_AXI_CTW-1:0]       arcache_m2;
+  input  [`miet_dw_axi_ic_AXI_PTW-1:0]       arprot_m2;
+  output                      arready_m2;
 
   
 
+// Read Data Channel from Master2
+  output                      rvalid_m2;
 
+  output [`miet_dw_axi_ic_AXI_IDW_M2-1:0]     rid_m2;
 
+  output [`miet_dw_axi_ic_AXI_DW-1:0]        rdata_m2;
+  output                      rlast_m2;
+  output [`miet_dw_axi_ic_AXI_RRW-1:0]       rresp_m2;
+  input                       rready_m2;
 
 
   
@@ -811,23 +931,63 @@ module miet_dw_axi_ic_DW_axi (
   output                      rready_s2;
 
 
+// Write Address Channel from Slave3
+  output                      awvalid_s3;
+  output [`miet_dw_axi_ic_AXI_AW-1:0]        awaddr_s3;
 
+  output [`miet_dw_axi_ic_AXI_SIDW-1:0]     awid_s3;
 
+  output [`miet_dw_axi_ic_AXI_BLW-1:0]       awlen_s3;
+  output [`miet_dw_axi_ic_AXI_BSW-1:0]       awsize_s3;
+  output [`miet_dw_axi_ic_AXI_BTW-1:0]       awburst_s3;
+  output [`miet_dw_axi_ic_AXI_LTW-1:0]       awlock_s3;
+  output [`miet_dw_axi_ic_AXI_CTW-1:0]       awcache_s3;
+  output [`miet_dw_axi_ic_AXI_PTW-1:0]       awprot_s3;
+  input                       awready_s3;
 
   
   
 
+// Write Data Channel from Slave3
+  output                      wvalid_s3;
 
 
+  output [`miet_dw_axi_ic_AXI_DW-1:0]        wdata_s3;
+  output [`miet_dw_axi_ic_AXI_SW-1:0]        wstrb_s3;
+  output                      wlast_s3;
+  input                       wready_s3;
+// Write Response Channel from Slave3
+  input                       bvalid_s3;
 
+  input  [`miet_dw_axi_ic_AXI_SIDW-1:0]     bid_s3;
 
+  input  [`miet_dw_axi_ic_AXI_BRW-1:0]       bresp_s3;
+  output                      bready_s3;
+// Read Address Channel from Slave3
+  output                      arvalid_s3;
 
+  output [`miet_dw_axi_ic_AXI_SIDW-1:0]     arid_s3;
 
+  output [`miet_dw_axi_ic_AXI_AW-1:0]        araddr_s3;
+  output [`miet_dw_axi_ic_AXI_BLW-1:0]       arlen_s3;
+  output [`miet_dw_axi_ic_AXI_BSW-1:0]       arsize_s3;
+  output [`miet_dw_axi_ic_AXI_BTW-1:0]       arburst_s3;
+  output [`miet_dw_axi_ic_AXI_LTW-1:0]       arlock_s3;
+  output [`miet_dw_axi_ic_AXI_CTW-1:0]       arcache_s3;
+  output [`miet_dw_axi_ic_AXI_PTW-1:0]       arprot_s3;
+  input                       arready_s3;
 
   
 
+// Read Data Channel from Slave3
+  input                       rvalid_s3;
 
+  input  [`miet_dw_axi_ic_AXI_SIDW-1:0]     rid_s3;
 
+  input  [`miet_dw_axi_ic_AXI_DW-1:0]        rdata_s3;
+  input                       rlast_s3;
+  input  [`miet_dw_axi_ic_AXI_RRW-1:0]       rresp_s3;
+  output                      rready_s3;
 
 
 
@@ -1245,6 +1405,45 @@ module miet_dw_axi_ic_DW_axi (
   wire                                            b_shrd_ch_req_s2;
   wire [`miet_dw_axi_ic_AXI_B_PYLD_M_W-1:0]                sp_bpayload_s2;
   wire                                       wcpl_tx_s2;
+  wire                                      arready_s3;
+  wire                                      arvalid_s3;
+  wire [`miet_dw_axi_ic_AXI_AR_PYLD_S_W-1:0]               arpayload_s3;
+  wire [`miet_dw_axi_ic_AXI_AR_S3_NMV-1:0]                    bus_arvalid_s3;
+  wire [(`miet_dw_axi_ic_AXI_AR_S3_NMV*`miet_dw_axi_ic_AXI_AR_PYLD_S_W)-1:0] bus_arpayload_s3;
+  wire [`miet_dw_axi_ic_AXI_AR_S3_NMV-1:0]               bus_sp_arready_s3;
+  wire                                       rcpl_tx_s3;
+ 
+  wire                                      rvalid_s3;
+  wire [`miet_dw_axi_ic_AXI_R_PYLD_S_W-1:0]                rpayload_s3;
+  wire                                      rready_s3;
+  wire [`miet_dw_axi_ic_AXI_NMV_S3-1:0]                    bus_rready_s3;
+  wire [`miet_dw_axi_ic_AXI_NMV_S3-1:0]                    sp_rvalid_s3;
+  wire                                            r_shrd_ch_req_s3;
+  wire [`miet_dw_axi_ic_AXI_R_PYLD_M_W-1:0]                sp_rpayload_s3;
+ 
+  wire                                      awready_s3;
+  wire                                      awvalid_s3;
+  wire [`miet_dw_axi_ic_AXI_AW_PYLD_S_W-1:0]               awpayload_s3;
+  wire [`miet_dw_axi_ic_AXI_AW_S3_NMV-1:0]                    bus_awvalid_s3;
+  wire [(`miet_dw_axi_ic_AXI_AW_S3_NMV*`miet_dw_axi_ic_AXI_AW_PYLD_S_W)-1:0] bus_awpayload_s3;
+  wire [`miet_dw_axi_ic_AXI_AW_S3_NMV-1:0]               bus_sp_awready_s3;
+  wire                                                aw_shrd_lyr_granted_s3;
+ 
+  wire                                      wready_s3;
+  wire                                      wvalid_s3;
+  wire [`miet_dw_axi_ic_AXI_W_PYLD_S_W-1:0]                wpayload_s3;
+  wire [`miet_dw_axi_ic_AXI_W_S3_NMV-1:0]                    bus_wvalid_s3;
+  wire [(`miet_dw_axi_ic_AXI_W_S3_NMV*`miet_dw_axi_ic_AXI_W_PYLD_S_W)-1:0]  bus_wpayload_s3;
+  wire [`miet_dw_axi_ic_AXI_W_S3_NMV-1:0]               bus_sp_wready_s3;
+ 
+  wire                                      bvalid_s3;
+  wire [`miet_dw_axi_ic_AXI_B_PYLD_S_W-1:0]               bpayload_s3;
+  wire                                      bready_s3;
+  wire [`miet_dw_axi_ic_AXI_NMV_S3-1:0]                    bus_bready_s3;
+  wire [`miet_dw_axi_ic_AXI_NMV_S3-1:0]                    sp_bvalid_s3;
+  wire                                            b_shrd_ch_req_s3;
+  wire [`miet_dw_axi_ic_AXI_B_PYLD_M_W-1:0]                sp_bpayload_s3;
+  wire                                       wcpl_tx_s3;
   wire                                      arvalid_m1;
   wire [`miet_dw_axi_ic_AXI_AR_PYLD_M_W-1:0]               arpayload_m1;
   wire                                      arready_m1;
@@ -1289,6 +1488,48 @@ module miet_dw_axi_ic_DW_axi (
   wire [`miet_dw_axi_ic_AXI_B_M1_NSV-1:0]            bus_mp_bready_m1;
  wire                                       has_ar_pending_trans_m1;
  wire                                       has_aw_pending_trans_m1;
+  wire                                      arvalid_m2;
+  wire [`miet_dw_axi_ic_AXI_AR_PYLD_M_W-1:0]               arpayload_m2;
+  wire                                      arready_m2;
+  wire [`miet_dw_axi_ic_AXI_NSP1V_M2-1:0]                           bus_arready_m2;
+  wire [`miet_dw_axi_ic_AXI_NSP1V_M2-1:0]                    mp_arvalid_m2;
+  wire [`miet_dw_axi_ic_AXI_NSP1V_M2-1:0]                    mp_arvalid_m2_q;
+  wire                                              ar_shrd_ch_req_m2;
+  wire [`miet_dw_axi_ic_AXI_AR_PYLD_S_W-1:0]                   mp_arpayload_m2;
+ 
+ 
+  wire                                      rready_m2;
+  wire                                      rvalid_m2;
+  wire [`miet_dw_axi_ic_AXI_R_PYLD_M_W-1:0]               rpayload_m2;
+  wire [`miet_dw_axi_ic_AXI_R_M2_NSV-1:0]                    bus_rvalid_m2;
+  wire [(`miet_dw_axi_ic_AXI_R_M2_NSV*`miet_dw_axi_ic_AXI_R_PYLD_M_W)-1:0]    bus_rpayload_m2;
+  wire [`miet_dw_axi_ic_AXI_R_M2_NSV-1:0]            bus_mp_rready_m2;
+ 
+  wire                                      awvalid_m2;
+  wire [`miet_dw_axi_ic_AXI_AW_PYLD_M_W-1:0]               awpayload_m2;
+  wire                                      awready_m2;
+  wire [`miet_dw_axi_ic_AXI_NSP1V_M2-1:0]                    bus_awready_m2;
+  wire [`miet_dw_axi_ic_AXI_NSP1V_M2-1:0]                    aw_shrd_lyr_granted_m2_s_bus;
+  wire [`miet_dw_axi_ic_AXI_NSP1V_M2-1:0]                    issued_wtx_shrd_sys_m2_s_bus;
+  wire [`miet_dw_axi_ic_AXI_NSP1V_M2-1:0]                    mp_awvalid_m2;
+  wire [`miet_dw_axi_ic_AXI_NSP1V_M2-1:0]                    mp_awvalid_m2_q;
+  wire                                              aw_shrd_ch_req_m2;
+  wire [(`miet_dw_axi_ic_AXI_AW_PYLD_S_W)-1:0]             mp_awpayload_m2;
+ 
+  wire                                      wvalid_m2;
+  wire [`miet_dw_axi_ic_AXI_W_PYLD_M_W-1:0]               wpayload_m2;
+  wire                                      wready_m2;
+  wire [`miet_dw_axi_ic_AXI_NSP1V_M2-1:0]                    bus_wready_m2;
+  wire [`miet_dw_axi_ic_AXI_NSP1V_M2-1:0]                    mp_wvalid_m2;
+  wire                                              w_shrd_ch_req_m2;
+  wire [(`miet_dw_axi_ic_AXI_W_PYLD_S_W)-1:0]              mp_wpayload_m2;
+ 
+  wire                                      bready_m2;
+  wire                                      bvalid_m2;
+  wire [`miet_dw_axi_ic_AXI_B_PYLD_M_W-1:0]               bpayload_m2;
+  wire [`miet_dw_axi_ic_AXI_B_M2_NSV-1:0]                    bus_bvalid_m2;
+  wire [(`miet_dw_axi_ic_AXI_B_M2_NSV*`miet_dw_axi_ic_AXI_B_PYLD_M_W)-1:0]    bus_bpayload_m2;
+  wire [`miet_dw_axi_ic_AXI_B_M2_NSV-1:0]            bus_mp_bready_m2;
  wire                                       has_ar_pending_trans_m2;
  wire                                       has_aw_pending_trans_m2;
  wire                                       has_ar_pending_trans_m3;
@@ -1362,6 +1603,7 @@ module miet_dw_axi_ic_DW_axi (
 
 
   wire [`miet_dw_axi_ic_AXI_NSP1V_M1-1:0] bus_tz_secure_m1;
+  wire [`miet_dw_axi_ic_AXI_NSP1V_M2-1:0] bus_tz_secure_m2;
  
 // Ready signals from each slaves dedicated slave port back to the shared
 // slave port (i.e. shared to dedicated link).
@@ -1547,6 +1789,81 @@ module miet_dw_axi_ic_DW_axi (
     wire [`miet_dw_axi_ic_AXI_W_PYLD_S_W-1:0]               wpayload_s2_m1;
     wire                                      bvalid_s2_m1;
     wire                                      bready_s2_m1;
+    wire [`miet_dw_axi_ic_AXI_R_PYLD_M_W-1:0]               rpayload_s3_m1;
+    wire [`miet_dw_axi_ic_AXI_B_PYLD_M_W-1:0]               bpayload_s3_m1;
+    wire                                      arready_s3_m1;
+    wire                                      arvalid_s3_m1;
+    wire [`miet_dw_axi_ic_AXI_AR_PYLD_S_W-1:0]               arpayload_s3_m1;
+    wire                                      rvalid_s3_m1;
+    wire                                      rready_s3_m1;
+    wire                                      awready_s3_m1;
+    wire                                      awvalid_s3_m1;
+    wire [`miet_dw_axi_ic_AXI_AW_PYLD_S_W-1:0]               awpayload_s3_m1;
+    wire                                      wready_s3_m1;
+    wire                                      wvalid_s3_m1;
+    wire [`miet_dw_axi_ic_AXI_W_PYLD_S_W-1:0]               wpayload_s3_m1;
+    wire                                      bvalid_s3_m1;
+    wire                                      bready_s3_m1;
+    wire [`miet_dw_axi_ic_AXI_R_PYLD_M_W-1:0]               rpayload_s0_m2;
+    wire [`miet_dw_axi_ic_AXI_B_PYLD_M_W-1:0]               bpayload_s0_m2;
+    wire                                      arready_s0_m2;
+    wire                                      arvalid_s0_m2;
+    wire [`miet_dw_axi_ic_AXI_AR_PYLD_S_W-1:0]               arpayload_s0_m2;
+    wire                                      rvalid_s0_m2;
+    wire                                      rready_s0_m2;
+    wire                                      awready_s0_m2;
+    wire                                      awvalid_s0_m2;
+    wire [`miet_dw_axi_ic_AXI_AW_PYLD_S_W-1:0]               awpayload_s0_m2;
+    wire                                      wready_s0_m2;
+    wire                                      wvalid_s0_m2;
+    wire [`miet_dw_axi_ic_AXI_W_PYLD_S_W-1:0]               wpayload_s0_m2;
+    wire                                      bvalid_s0_m2;
+    wire                                      bready_s0_m2;
+    wire [`miet_dw_axi_ic_AXI_R_PYLD_M_W-1:0]               rpayload_s1_m2;
+    wire [`miet_dw_axi_ic_AXI_B_PYLD_M_W-1:0]               bpayload_s1_m2;
+    wire                                      arready_s1_m2;
+    wire                                      arvalid_s1_m2;
+    wire [`miet_dw_axi_ic_AXI_AR_PYLD_S_W-1:0]               arpayload_s1_m2;
+    wire                                      rvalid_s1_m2;
+    wire                                      rready_s1_m2;
+    wire                                      awready_s1_m2;
+    wire                                      awvalid_s1_m2;
+    wire [`miet_dw_axi_ic_AXI_AW_PYLD_S_W-1:0]               awpayload_s1_m2;
+    wire                                      wready_s1_m2;
+    wire                                      wvalid_s1_m2;
+    wire [`miet_dw_axi_ic_AXI_W_PYLD_S_W-1:0]               wpayload_s1_m2;
+    wire                                      bvalid_s1_m2;
+    wire                                      bready_s1_m2;
+    wire [`miet_dw_axi_ic_AXI_R_PYLD_M_W-1:0]               rpayload_s2_m2;
+    wire [`miet_dw_axi_ic_AXI_B_PYLD_M_W-1:0]               bpayload_s2_m2;
+    wire                                      arready_s2_m2;
+    wire                                      arvalid_s2_m2;
+    wire [`miet_dw_axi_ic_AXI_AR_PYLD_S_W-1:0]               arpayload_s2_m2;
+    wire                                      rvalid_s2_m2;
+    wire                                      rready_s2_m2;
+    wire                                      awready_s2_m2;
+    wire                                      awvalid_s2_m2;
+    wire [`miet_dw_axi_ic_AXI_AW_PYLD_S_W-1:0]               awpayload_s2_m2;
+    wire                                      wready_s2_m2;
+    wire                                      wvalid_s2_m2;
+    wire [`miet_dw_axi_ic_AXI_W_PYLD_S_W-1:0]               wpayload_s2_m2;
+    wire                                      bvalid_s2_m2;
+    wire                                      bready_s2_m2;
+    wire [`miet_dw_axi_ic_AXI_R_PYLD_M_W-1:0]               rpayload_s3_m2;
+    wire [`miet_dw_axi_ic_AXI_B_PYLD_M_W-1:0]               bpayload_s3_m2;
+    wire                                      arready_s3_m2;
+    wire                                      arvalid_s3_m2;
+    wire [`miet_dw_axi_ic_AXI_AR_PYLD_S_W-1:0]               arpayload_s3_m2;
+    wire                                      rvalid_s3_m2;
+    wire                                      rready_s3_m2;
+    wire                                      awready_s3_m2;
+    wire                                      awvalid_s3_m2;
+    wire [`miet_dw_axi_ic_AXI_AW_PYLD_S_W-1:0]               awpayload_s3_m2;
+    wire                                      wready_s3_m2;
+    wire                                      wvalid_s3_m2;
+    wire [`miet_dw_axi_ic_AXI_W_PYLD_S_W-1:0]               wpayload_s3_m2;
+    wire                                      bvalid_s3_m2;
+    wire                                      bready_s3_m2;
     wire                                  blank_arready_s0;
     wire                                  blank_arvalid_s0;
     wire                                  blank_arpayload_s0;
@@ -1604,6 +1921,25 @@ module miet_dw_axi_ic_DW_axi (
     wire                                  blank_bready_s2;
     wire                                  blank_arlocktx_s2;
     wire                                  blank_awlocktx_s2;
+    wire                                  blank_arready_s3;
+    wire                                  blank_arvalid_s3;
+    wire                                  blank_arpayload_s3;
+    wire                                  blank_arqos_s3;
+    wire                                  blank_rvalid_s3;
+    wire                                  blank_rpayload_s3;
+    wire                                  blank_rready_s3;
+    wire                                  blank_awready_s3;
+    wire                                  blank_awvalid_s3;
+    wire                                  blank_awpayload_s3;
+    wire                                  blank_awqos_s3;
+    wire                                  blank_wready_s3;
+    wire                                  blank_wvalid_s3;
+    wire                                  blank_wpayload_s3;
+    wire                                  blank_bvalid_s3;
+    wire                                  blank_bpayload_s3;
+    wire                                  blank_bready_s3;
+    wire                                  blank_arlocktx_s3;
+    wire                                  blank_awlocktx_s3;
     wire                                  blank_arvalid_m1;
     wire                                  blank_arready_m1;
     wire                                  blank_arpayload_m1;
@@ -1621,6 +1957,23 @@ module miet_dw_axi_ic_DW_axi (
     wire                                  blank_bvalid_m1;
     wire                                  blank_bpayload_m1;
     wire                                  blank_bready_m1;
+    wire                                  blank_arvalid_m2;
+    wire                                  blank_arready_m2;
+    wire                                  blank_arpayload_m2;
+    wire                                  blank_arqos_m2;
+    wire                                  blank_rvalid_m2;
+    wire                                  blank_rpayload_m2;
+    wire                                  blank_rready_m2;
+    wire                                  blank_awvalid_m2;
+    wire                                  blank_awready_m2;
+    wire                                  blank_awpayload_m2;
+    wire                                  blank_awqos_m2;
+    wire                                  blank_wvalid_m2;
+    wire                                  blank_wready_m2;
+    wire                                  blank_wpayload_m2;
+    wire                                  blank_bvalid_m2;
+    wire                                  blank_bpayload_m2;
+    wire                                  blank_bready_m2;
 
 
   // AR CHANNEL SHARED LAYER SIGNALS
@@ -2473,6 +2826,12 @@ module miet_dw_axi_ic_DW_axi (
  
   wire [`miet_dw_axi_ic_AXI_MAX_NUM_USR_MSTS-1:0] issued_wtx_mst_sys_oh_s2; 
   wire issued_wtx_mst_oh_dummy1_s2; 
+  wire [`miet_dw_axi_ic_AXI_AW_S3_NMV-1:0] issued_wtx_mst_oh_o_s3; 
+  wire [`miet_dw_axi_ic_AXI_NMV_S3-1:0] issued_wtx_mst_oh_i_s3; 
+  wire [`miet_dw_axi_ic_AXI_NMV_S3:0] issued_wtx_mst_oh_i_eb_s3; 
+ 
+  wire [`miet_dw_axi_ic_AXI_MAX_NUM_USR_MSTS-1:0] issued_wtx_mst_sys_oh_s3; 
+  wire issued_wtx_mst_oh_dummy1_s3; 
 // spyglass enable_block W497
  
 // Bit from each dedicated W channel, asserted when the
@@ -2865,6 +3224,17 @@ module miet_dw_axi_ic_DW_axi (
 // Connect slave port wires to per master port wires.  
 wire blank_aw_shrd_lyr_granted_m1_s_bus;
   assign {blank_aw_shrd_lyr_granted_m1_s_bus, aw_shrd_lyr_granted_m1_s_bus} = {1'b0
+  , aw_shrd_lyr_granted_s3
+  , aw_shrd_lyr_granted_s2
+  , aw_shrd_lyr_granted_s1
+  , aw_shrd_lyr_granted_s0
+};
+
+// --------------------------------------------------  
+// Connect slave port wires to per master port wires.  
+wire blank_aw_shrd_lyr_granted_m2_s_bus;
+  assign {blank_aw_shrd_lyr_granted_m2_s_bus, aw_shrd_lyr_granted_m2_s_bus} = {1'b0
+  , aw_shrd_lyr_granted_s3
   , aw_shrd_lyr_granted_s2
   , aw_shrd_lyr_granted_s1
   , aw_shrd_lyr_granted_s0
@@ -2876,9 +3246,22 @@ wire blank_aw_shrd_lyr_granted_m1_s_bus;
 // all slaves.
 wire blank_issued_wtx_shrd_sys_m1_s_bus;
   assign {blank_issued_wtx_shrd_sys_m1_s_bus, issued_wtx_shrd_sys_m1_s_bus} = {1'b0
+  , (`miet_dw_axi_ic_AXI_S3_ON_AW_SHARED_VAL ? issued_wtx_shrd_sys_m1_s3 : 1'b0)
   , (`miet_dw_axi_ic_AXI_S2_ON_AW_SHARED_VAL ? issued_wtx_shrd_sys_m1_s2 : 1'b0)
   , (`miet_dw_axi_ic_AXI_S1_ON_AW_SHARED_VAL ? issued_wtx_shrd_sys_m1_s1 : 1'b0)
   , (`miet_dw_axi_ic_AXI_S0_ON_AW_SHARED_VAL ? issued_wtx_shrd_sys_m1_s0 : 1'b0)
+};
+
+// --------------------------------------------------  
+// Create a bus for each master, which contains the 
+// issued_wtx_shrd_sys_mx_sy bits for that master from 
+// all slaves.
+wire blank_issued_wtx_shrd_sys_m2_s_bus;
+  assign {blank_issued_wtx_shrd_sys_m2_s_bus, issued_wtx_shrd_sys_m2_s_bus} = {1'b0
+  , (`miet_dw_axi_ic_AXI_S3_ON_AW_SHARED_VAL ? issued_wtx_shrd_sys_m2_s3 : 1'b0)
+  , (`miet_dw_axi_ic_AXI_S2_ON_AW_SHARED_VAL ? issued_wtx_shrd_sys_m2_s2 : 1'b0)
+  , (`miet_dw_axi_ic_AXI_S1_ON_AW_SHARED_VAL ? issued_wtx_shrd_sys_m2_s1 : 1'b0)
+  , (`miet_dw_axi_ic_AXI_S0_ON_AW_SHARED_VAL ? issued_wtx_shrd_sys_m2_s0 : 1'b0)
 };
 
 
@@ -2888,9 +3271,19 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // --------------------------------------------------  
 // Connect slave port wires to per master port wires.  
   assign {blank_rvalid_m1, bus_rvalid_m1} = {1'b0
+      ,rvalid_s3_m1
       ,rvalid_s2_m1
       ,rvalid_s1_m1
       ,rvalid_s0_m1
+};
+
+// --------------------------------------------------  
+// Connect slave port wires to per master port wires.  
+  assign {blank_rvalid_m2, bus_rvalid_m2} = {1'b0
+      ,rvalid_s3_m2
+      ,rvalid_s2_m2
+      ,rvalid_s1_m2
+      ,rvalid_s0_m2
 };
 
 // --------------------------------------------------  
@@ -2901,6 +3294,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign {blank_rvalid_s0 
+  , rvalid_s0_m2
   , rvalid_s0_m1
  } = {1'b0, sp_rvalid_s0}; 
 // spyglass enable_block W164a
@@ -2913,6 +3307,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign {blank_rvalid_s1 
+  , rvalid_s1_m2
   , rvalid_s1_m1
  } = {1'b0, sp_rvalid_s1}; 
 // spyglass enable_block W164a
@@ -2925,16 +3320,40 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign {blank_rvalid_s2 
+  , rvalid_s2_m2
   , rvalid_s2_m1
  } = {1'b0, sp_rvalid_s2}; 
 // spyglass enable_block W164a
 
 // --------------------------------------------------  
+// Connect slave port output signals, to individual    
+// per master port signals.                            
+// spyglass disable_block W164a
+// SMD: Identifies assignments in which the LHS width is less than the RHS width
+// SJ : This is not a functional issue, this is as per the requirement.
+//      Hence this can be waived.
+  assign {blank_rvalid_s3 
+  , rvalid_s3_m2
+  , rvalid_s3_m1
+ } = {1'b0, sp_rvalid_s3}; 
+// spyglass enable_block W164a
+
+// --------------------------------------------------  
 // Connect slave port wires to per master port wires.  
   assign {blank_bvalid_m1, bus_bvalid_m1} = {1'b0
+      ,bvalid_s3_m1
       ,bvalid_s2_m1
       ,bvalid_s1_m1
       ,bvalid_s0_m1
+};
+
+// --------------------------------------------------  
+// Connect slave port wires to per master port wires.  
+  assign {blank_bvalid_m2, bus_bvalid_m2} = {1'b0
+      ,bvalid_s3_m2
+      ,bvalid_s2_m2
+      ,bvalid_s1_m2
+      ,bvalid_s0_m2
 };
 
 // --------------------------------------------------  
@@ -2945,6 +3364,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign {blank_bvalid_s0 
+  , bvalid_s0_m2
   , bvalid_s0_m1
  } = {1'b0, sp_bvalid_s0}; 
 // spyglass enable_block W164a
@@ -2957,6 +3377,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign {blank_bvalid_s1 
+  , bvalid_s1_m2
   , bvalid_s1_m1
  } = {1'b0, sp_bvalid_s1}; 
 // spyglass enable_block W164a
@@ -2969,16 +3390,40 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign {blank_bvalid_s2 
+  , bvalid_s2_m2
   , bvalid_s2_m1
  } = {1'b0, sp_bvalid_s2}; 
 // spyglass enable_block W164a
 
 // --------------------------------------------------  
+// Connect slave port output signals, to individual    
+// per master port signals.                            
+// spyglass disable_block W164a
+// SMD: Identifies assignments in which the LHS width is less than the RHS width
+// SJ : This is not a functional issue, this is as per the requirement.
+//      Hence this can be waived.
+  assign {blank_bvalid_s3 
+  , bvalid_s3_m2
+  , bvalid_s3_m1
+ } = {1'b0, sp_bvalid_s3}; 
+// spyglass enable_block W164a
+
+// --------------------------------------------------  
 // Connect slave port wires to per master port wires.  
   assign {blank_arready_m1, bus_arready_m1} = {1'b0
+      ,(`miet_dw_axi_ic_AXI_AR_LAYER_S3_M1 ? arready_shrd_sp_m1 : arready_s3_m1)
       ,(`miet_dw_axi_ic_AXI_AR_LAYER_S2_M1 ? arready_shrd_sp_m1 : arready_s2_m1)
       ,(`miet_dw_axi_ic_AXI_AR_LAYER_S1_M1 ? arready_shrd_sp_m1 : arready_s1_m1)
       ,(`miet_dw_axi_ic_AXI_AR_LAYER_S0_M1 ? arready_shrd_sp_m1 : arready_s0_m1)
+};
+
+// --------------------------------------------------  
+// Connect slave port wires to per master port wires.  
+  assign {blank_arready_m2, bus_arready_m2} = {1'b0
+      ,(`miet_dw_axi_ic_AXI_AR_LAYER_S3_M2 ? arready_shrd_sp_m2 : arready_s3_m2)
+      ,(`miet_dw_axi_ic_AXI_AR_LAYER_S2_M2 ? arready_shrd_sp_m2 : arready_s2_m2)
+      ,(`miet_dw_axi_ic_AXI_AR_LAYER_S1_M2 ? arready_shrd_sp_m2 : arready_s1_m2)
+      ,(`miet_dw_axi_ic_AXI_AR_LAYER_S0_M2 ? arready_shrd_sp_m2 : arready_s0_m2)
 };
 
 // --------------------------------------------------  
@@ -2989,6 +3434,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign {blank_arready_s0 
+    , arready_s0_m2
     , arready_s0_m1
  } = {1'b0, bus_sp_arready_s0}; 
 // spyglass enable_block W164a
@@ -3001,6 +3447,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign {blank_arready_s1 
+    , arready_s1_m2
     , arready_s1_m1
  } = {1'b0, bus_sp_arready_s1}; 
 // spyglass enable_block W164a
@@ -3013,16 +3460,40 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign {blank_arready_s2 
+    , arready_s2_m2
     , arready_s2_m1
  } = {1'b0, bus_sp_arready_s2}; 
 // spyglass enable_block W164a
 
 // --------------------------------------------------  
+// Connect slave port output signals, to individual    
+// per master port signals.                            
+// spyglass disable_block W164a
+// SMD: Identifies assignments in which the LHS width is less than the RHS width
+// SJ : This is not a functional issue, this is as per the requirement.
+//      Hence this can be waived.
+  assign {blank_arready_s3 
+    , arready_s3_m2
+    , arready_s3_m1
+ } = {1'b0, bus_sp_arready_s3}; 
+// spyglass enable_block W164a
+
+// --------------------------------------------------  
 // Connect slave port wires to per master port wires.  
   assign {blank_awready_m1, bus_awready_m1} = {1'b0
+      ,(`miet_dw_axi_ic_AXI_AW_LAYER_S3_M1 ? awready_shrd_sp_m1 : awready_s3_m1)
       ,(`miet_dw_axi_ic_AXI_AW_LAYER_S2_M1 ? awready_shrd_sp_m1 : awready_s2_m1)
       ,(`miet_dw_axi_ic_AXI_AW_LAYER_S1_M1 ? awready_shrd_sp_m1 : awready_s1_m1)
       ,(`miet_dw_axi_ic_AXI_AW_LAYER_S0_M1 ? awready_shrd_sp_m1 : awready_s0_m1)
+};
+
+// --------------------------------------------------  
+// Connect slave port wires to per master port wires.  
+  assign {blank_awready_m2, bus_awready_m2} = {1'b0
+      ,(`miet_dw_axi_ic_AXI_AW_LAYER_S3_M2 ? awready_shrd_sp_m2 : awready_s3_m2)
+      ,(`miet_dw_axi_ic_AXI_AW_LAYER_S2_M2 ? awready_shrd_sp_m2 : awready_s2_m2)
+      ,(`miet_dw_axi_ic_AXI_AW_LAYER_S1_M2 ? awready_shrd_sp_m2 : awready_s1_m2)
+      ,(`miet_dw_axi_ic_AXI_AW_LAYER_S0_M2 ? awready_shrd_sp_m2 : awready_s0_m2)
 };
 
 // --------------------------------------------------  
@@ -3033,6 +3504,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign {blank_awready_s0 
+    , awready_s0_m2
     , awready_s0_m1
  } = {1'b0, bus_sp_awready_s0}; 
 // spyglass enable_block W164a
@@ -3045,6 +3517,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign {blank_awready_s1 
+    , awready_s1_m2
     , awready_s1_m1
  } = {1'b0, bus_sp_awready_s1}; 
 // spyglass enable_block W164a
@@ -3057,16 +3530,40 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign {blank_awready_s2 
+    , awready_s2_m2
     , awready_s2_m1
  } = {1'b0, bus_sp_awready_s2}; 
 // spyglass enable_block W164a
 
 // --------------------------------------------------  
+// Connect slave port output signals, to individual    
+// per master port signals.                            
+// spyglass disable_block W164a
+// SMD: Identifies assignments in which the LHS width is less than the RHS width
+// SJ : This is not a functional issue, this is as per the requirement.
+//      Hence this can be waived.
+  assign {blank_awready_s3 
+    , awready_s3_m2
+    , awready_s3_m1
+ } = {1'b0, bus_sp_awready_s3}; 
+// spyglass enable_block W164a
+
+// --------------------------------------------------  
 // Connect slave port wires to per master port wires.  
   assign {blank_wready_m1, bus_wready_m1} = {1'b0
+      ,(`miet_dw_axi_ic_AXI_W_LAYER_S3_M1 ? wready_shrd_sp_m1 : wready_s3_m1)
       ,(`miet_dw_axi_ic_AXI_W_LAYER_S2_M1 ? wready_shrd_sp_m1 : wready_s2_m1)
       ,(`miet_dw_axi_ic_AXI_W_LAYER_S1_M1 ? wready_shrd_sp_m1 : wready_s1_m1)
       ,(`miet_dw_axi_ic_AXI_W_LAYER_S0_M1 ? wready_shrd_sp_m1 : wready_s0_m1)
+};
+
+// --------------------------------------------------  
+// Connect slave port wires to per master port wires.  
+  assign {blank_wready_m2, bus_wready_m2} = {1'b0
+      ,(`miet_dw_axi_ic_AXI_W_LAYER_S3_M2 ? wready_shrd_sp_m2 : wready_s3_m2)
+      ,(`miet_dw_axi_ic_AXI_W_LAYER_S2_M2 ? wready_shrd_sp_m2 : wready_s2_m2)
+      ,(`miet_dw_axi_ic_AXI_W_LAYER_S1_M2 ? wready_shrd_sp_m2 : wready_s1_m2)
+      ,(`miet_dw_axi_ic_AXI_W_LAYER_S0_M2 ? wready_shrd_sp_m2 : wready_s0_m2)
 };
 
 // --------------------------------------------------  
@@ -3077,6 +3574,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign {blank_wready_s0 
+    , wready_s0_m2
     , wready_s0_m1
  } = {1'b0, bus_sp_wready_s0}; 
 // spyglass enable_block W164a
@@ -3089,6 +3587,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign {blank_wready_s1 
+    , wready_s1_m2
     , wready_s1_m1
  } = {1'b0, bus_sp_wready_s1}; 
 // spyglass enable_block W164a
@@ -3101,8 +3600,22 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign {blank_wready_s2 
+    , wready_s2_m2
     , wready_s2_m1
  } = {1'b0, bus_sp_wready_s2}; 
+// spyglass enable_block W164a
+
+// --------------------------------------------------  
+// Connect slave port output signals, to individual    
+// per master port signals.                            
+// spyglass disable_block W164a
+// SMD: Identifies assignments in which the LHS width is less than the RHS width
+// SJ : This is not a functional issue, this is as per the requirement.
+//      Hence this can be waived.
+  assign {blank_wready_s3 
+    , wready_s3_m2
+    , wready_s3_m1
+ } = {1'b0, bus_sp_wready_s3}; 
 // spyglass enable_block W164a
  
 // --------------------------------------------------  
@@ -3113,11 +3626,25 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
   wire dummy_bus_rpayload_m1;
  // Done to remove lint error STAR 9000441836
   assign {dummy_bus_rpayload_m1, bus_rpayload_m1} = { 1'b0
+    , rpayload_s3_m1
     , rpayload_s2_m1
     , rpayload_s1_m1
     , rpayload_s0_m1
  };
  
+// --------------------------------------------------  
+// Connect slave port wires to per master port wires.  
+// Shared layer always connects as most significant numbered slave.  
+// If BIDI is enabled, pass icm with payload to all dedicated master  
+// ports, they will strip off extra bits as required.
+  wire dummy_bus_rpayload_m2;
+ // Done to remove lint error STAR 9000441836
+  assign {dummy_bus_rpayload_m2, bus_rpayload_m2} = { 1'b0
+    , rpayload_s3_m2
+    , rpayload_s2_m2
+    , rpayload_s1_m2
+    , rpayload_s0_m2
+ };
  
  
  
@@ -3140,6 +3667,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign {blank_rpayload_s0 
+    , rpayload_s0_m2
     , rpayload_s0_m1
  } = {1'b0, {`miet_dw_axi_ic_AXI_NUM_MASTERS{sp_rpayload_s0}}}; 
 // spyglass enable_block W164a
@@ -3151,6 +3679,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign {blank_rpayload_s1 
+    , rpayload_s1_m2
     , rpayload_s1_m1
  } = {1'b0, {`miet_dw_axi_ic_AXI_NUM_MASTERS{sp_rpayload_s1}}}; 
 // spyglass enable_block W164a
@@ -3162,8 +3691,21 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign {blank_rpayload_s2 
+    , rpayload_s2_m2
     , rpayload_s2_m1
  } = {1'b0, {`miet_dw_axi_ic_AXI_NUM_MASTERS{sp_rpayload_s2}}}; 
+// spyglass enable_block W164a
+// --------------------------------------------------  
+// Connect slave port output signals, to individual    
+// per master port signals.                            
+// spyglass disable_block W164a
+// SMD: Identifies assignments in which the LHS width is less than the RHS width
+// SJ : This is not a functional issue, this is as per the requirement.
+//      Hence this can be waived.
+  assign {blank_rpayload_s3 
+    , rpayload_s3_m2
+    , rpayload_s3_m1
+ } = {1'b0, {`miet_dw_axi_ic_AXI_NUM_MASTERS{sp_rpayload_s3}}}; 
 // spyglass enable_block W164a
  
 // --------------------------------------------------  
@@ -3174,11 +3716,25 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
   wire dummy_bus_bpayload_m1;
  // Done to remove lint error STAR 9000441836
   assign {dummy_bus_bpayload_m1, bus_bpayload_m1} = { 1'b0
+    , bpayload_s3_m1
     , bpayload_s2_m1
     , bpayload_s1_m1
     , bpayload_s0_m1
  };
  
+// --------------------------------------------------  
+// Connect slave port wires to per master port wires.  
+// Shared layer always connects as most significant numbered slave.  
+// If BIDI is enabled, pass icm with payload to all dedicated master  
+// ports, they will strip off extra bits as required.
+  wire dummy_bus_bpayload_m2;
+ // Done to remove lint error STAR 9000441836
+  assign {dummy_bus_bpayload_m2, bus_bpayload_m2} = { 1'b0
+    , bpayload_s3_m2
+    , bpayload_s2_m2
+    , bpayload_s1_m2
+    , bpayload_s0_m2
+ };
  
  
  
@@ -3201,6 +3757,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign {blank_bpayload_s0 
+    , bpayload_s0_m2
     , bpayload_s0_m1
  } = {1'b0, {`miet_dw_axi_ic_AXI_NUM_MASTERS{sp_bpayload_s0}}}; 
 // spyglass enable_block W164a
@@ -3212,6 +3769,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign {blank_bpayload_s1 
+    , bpayload_s1_m2
     , bpayload_s1_m1
  } = {1'b0, {`miet_dw_axi_ic_AXI_NUM_MASTERS{sp_bpayload_s1}}}; 
 // spyglass enable_block W164a
@@ -3223,8 +3781,21 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign {blank_bpayload_s2 
+    , bpayload_s2_m2
     , bpayload_s2_m1
  } = {1'b0, {`miet_dw_axi_ic_AXI_NUM_MASTERS{sp_bpayload_s2}}}; 
+// spyglass enable_block W164a
+// --------------------------------------------------  
+// Connect slave port output signals, to individual    
+// per master port signals.                            
+// spyglass disable_block W164a
+// SMD: Identifies assignments in which the LHS width is less than the RHS width
+// SJ : This is not a functional issue, this is as per the requirement.
+//      Hence this can be waived.
+  assign {blank_bpayload_s3 
+    , bpayload_s3_m2
+    , bpayload_s3_m1
+ } = {1'b0, {`miet_dw_axi_ic_AXI_NUM_MASTERS{sp_bpayload_s3}}}; 
 // spyglass enable_block W164a
 
 
@@ -3232,6 +3803,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // Connect master port wires to per slave port wires.  
   assign {blank_arvalid_s0, bus_arvalid_s0} = {
      1'b0
+      , arvalid_s0_m2
       , arvalid_s0_m1
 };
 
@@ -3240,6 +3812,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // Connect master port wires to per slave port wires.  
   assign {blank_arvalid_s1, bus_arvalid_s1} = {
      1'b0
+      , arvalid_s1_m2
       , arvalid_s1_m1
 };
 
@@ -3248,9 +3821,18 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // Connect master port wires to per slave port wires.  
   assign {blank_arvalid_s2, bus_arvalid_s2} = {
      1'b0
+      , arvalid_s2_m2
       , arvalid_s2_m1
 };
 
+
+// --------------------------------------------------  
+// Connect master port wires to per slave port wires.  
+  assign {blank_arvalid_s3, bus_arvalid_s3} = {
+     1'b0
+      , arvalid_s3_m2
+      , arvalid_s3_m1
+};
 
 
 
@@ -3274,12 +3856,28 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign { blank_arvalid_m1
+  , arvalid_s3_m1
   , arvalid_s2_m1
   , arvalid_s1_m1
   , arvalid_s0_m1
   } = {1'b0, {{mp_arvalid_m1}}};
 // spyglass enable_block W164a
 
+
+// --------------------------------------------------  
+// Connect master port output signals, to individual   
+// per slave port signals.                             
+// spyglass disable_block W164a
+// SMD: Identifies assignments in which the LHS width is less than the RHS width
+// SJ : This is not a functional issue, this is as per the requirement.
+//      Hence this can be waived.
+  assign { blank_arvalid_m2
+  , arvalid_s3_m2
+  , arvalid_s2_m2
+  , arvalid_s1_m2
+  , arvalid_s0_m2
+  } = {1'b0, {{mp_arvalid_m2}}};
+// spyglass enable_block W164a
 
 
 
@@ -3300,6 +3898,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // Connect master port wires to per slave port wires.  
   assign {blank_arpayload_s0, bus_arpayload_s0} = {
      1'b0
+      , arpayload_s0_m2
       , arpayload_s0_m1
 };
 
@@ -3308,6 +3907,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // Connect master port wires to per slave port wires.  
   assign {blank_arpayload_s1, bus_arpayload_s1} = {
      1'b0
+      , arpayload_s1_m2
       , arpayload_s1_m1
 };
 
@@ -3316,9 +3916,18 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // Connect master port wires to per slave port wires.  
   assign {blank_arpayload_s2, bus_arpayload_s2} = {
      1'b0
+      , arpayload_s2_m2
       , arpayload_s2_m1
 };
 
+
+// --------------------------------------------------  
+// Connect master port wires to per slave port wires.  
+  assign {blank_arpayload_s3, bus_arpayload_s3} = {
+     1'b0
+      , arpayload_s3_m2
+      , arpayload_s3_m1
+};
 
 
 
@@ -3342,12 +3951,28 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign { blank_arpayload_m1
+  , arpayload_s3_m1
   , arpayload_s2_m1
   , arpayload_s1_m1
   , arpayload_s0_m1
   } = {1'b0, {`miet_dw_axi_ic_AXI_NSP1V_M1{mp_arpayload_m1}}};
 // spyglass enable_block W164a
 
+
+// --------------------------------------------------  
+// Connect master port output signals, to individual   
+// per slave port signals.                             
+// spyglass disable_block W164a
+// SMD: Identifies assignments in which the LHS width is less than the RHS width
+// SJ : This is not a functional issue, this is as per the requirement.
+//      Hence this can be waived.
+  assign { blank_arpayload_m2
+  , arpayload_s3_m2
+  , arpayload_s2_m2
+  , arpayload_s1_m2
+  , arpayload_s0_m2
+  } = {1'b0, {`miet_dw_axi_ic_AXI_NSP1V_M2{mp_arpayload_m2}}};
+// spyglass enable_block W164a
 
 
 
@@ -3401,6 +4026,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // Connect master port wires to per slave port wires.  
   assign {blank_rready_s0, bus_rready_s0} = {
      1'b0
+      , (`miet_dw_axi_ic_AXI_R_LAYER_M2_S0 ? rready_shrd_mp_s0 : rready_s0_m2)
       , (`miet_dw_axi_ic_AXI_R_LAYER_M1_S0 ? rready_shrd_mp_s0 : rready_s0_m1)
 };
 
@@ -3409,6 +4035,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // Connect master port wires to per slave port wires.  
   assign {blank_rready_s1, bus_rready_s1} = {
      1'b0
+      , (`miet_dw_axi_ic_AXI_R_LAYER_M2_S1 ? rready_shrd_mp_s1 : rready_s1_m2)
       , (`miet_dw_axi_ic_AXI_R_LAYER_M1_S1 ? rready_shrd_mp_s1 : rready_s1_m1)
 };
 
@@ -3417,9 +4044,18 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // Connect master port wires to per slave port wires.  
   assign {blank_rready_s2, bus_rready_s2} = {
      1'b0
+      , (`miet_dw_axi_ic_AXI_R_LAYER_M2_S2 ? rready_shrd_mp_s2 : rready_s2_m2)
       , (`miet_dw_axi_ic_AXI_R_LAYER_M1_S2 ? rready_shrd_mp_s2 : rready_s2_m1)
 };
 
+
+// --------------------------------------------------  
+// Connect master port wires to per slave port wires.  
+  assign {blank_rready_s3, bus_rready_s3} = {
+     1'b0
+      , (`miet_dw_axi_ic_AXI_R_LAYER_M2_S3 ? rready_shrd_mp_s3 : rready_s3_m2)
+      , (`miet_dw_axi_ic_AXI_R_LAYER_M1_S3 ? rready_shrd_mp_s3 : rready_s3_m1)
+};
 
 
 
@@ -3443,12 +4079,28 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign { blank_rready_m1
+    , rready_s3_m1
     , rready_s2_m1
     , rready_s1_m1
     , rready_s0_m1
   } = {1'b0, {bus_mp_rready_m1}};
 // spyglass enable_block W164a
 
+
+// --------------------------------------------------  
+// Connect master port output signals, to individual   
+// per slave port signals.                             
+// spyglass disable_block W164a
+// SMD: Identifies assignments in which the LHS width is less than the RHS width
+// SJ : This is not a functional issue, this is as per the requirement.
+//      Hence this can be waived.
+  assign { blank_rready_m2
+    , rready_s3_m2
+    , rready_s2_m2
+    , rready_s1_m2
+    , rready_s0_m2
+  } = {1'b0, {bus_mp_rready_m2}};
+// spyglass enable_block W164a
 
 
 
@@ -3469,6 +4121,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // Connect master port wires to per slave port wires.  
   assign {blank_awvalid_s0, bus_awvalid_s0} = {
      1'b0
+      , awvalid_s0_m2
       , awvalid_s0_m1
 };
 
@@ -3477,6 +4130,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // Connect master port wires to per slave port wires.  
   assign {blank_awvalid_s1, bus_awvalid_s1} = {
      1'b0
+      , awvalid_s1_m2
       , awvalid_s1_m1
 };
 
@@ -3485,9 +4139,18 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // Connect master port wires to per slave port wires.  
   assign {blank_awvalid_s2, bus_awvalid_s2} = {
      1'b0
+      , awvalid_s2_m2
       , awvalid_s2_m1
 };
 
+
+// --------------------------------------------------  
+// Connect master port wires to per slave port wires.  
+  assign {blank_awvalid_s3, bus_awvalid_s3} = {
+     1'b0
+      , awvalid_s3_m2
+      , awvalid_s3_m1
+};
 
 
 
@@ -3511,12 +4174,28 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign { blank_awvalid_m1
+  , awvalid_s3_m1
   , awvalid_s2_m1
   , awvalid_s1_m1
   , awvalid_s0_m1
   } = {1'b0, {{mp_awvalid_m1}}};
 // spyglass enable_block W164a
 
+
+// --------------------------------------------------  
+// Connect master port output signals, to individual   
+// per slave port signals.                             
+// spyglass disable_block W164a
+// SMD: Identifies assignments in which the LHS width is less than the RHS width
+// SJ : This is not a functional issue, this is as per the requirement.
+//      Hence this can be waived.
+  assign { blank_awvalid_m2
+  , awvalid_s3_m2
+  , awvalid_s2_m2
+  , awvalid_s1_m2
+  , awvalid_s0_m2
+  } = {1'b0, {{mp_awvalid_m2}}};
+// spyglass enable_block W164a
 
 
 
@@ -3537,6 +4216,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // Connect master port wires to per slave port wires.  
   assign {blank_awpayload_s0, bus_awpayload_s0} = {
      1'b0
+      , awpayload_s0_m2
       , awpayload_s0_m1
 };
 
@@ -3545,6 +4225,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // Connect master port wires to per slave port wires.  
   assign {blank_awpayload_s1, bus_awpayload_s1} = {
      1'b0
+      , awpayload_s1_m2
       , awpayload_s1_m1
 };
 
@@ -3553,9 +4234,18 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // Connect master port wires to per slave port wires.  
   assign {blank_awpayload_s2, bus_awpayload_s2} = {
      1'b0
+      , awpayload_s2_m2
       , awpayload_s2_m1
 };
 
+
+// --------------------------------------------------  
+// Connect master port wires to per slave port wires.  
+  assign {blank_awpayload_s3, bus_awpayload_s3} = {
+     1'b0
+      , awpayload_s3_m2
+      , awpayload_s3_m1
+};
 
 
 
@@ -3579,12 +4269,28 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign { blank_awpayload_m1
+  , awpayload_s3_m1
   , awpayload_s2_m1
   , awpayload_s1_m1
   , awpayload_s0_m1
   } = {1'b0, {`miet_dw_axi_ic_AXI_NSP1V_M1{mp_awpayload_m1}}};
 // spyglass enable_block W164a
 
+
+// --------------------------------------------------  
+// Connect master port output signals, to individual   
+// per slave port signals.                             
+// spyglass disable_block W164a
+// SMD: Identifies assignments in which the LHS width is less than the RHS width
+// SJ : This is not a functional issue, this is as per the requirement.
+//      Hence this can be waived.
+  assign { blank_awpayload_m2
+  , awpayload_s3_m2
+  , awpayload_s2_m2
+  , awpayload_s1_m2
+  , awpayload_s0_m2
+  } = {1'b0, {`miet_dw_axi_ic_AXI_NSP1V_M2{mp_awpayload_m2}}};
+// spyglass enable_block W164a
 
 
 
@@ -3638,6 +4344,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // Connect master port wires to per slave port wires.  
   assign {blank_wvalid_s0, bus_wvalid_s0} = {
      1'b0
+      , wvalid_s0_m2
       , wvalid_s0_m1
 };
 
@@ -3646,6 +4353,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // Connect master port wires to per slave port wires.  
   assign {blank_wvalid_s1, bus_wvalid_s1} = {
      1'b0
+      , wvalid_s1_m2
       , wvalid_s1_m1
 };
 
@@ -3654,9 +4362,18 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // Connect master port wires to per slave port wires.  
   assign {blank_wvalid_s2, bus_wvalid_s2} = {
      1'b0
+      , wvalid_s2_m2
       , wvalid_s2_m1
 };
 
+
+// --------------------------------------------------  
+// Connect master port wires to per slave port wires.  
+  assign {blank_wvalid_s3, bus_wvalid_s3} = {
+     1'b0
+      , wvalid_s3_m2
+      , wvalid_s3_m1
+};
 
 
 
@@ -3680,12 +4397,28 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign { blank_wvalid_m1
+  , wvalid_s3_m1
   , wvalid_s2_m1
   , wvalid_s1_m1
   , wvalid_s0_m1
   } = {1'b0, {{mp_wvalid_m1}}};
 // spyglass enable_block W164a
 
+
+// --------------------------------------------------  
+// Connect master port output signals, to individual   
+// per slave port signals.                             
+// spyglass disable_block W164a
+// SMD: Identifies assignments in which the LHS width is less than the RHS width
+// SJ : This is not a functional issue, this is as per the requirement.
+//      Hence this can be waived.
+  assign { blank_wvalid_m2
+  , wvalid_s3_m2
+  , wvalid_s2_m2
+  , wvalid_s1_m2
+  , wvalid_s0_m2
+  } = {1'b0, {{mp_wvalid_m2}}};
+// spyglass enable_block W164a
 
 
 
@@ -3706,6 +4439,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // Connect master port wires to per slave port wires.  
   assign {blank_wpayload_s0, bus_wpayload_s0} = {
      1'b0
+      , wpayload_s0_m2
       , wpayload_s0_m1
 };
 
@@ -3714,6 +4448,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // Connect master port wires to per slave port wires.  
   assign {blank_wpayload_s1, bus_wpayload_s1} = {
      1'b0
+      , wpayload_s1_m2
       , wpayload_s1_m1
 };
 
@@ -3722,9 +4457,18 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // Connect master port wires to per slave port wires.  
   assign {blank_wpayload_s2, bus_wpayload_s2} = {
      1'b0
+      , wpayload_s2_m2
       , wpayload_s2_m1
 };
 
+
+// --------------------------------------------------  
+// Connect master port wires to per slave port wires.  
+  assign {blank_wpayload_s3, bus_wpayload_s3} = {
+     1'b0
+      , wpayload_s3_m2
+      , wpayload_s3_m1
+};
 
 
 
@@ -3748,12 +4492,28 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign { blank_wpayload_m1
+  , wpayload_s3_m1
   , wpayload_s2_m1
   , wpayload_s1_m1
   , wpayload_s0_m1
   } = {1'b0, {`miet_dw_axi_ic_AXI_NSP1V_M1{mp_wpayload_m1}}};
 // spyglass enable_block W164a
 
+
+// --------------------------------------------------  
+// Connect master port output signals, to individual   
+// per slave port signals.                             
+// spyglass disable_block W164a
+// SMD: Identifies assignments in which the LHS width is less than the RHS width
+// SJ : This is not a functional issue, this is as per the requirement.
+//      Hence this can be waived.
+  assign { blank_wpayload_m2
+  , wpayload_s3_m2
+  , wpayload_s2_m2
+  , wpayload_s1_m2
+  , wpayload_s0_m2
+  } = {1'b0, {`miet_dw_axi_ic_AXI_NSP1V_M2{mp_wpayload_m2}}};
+// spyglass enable_block W164a
 
 
 
@@ -3774,6 +4534,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // Connect master port wires to per slave port wires.  
   assign {blank_bready_s0, bus_bready_s0} = {
      1'b0
+      , (`miet_dw_axi_ic_AXI_B_LAYER_M2_S0 ? bready_shrd_mp_s0 : bready_s0_m2)
       , (`miet_dw_axi_ic_AXI_B_LAYER_M1_S0 ? bready_shrd_mp_s0 : bready_s0_m1)
 };
 
@@ -3782,6 +4543,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // Connect master port wires to per slave port wires.  
   assign {blank_bready_s1, bus_bready_s1} = {
      1'b0
+      , (`miet_dw_axi_ic_AXI_B_LAYER_M2_S1 ? bready_shrd_mp_s1 : bready_s1_m2)
       , (`miet_dw_axi_ic_AXI_B_LAYER_M1_S1 ? bready_shrd_mp_s1 : bready_s1_m1)
 };
 
@@ -3790,9 +4552,18 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // Connect master port wires to per slave port wires.  
   assign {blank_bready_s2, bus_bready_s2} = {
      1'b0
+      , (`miet_dw_axi_ic_AXI_B_LAYER_M2_S2 ? bready_shrd_mp_s2 : bready_s2_m2)
       , (`miet_dw_axi_ic_AXI_B_LAYER_M1_S2 ? bready_shrd_mp_s2 : bready_s2_m1)
 };
 
+
+// --------------------------------------------------  
+// Connect master port wires to per slave port wires.  
+  assign {blank_bready_s3, bus_bready_s3} = {
+     1'b0
+      , (`miet_dw_axi_ic_AXI_B_LAYER_M2_S3 ? bready_shrd_mp_s3 : bready_s3_m2)
+      , (`miet_dw_axi_ic_AXI_B_LAYER_M1_S3 ? bready_shrd_mp_s3 : bready_s3_m1)
+};
 
 
 
@@ -3816,12 +4587,28 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 // SJ : This is not a functional issue, this is as per the requirement.
 //      Hence this can be waived.
   assign { blank_bready_m1
+    , bready_s3_m1
     , bready_s2_m1
     , bready_s1_m1
     , bready_s0_m1
   } = {1'b0, {bus_mp_bready_m1}};
 // spyglass enable_block W164a
 
+
+// --------------------------------------------------  
+// Connect master port output signals, to individual   
+// per slave port signals.                             
+// spyglass disable_block W164a
+// SMD: Identifies assignments in which the LHS width is less than the RHS width
+// SJ : This is not a functional issue, this is as per the requirement.
+//      Hence this can be waived.
+  assign { blank_bready_m2
+    , bready_s3_m2
+    , bready_s2_m2
+    , bready_s1_m2
+    , bready_s0_m2
+  } = {1'b0, {bus_mp_bready_m2}};
+// spyglass enable_block W164a
 
 
 
@@ -4006,6 +4793,58 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
     bid_m1,    bresp_m1 }  = `miet_dw_axi_ic_AXI_M1_ON_B_SHARED_ONLY_VAL ? (`miet_dw_axi_ic_AXI_IS_ICM_M1 ? bpayload_icm_shrd : bpayload_shrd) : bpayload_m1;
 // spyglass enable_block W164a
 // spyglass enable_block W164b
+ 
+ wire     [`miet_dw_axi_ic_AXI_QOSW-1:0]        arqos_m2_reg;
+ wire     [`miet_dw_axi_ic_AXI_QOSW-1:0]        arqos_m2_r;
+ wire     [`miet_dw_axi_ic_AXI_QOSW-1:0]        arqos_m2_q;
+ 
+ 
+  assign arpayload_m2 = {
+   arid_m2,
+   araddr_m2,
+   arlen_m2,
+   arsize_m2,
+   arburst_m2,
+   arlock_m2,
+   arcache_m2,
+    arprot_m2 };
+ wire    [`miet_dw_axi_ic_AXI_QOSW-1:0]        awqos_m2_reg;
+ wire    [`miet_dw_axi_ic_AXI_QOSW-1:0]        awqos_m2_r;
+ wire    [`miet_dw_axi_ic_AXI_QOSW-1:0]        awqos_m2_q;
+ 
+ 
+  assign awpayload_m2 = {
+   awid_m2,
+   awaddr_m2,
+   awlen_m2,
+   awsize_m2,
+   awburst_m2,
+   awlock_m2,
+   awcache_m2,
+    awprot_m2 };
+  assign wpayload_m2 = {
+ {`miet_dw_axi_ic_AXI_IDW_M2{1'b0}}, //AXI 4 mode - WID is removed however assigned all bits 0 to kept the payload size intact. 
+    wdata_m2,    wstrb_m2,    wlast_m2 };
+// spyglass disable_block W164b
+// SMD: Identifies assignments in which the LHS width is greater than the RHS width
+// SJ : This is not a functional issue, this is as per the requirement.
+// spyglass disable_block W164a
+// SMD: Identifies assignments in which the LHS width is less than the RHS width
+// SJ : This is not a functional issue, this is as per the requirement.
+  assign {
+    rid_m2,    rdata_m2,    rresp_m2,    rlast_m2 }  = `miet_dw_axi_ic_AXI_M2_ON_R_SHARED_ONLY_VAL ? (`miet_dw_axi_ic_AXI_IS_ICM_M2 ? rpayload_icm_shrd : rpayload_shrd) : rpayload_m2;
+// spyglass enable_block W164a
+// spyglass enable_block W164b
+// spyglass disable_block W164b
+// SMD: Identifies assignments in which the LHS width is greater than the RHS width
+// SJ : This is not a functional issue, this is as per the requirement.
+// spyglass disable_block W164a
+// SMD: Identifies assignments in which the LHS width is less than the RHS width
+// SJ : This is not a functional issue, this is as per the requirement.
+  assign {
+    bid_m2,    bresp_m2 }  = `miet_dw_axi_ic_AXI_M2_ON_B_SHARED_ONLY_VAL ? (`miet_dw_axi_ic_AXI_IS_ICM_M2 ? bpayload_icm_shrd : bpayload_shrd) : bpayload_m2;
+// spyglass enable_block W164a
+// spyglass enable_block W164b
 
 // spyglass disable_block W164a
 // SMD: Identifies assignments in which the LHS width is less than the RHS width
@@ -4089,74 +4928,145 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 
   assign bpayload_s2 = {
     bid_s2,    bresp_s2 };
+
+  assign {
+// spyglass disable_block W164a
+// SMD: Identifies assignments in which the LHS width is less than the RHS width
+// SJ : This is not a functional issue, this is as per the requirement.
+    arid_s3,    araddr_s3,    arlen_s3,    arsize_s3,    arburst_s3,    arlock_s3,    arcache_s3,    arprot_s3 }  = `miet_dw_axi_ic_AXI_S3_ON_AR_SHARED_ONLY_VAL ? arpayload_shrd : arpayload_s3;
+// spyglass enable_block W164a
+
+  assign {
+// spyglass disable_block W164a
+// SMD: Identifies assignments in which the LHS width is less than the RHS width
+// SJ : This is not a functional issue, this is as per the requirement.
+    awid_s3,    awaddr_s3,    awlen_s3,    awsize_s3,    awburst_s3,    awlock_s3,    awcache_s3,    awprot_s3 }  = `miet_dw_axi_ic_AXI_S3_ON_AW_SHARED_ONLY_VAL ? awpayload_shrd : awpayload_s3;
+// spyglass enable_block W164a
+
+// spyglass disable_block W164a
+// SMD: Identifies assignments in which the LHS width is less than the RHS width
+// SJ : This is not a functional issue, this is as per the requirement.
+ wire [`miet_dw_axi_ic_AXI_SIDW-1:0]   wid_s3; 
+  assign {
+    wid_s3,    wdata_s3,    wstrb_s3,    wlast_s3 }  = `miet_dw_axi_ic_AXI_S3_ON_W_SHARED_ONLY_VAL ? wpayload_shrd : wpayload_s3;
+// spyglass enable_block W164a
+
+  assign rpayload_s3 = {
+    rid_s3,    rdata_s3,    rresp_s3,    rlast_s3 };
+
+  assign bpayload_s3 = {
+    bid_s3,    bresp_s3 };
     wire [`miet_dw_axi_ic_AXI_SLV_PRIORITY_W-1:0] priority_s0;
     assign priority_s0 = 0;
     wire [`miet_dw_axi_ic_AXI_SLV_PRIORITY_W-1:0] priority_s1;
    assign priority_s1 = `miet_dw_axi_ic_AXI_PRIORITY_S1;
     wire [`miet_dw_axi_ic_AXI_SLV_PRIORITY_W-1:0] priority_s2;
    assign priority_s2 = `miet_dw_axi_ic_AXI_PRIORITY_S2;
+    wire [`miet_dw_axi_ic_AXI_SLV_PRIORITY_W-1:0] priority_s3;
+   assign priority_s3 = `miet_dw_axi_ic_AXI_PRIORITY_S3;
 
     wire [`miet_dw_axi_ic_AXI_MST_PRIORITY_W-1:0] priority_m1;
    assign priority_m1 = `miet_dw_axi_ic_AXI_PRIORITY_M1;
+    wire [`miet_dw_axi_ic_AXI_MST_PRIORITY_W-1:0] priority_m2;
+   assign priority_m2 = `miet_dw_axi_ic_AXI_PRIORITY_M2;
 
  
   wire [(`miet_dw_axi_ic_AXI_MST_PRIORITY_W*`miet_dw_axi_ic_AXI_AR_S0_NMV)-1:0] ar_bus_mst_priorities_s0;
   wire ar_blank_priority_s0;
   //Done to remove lint error STAR 9000441836
   assign {ar_blank_priority_s0, ar_bus_mst_priorities_s0} = {1'b0
+      , priority_m2
       , priority_m1
   };
   wire [(`miet_dw_axi_ic_AXI_MST_PRIORITY_W*`miet_dw_axi_ic_AXI_AR_S1_NMV)-1:0] ar_bus_mst_priorities_s1;
   wire ar_blank_priority_s1;
   //Done to remove lint error STAR 9000441836
   assign {ar_blank_priority_s1, ar_bus_mst_priorities_s1} = {1'b0
+      , priority_m2
       , priority_m1
   };
   wire [(`miet_dw_axi_ic_AXI_MST_PRIORITY_W*`miet_dw_axi_ic_AXI_AR_S2_NMV)-1:0] ar_bus_mst_priorities_s2;
   wire ar_blank_priority_s2;
   //Done to remove lint error STAR 9000441836
   assign {ar_blank_priority_s2, ar_bus_mst_priorities_s2} = {1'b0
+      , priority_m2
+      , priority_m1
+  };
+  wire [(`miet_dw_axi_ic_AXI_MST_PRIORITY_W*`miet_dw_axi_ic_AXI_AR_S3_NMV)-1:0] ar_bus_mst_priorities_s3;
+  wire ar_blank_priority_s3;
+  //Done to remove lint error STAR 9000441836
+  assign {ar_blank_priority_s3, ar_bus_mst_priorities_s3} = {1'b0
+      , priority_m2
       , priority_m1
   };
   wire [(`miet_dw_axi_ic_AXI_MST_PRIORITY_W*`miet_dw_axi_ic_AXI_AW_S0_NMV)-1:0] aw_bus_mst_priorities_s0;
   wire aw_blank_priority_s0;
   //Done to remove lint error STAR 9000441836
   assign {aw_blank_priority_s0, aw_bus_mst_priorities_s0} = {1'b0
+      , priority_m2
       , priority_m1
   };
   wire [(`miet_dw_axi_ic_AXI_MST_PRIORITY_W*`miet_dw_axi_ic_AXI_AW_S1_NMV)-1:0] aw_bus_mst_priorities_s1;
   wire aw_blank_priority_s1;
   //Done to remove lint error STAR 9000441836
   assign {aw_blank_priority_s1, aw_bus_mst_priorities_s1} = {1'b0
+      , priority_m2
       , priority_m1
   };
   wire [(`miet_dw_axi_ic_AXI_MST_PRIORITY_W*`miet_dw_axi_ic_AXI_AW_S2_NMV)-1:0] aw_bus_mst_priorities_s2;
   wire aw_blank_priority_s2;
   //Done to remove lint error STAR 9000441836
   assign {aw_blank_priority_s2, aw_bus_mst_priorities_s2} = {1'b0
+      , priority_m2
+      , priority_m1
+  };
+  wire [(`miet_dw_axi_ic_AXI_MST_PRIORITY_W*`miet_dw_axi_ic_AXI_AW_S3_NMV)-1:0] aw_bus_mst_priorities_s3;
+  wire aw_blank_priority_s3;
+  //Done to remove lint error STAR 9000441836
+  assign {aw_blank_priority_s3, aw_bus_mst_priorities_s3} = {1'b0
+      , priority_m2
       , priority_m1
   };
   wire [(`miet_dw_axi_ic_AXI_MST_PRIORITY_W*`miet_dw_axi_ic_AXI_W_S0_NMV)-1:0] w_bus_mst_priorities_s0;
   wire w_blank_priority_s0;
   //Done to remove lint error STAR 9000441836
   assign {w_blank_priority_s0, w_bus_mst_priorities_s0} = {1'b0
+      , priority_m2
       , priority_m1
   };
   wire [(`miet_dw_axi_ic_AXI_MST_PRIORITY_W*`miet_dw_axi_ic_AXI_W_S1_NMV)-1:0] w_bus_mst_priorities_s1;
   wire w_blank_priority_s1;
   //Done to remove lint error STAR 9000441836
   assign {w_blank_priority_s1, w_bus_mst_priorities_s1} = {1'b0
+      , priority_m2
       , priority_m1
   };
   wire [(`miet_dw_axi_ic_AXI_MST_PRIORITY_W*`miet_dw_axi_ic_AXI_W_S2_NMV)-1:0] w_bus_mst_priorities_s2;
   wire w_blank_priority_s2;
   //Done to remove lint error STAR 9000441836
   assign {w_blank_priority_s2, w_bus_mst_priorities_s2} = {1'b0
+      , priority_m2
+      , priority_m1
+  };
+  wire [(`miet_dw_axi_ic_AXI_MST_PRIORITY_W*`miet_dw_axi_ic_AXI_W_S3_NMV)-1:0] w_bus_mst_priorities_s3;
+  wire w_blank_priority_s3;
+  //Done to remove lint error STAR 9000441836
+  assign {w_blank_priority_s3, w_bus_mst_priorities_s3} = {1'b0
+      , priority_m2
       , priority_m1
   };
   wire [(`miet_dw_axi_ic_AXI_SLV_PRIORITY_W*`miet_dw_axi_ic_AXI_R_M1_NSV)-1:0] r_bus_slv_priorities_m1;
   wire r_blank_priority_m1;
   assign {r_blank_priority_m1,r_bus_slv_priorities_m1} = {1'b0
+        , priority_s3
+        , priority_s2
+        , priority_s1
+        , priority_s0
+ };
+  wire [(`miet_dw_axi_ic_AXI_SLV_PRIORITY_W*`miet_dw_axi_ic_AXI_R_M2_NSV)-1:0] r_bus_slv_priorities_m2;
+  wire r_blank_priority_m2;
+  assign {r_blank_priority_m2,r_bus_slv_priorities_m2} = {1'b0
+        , priority_s3
         , priority_s2
         , priority_s1
         , priority_s0
@@ -4164,6 +5074,15 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
   wire [(`miet_dw_axi_ic_AXI_SLV_PRIORITY_W*`miet_dw_axi_ic_AXI_B_M1_NSV)-1:0] b_bus_slv_priorities_m1;
   wire b_blank_priority_m1;
   assign {b_blank_priority_m1,b_bus_slv_priorities_m1} = {1'b0
+        , priority_s3
+        , priority_s2
+        , priority_s1
+        , priority_s0
+ };
+  wire [(`miet_dw_axi_ic_AXI_SLV_PRIORITY_W*`miet_dw_axi_ic_AXI_B_M2_NSV)-1:0] b_bus_slv_priorities_m2;
+  wire b_blank_priority_m2;
+  assign {b_blank_priority_m2,b_bus_slv_priorities_m2} = {1'b0
+        , priority_s3
         , priority_s2
         , priority_s1
         , priority_s0
@@ -4179,6 +5098,9 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 
   // Select between shared and dedicated channel valid signals for
   // each slave.
+       assign arvalid_s3 = `miet_dw_axi_ic_AXI_S3_ON_AR_SHARED_ONLY_VAL
+                                 ? arvalid_shrd_s3 
+                                 : arvalid_ddctd_s3;
        assign arvalid_s2 = `miet_dw_axi_ic_AXI_S2_ON_AR_SHARED_ONLY_VAL
                                  ? arvalid_shrd_s2 
                                  : arvalid_ddctd_s2;
@@ -4243,6 +5165,9 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 
   // Select between shared and dedicated channel valid signals for
   // each slave.
+       assign awvalid_s3 = `miet_dw_axi_ic_AXI_S3_ON_AW_SHARED_ONLY_VAL
+                                 ? awvalid_shrd_s3 
+                                 : awvalid_ddctd_s3;
        assign awvalid_s2 = `miet_dw_axi_ic_AXI_S2_ON_AW_SHARED_ONLY_VAL
                                  ? awvalid_shrd_s2 
                                  : awvalid_ddctd_s2;
@@ -4256,6 +5181,9 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
 
   // Select between shared and dedicated channel valid signals for
   // each slave.
+       assign wvalid_s3 = `miet_dw_axi_ic_AXI_S3_ON_W_SHARED_ONLY_VAL
+                                 ? wvalid_shrd_s3 
+                                 : wvalid_ddctd_s3;
        assign wvalid_s2 = `miet_dw_axi_ic_AXI_S2_ON_W_SHARED_ONLY_VAL
                                  ? wvalid_shrd_s2 
                                  : wvalid_ddctd_s2;
@@ -4283,6 +5211,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
   // SJ : This is not a functional issue, this is as per the requirement.
   //      Hence this can be waived.
   assign {issued_wtx_mst_oh_dummy1_s0
+    , issued_wtx_mst_sys_oh_s0[1]
     , issued_wtx_mst_sys_oh_s0[0]
  } = issued_wtx_mst_oh_o_s0;
   // spyglass enable_block W164b
@@ -4296,6 +5225,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
   // SJ : This is not a functional issue, this is as per the requirement.
   //      Hence this can be waived.
   assign {issued_wtx_mst_oh_dummy1_s1
+    , issued_wtx_mst_sys_oh_s1[1]
     , issued_wtx_mst_sys_oh_s1[0]
  } = issued_wtx_mst_oh_o_s1;
   // spyglass enable_block W164b
@@ -4309,14 +5239,30 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
   // SJ : This is not a functional issue, this is as per the requirement.
   //      Hence this can be waived.
   assign {issued_wtx_mst_oh_dummy1_s2
+    , issued_wtx_mst_sys_oh_s2[1]
     , issued_wtx_mst_sys_oh_s2[0]
  } = issued_wtx_mst_oh_o_s2;
+  // spyglass enable_block W164b
+ 
+//Done to remove lint error STAR 9000441836:
+  // Translate issued_wtx_mst_oh_o_s3 to a bit per
+  // system master bus. This signal decodes when dedicated
+  // masters issue a t/x to the slave.
+  // spyglass disable_block W164b
+  // SMD: Identifies assignments in which the LHS width is greater than the RHS width
+  // SJ : This is not a functional issue, this is as per the requirement.
+  //      Hence this can be waived.
+  assign {issued_wtx_mst_oh_dummy1_s3
+    , issued_wtx_mst_sys_oh_s3[1]
+    , issued_wtx_mst_sys_oh_s3[0]
+ } = issued_wtx_mst_oh_o_s3;
   // spyglass enable_block W164b
  
 //Done to remove lint error STAR 9000441836:
   // Translate issued_wtx_mst_sys_oh_s0 to a bit per
   // master visible to slave 0 value.
   assign issued_wtx_mst_oh_i_eb_s0 = { 1'b0
+    , issued_wtx_mst_sys_oh_s0[1]
     , issued_wtx_mst_sys_oh_s0[0]
   };
   // Remove extra bit. 
@@ -4326,6 +5272,7 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
   // Translate issued_wtx_mst_sys_oh_s1 to a bit per
   // master visible to slave 1 value.
   assign issued_wtx_mst_oh_i_eb_s1 = { 1'b0
+    , issued_wtx_mst_sys_oh_s1[1]
     , issued_wtx_mst_sys_oh_s1[0]
   };
   // Remove extra bit. 
@@ -4335,11 +5282,22 @@ wire blank_issued_wtx_shrd_sys_m1_s_bus;
   // Translate issued_wtx_mst_sys_oh_s2 to a bit per
   // master visible to slave 2 value.
   assign issued_wtx_mst_oh_i_eb_s2 = { 1'b0
+    , issued_wtx_mst_sys_oh_s2[1]
     , issued_wtx_mst_sys_oh_s2[0]
   };
   // Remove extra bit. 
   assign issued_wtx_mst_oh_i_s2 
   = issued_wtx_mst_oh_i_eb_s2[`miet_dw_axi_ic_AXI_NMV_S2-1:0];
+   
+  // Translate issued_wtx_mst_sys_oh_s3 to a bit per
+  // master visible to slave 3 value.
+  assign issued_wtx_mst_oh_i_eb_s3 = { 1'b0
+    , issued_wtx_mst_sys_oh_s3[1]
+    , issued_wtx_mst_sys_oh_s3[0]
+  };
+  // Remove extra bit. 
+  assign issued_wtx_mst_oh_i_s3 
+  = issued_wtx_mst_oh_i_eb_s3[`miet_dw_axi_ic_AXI_NMV_S3-1:0];
    
 
 /*----------------------------------------------------------------------
@@ -4404,6 +5362,9 @@ assign rcpl_id_shrd = {{`miet_dw_axi_ic_AXI_MIDW{1'b0}}};
 
   // Select between shared and dedicated channel valid signals for
   // each master.
+       assign rvalid_m2 = `miet_dw_axi_ic_AXI_M2_ON_R_SHARED_ONLY_VAL
+                                 ? rvalid_shrd_m2 
+                                 : rvalid_ddctd_m2;
        assign rvalid_m1 = `miet_dw_axi_ic_AXI_M1_ON_R_SHARED_ONLY_VAL
                                  ? rvalid_shrd_m1 
                                  : rvalid_ddctd_m1;
@@ -4463,6 +5424,9 @@ assign wcpl_id_shrd = {{`miet_dw_axi_ic_AXI_MIDW{1'b0}}};
 
   // Select between shared and dedicated channel valid signals for
   // each master.
+       assign bvalid_m2 = `miet_dw_axi_ic_AXI_M2_ON_B_SHARED_ONLY_VAL
+                                 ? bvalid_shrd_m2 
+                                 : bvalid_ddctd_m2;
        assign bvalid_m1 = `miet_dw_axi_ic_AXI_M1_ON_B_SHARED_ONLY_VAL
                                  ? bvalid_shrd_m1 
                                  : bvalid_ddctd_m1;
@@ -4645,6 +5609,63 @@ assign wcpl_id_shrd = {{`miet_dw_axi_ic_AXI_MIDW{1'b0}}};
   );
 
 
+  miet_dw_axi_ic_DW_axi_sp
+   #(`miet_dw_axi_ic_AXI_NMV_S3, 
+`miet_dw_axi_ic_AXI_LOG2_NMV_S3, `miet_dw_axi_ic_AXI_AR_S3_NMV, `miet_dw_axi_ic_AXI_AR_S3_NMV_LOG2, `miet_dw_axi_ic_AXI_AR_S3_NMV_P1_LOG2, `miet_dw_axi_ic_AXI_AW_S3_NMV, `miet_dw_axi_ic_AXI_AW_S3_NMV_LOG2, `miet_dw_axi_ic_AXI_AW_S3_NMV_P1_LOG2, `miet_dw_axi_ic_AXI_W_S3_NMV, `miet_dw_axi_ic_AXI_W_S3_NMV_LOG2, `miet_dw_axi_ic_AXI_W_S3_NMV_P1_LOG2, `miet_dw_axi_ic_AXI_AR_ARB_TYPE_S3, `miet_dw_axi_ic_AXI_AW_ARB_TYPE_S3, `miet_dw_axi_ic_AXI_W_ARB_TYPE_S3, `miet_dw_axi_ic_AXI_AR_MCA_EN_S3, `miet_dw_axi_ic_AXI_AW_MCA_EN_S3, `miet_dw_axi_ic_AXI_W_MCA_EN_S3, `miet_dw_axi_ic_AXI_AR_MCA_NC_S3, `miet_dw_axi_ic_AXI_AW_MCA_NC_S3, `miet_dw_axi_ic_AXI_W_MCA_NC_S3, `miet_dw_axi_ic_AXI_AR_MCA_NC_W_S3, `miet_dw_axi_ic_AXI_AW_MCA_NC_W_S3, `miet_dw_axi_ic_AXI_W_MCA_NC_W_S3, `miet_dw_axi_ic_AXI_VV_S3_BY_M1, `miet_dw_axi_ic_AXI_VV_S3_BY_M2, `miet_dw_axi_ic_AXI_VV_S3_BY_M3, `miet_dw_axi_ic_AXI_VV_S3_BY_M4, `miet_dw_axi_ic_AXI_VV_S3_BY_M5, `miet_dw_axi_ic_AXI_VV_S3_BY_M6, `miet_dw_axi_ic_AXI_VV_S3_BY_M7, `miet_dw_axi_ic_AXI_VV_S3_BY_M8, `miet_dw_axi_ic_AXI_VV_S3_BY_M9, `miet_dw_axi_ic_AXI_VV_S3_BY_M10, `miet_dw_axi_ic_AXI_VV_S3_BY_M11, `miet_dw_axi_ic_AXI_VV_S3_BY_M12, `miet_dw_axi_ic_AXI_VV_S3_BY_M13, `miet_dw_axi_ic_AXI_VV_S3_BY_M14, `miet_dw_axi_ic_AXI_VV_S3_BY_M15, `miet_dw_axi_ic_AXI_VV_S3_BY_M16, `miet_dw_axi_ic_AXI_WID_S3, `miet_dw_axi_ic_AXI_LOG2_WID_S3, `miet_dw_axi_ic_AXI_LOG2_WID_P1_S3, `miet_dw_axi_ic_AXI_MAX_FARC_S3, `miet_dw_axi_ic_AXI_LOG2_MAX_FARC_P1_S3, `miet_dw_axi_ic_AXI_MAX_FAWC_S3, `miet_dw_axi_ic_AXI_LOG2_MAX_FAWC_S3, `miet_dw_axi_ic_AXI_LOG2_MAX_FAWC_P1_S3, `miet_dw_axi_ic_AXI_HAS_LOCKING,`miet_dw_axi_ic_AXI_AW_LAYER_S3_M1 ,`miet_dw_axi_ic_AXI_AW_LAYER_S3_M2 ,`miet_dw_axi_ic_AXI_AW_LAYER_S3_M3 ,`miet_dw_axi_ic_AXI_AW_LAYER_S3_M4 ,`miet_dw_axi_ic_AXI_AW_LAYER_S3_M5 ,`miet_dw_axi_ic_AXI_AW_LAYER_S3_M6 ,`miet_dw_axi_ic_AXI_AW_LAYER_S3_M7 ,`miet_dw_axi_ic_AXI_AW_LAYER_S3_M8 ,`miet_dw_axi_ic_AXI_AW_LAYER_S3_M9 ,`miet_dw_axi_ic_AXI_AW_LAYER_S3_M10 ,`miet_dw_axi_ic_AXI_AW_LAYER_S3_M11 ,`miet_dw_axi_ic_AXI_AW_LAYER_S3_M12 ,`miet_dw_axi_ic_AXI_AW_LAYER_S3_M13 ,`miet_dw_axi_ic_AXI_AW_LAYER_S3_M14 ,`miet_dw_axi_ic_AXI_AW_LAYER_S3_M15 ,`miet_dw_axi_ic_AXI_AW_LAYER_S3_M16 ,`miet_dw_axi_ic_AXI_AR_LAYER_S3_M1 ,`miet_dw_axi_ic_AXI_AR_LAYER_S3_M2 ,`miet_dw_axi_ic_AXI_AR_LAYER_S3_M3 ,`miet_dw_axi_ic_AXI_AR_LAYER_S3_M4 ,`miet_dw_axi_ic_AXI_AR_LAYER_S3_M5 ,`miet_dw_axi_ic_AXI_AR_LAYER_S3_M6 ,`miet_dw_axi_ic_AXI_AR_LAYER_S3_M7 ,`miet_dw_axi_ic_AXI_AR_LAYER_S3_M8 ,`miet_dw_axi_ic_AXI_AR_LAYER_S3_M9 ,`miet_dw_axi_ic_AXI_AR_LAYER_S3_M10 ,`miet_dw_axi_ic_AXI_AR_LAYER_S3_M11 ,`miet_dw_axi_ic_AXI_AR_LAYER_S3_M12 ,`miet_dw_axi_ic_AXI_AR_LAYER_S3_M13 ,`miet_dw_axi_ic_AXI_AR_LAYER_S3_M14 ,`miet_dw_axi_ic_AXI_AR_LAYER_S3_M15 ,`miet_dw_axi_ic_AXI_AR_LAYER_S3_M16 ,`miet_dw_axi_ic_AXI_W_LAYER_S3_M1 ,`miet_dw_axi_ic_AXI_W_LAYER_S3_M2 ,`miet_dw_axi_ic_AXI_W_LAYER_S3_M3 ,`miet_dw_axi_ic_AXI_W_LAYER_S3_M4 ,`miet_dw_axi_ic_AXI_W_LAYER_S3_M5 ,`miet_dw_axi_ic_AXI_W_LAYER_S3_M6 ,`miet_dw_axi_ic_AXI_W_LAYER_S3_M7 ,`miet_dw_axi_ic_AXI_W_LAYER_S3_M8 ,`miet_dw_axi_ic_AXI_W_LAYER_S3_M9 ,`miet_dw_axi_ic_AXI_W_LAYER_S3_M10 ,`miet_dw_axi_ic_AXI_W_LAYER_S3_M11 ,`miet_dw_axi_ic_AXI_W_LAYER_S3_M12 ,`miet_dw_axi_ic_AXI_W_LAYER_S3_M13 ,`miet_dw_axi_ic_AXI_W_LAYER_S3_M14 ,`miet_dw_axi_ic_AXI_W_LAYER_S3_M15 ,`miet_dw_axi_ic_AXI_W_LAYER_S3_M16 ,`miet_dw_axi_ic_AXI_R_LAYER_M1_S3 ,`miet_dw_axi_ic_AXI_R_LAYER_M2_S3 ,`miet_dw_axi_ic_AXI_R_LAYER_M3_S3 ,`miet_dw_axi_ic_AXI_R_LAYER_M4_S3 ,`miet_dw_axi_ic_AXI_R_LAYER_M5_S3 ,`miet_dw_axi_ic_AXI_R_LAYER_M6_S3 ,`miet_dw_axi_ic_AXI_R_LAYER_M7_S3 ,`miet_dw_axi_ic_AXI_R_LAYER_M8_S3 ,`miet_dw_axi_ic_AXI_R_LAYER_M9_S3 ,`miet_dw_axi_ic_AXI_R_LAYER_M10_S3 ,`miet_dw_axi_ic_AXI_R_LAYER_M11_S3 ,`miet_dw_axi_ic_AXI_R_LAYER_M12_S3 ,`miet_dw_axi_ic_AXI_R_LAYER_M13_S3 ,`miet_dw_axi_ic_AXI_R_LAYER_M14_S3 ,`miet_dw_axi_ic_AXI_R_LAYER_M15_S3 ,`miet_dw_axi_ic_AXI_R_LAYER_M16_S3 ,`miet_dw_axi_ic_AXI_B_LAYER_M1_S3 ,`miet_dw_axi_ic_AXI_B_LAYER_M2_S3 ,`miet_dw_axi_ic_AXI_B_LAYER_M3_S3 ,`miet_dw_axi_ic_AXI_B_LAYER_M4_S3 ,`miet_dw_axi_ic_AXI_B_LAYER_M5_S3 ,`miet_dw_axi_ic_AXI_B_LAYER_M6_S3 ,`miet_dw_axi_ic_AXI_B_LAYER_M7_S3 ,`miet_dw_axi_ic_AXI_B_LAYER_M8_S3 ,`miet_dw_axi_ic_AXI_B_LAYER_M9_S3 ,`miet_dw_axi_ic_AXI_B_LAYER_M10_S3 ,`miet_dw_axi_ic_AXI_B_LAYER_M11_S3 ,`miet_dw_axi_ic_AXI_B_LAYER_M12_S3 ,`miet_dw_axi_ic_AXI_B_LAYER_M13_S3 ,`miet_dw_axi_ic_AXI_B_LAYER_M14_S3 ,`miet_dw_axi_ic_AXI_B_LAYER_M15_S3 ,`miet_dw_axi_ic_AXI_B_LAYER_M16_S3 , `miet_dw_axi_ic_AXI_AW_S3_HAS_SHRD_DDCTD_LNK_VAL, `miet_dw_axi_ic_AXI_W_S3_HAS_SHRD_DDCTD_LNK_VAL, `miet_dw_axi_ic_AXI_S3_ON_AR_SHARED_ONLY_VAL, `miet_dw_axi_ic_AXI_S3_ON_AW_SHARED_ONLY_VAL, `miet_dw_axi_ic_AXI_S3_ON_W_SHARED_ONLY_VAL
+  )
+  U_DW_axi_sp_s3 (
+    .aclk_i                   (aclk),
+    .aresetn_i                (aresetn),
+    .ar_bus_mst_priorities_i  (ar_bus_mst_priorities_s3),
+    .aw_bus_mst_priorities_i  (aw_bus_mst_priorities_s3),
+    .w_bus_mst_priorities_i   (w_bus_mst_priorities_s3),
+
+// Read Address Channel
+    .arready_i                (arready_s3),
+    .arvalid_o                (arvalid_ddctd_s3),
+    .arpayload_o              (arpayload_s3),
+    .bus_arvalid_i            (bus_arvalid_s3),
+    .bus_arpayload_i          (bus_arpayload_s3),
+    .bus_arready_o            (bus_sp_arready_s3),
+    .rcpl_tx_shrd_o           (rcpl_tx_s3),
+// Read Data Channel
+    .rvalid_i                 (rvalid_s3),
+    .rpayload_i               (rpayload_s3),
+    .rready_o                 (rready_s3),
+    .bus_rready_i             (bus_rready_s3),
+    .bus_rvalid_o             (sp_rvalid_s3),
+    .r_shrd_ch_req_o          (r_shrd_ch_req_s3),
+    .rpayload_o               (sp_rpayload_s3),
+// Write Address Channel
+    .awready_i                (awready_s3),
+    .awvalid_o                (awvalid_ddctd_s3),
+    .awpayload_o              (awpayload_s3),
+    .bus_awvalid_i            (bus_awvalid_s3),
+    .bus_awpayload_i          (bus_awpayload_s3),
+    .bus_awready_o            (bus_sp_awready_s3),
+    .aw_shrd_lyr_granted_o    (aw_shrd_lyr_granted_s3),
+    .issued_wtx_mst_oh_o      (issued_wtx_mst_oh_o_s3),
+    .issued_wtx_mst_oh_i      (issued_wtx_mst_oh_i_s3),
+// Write Data Channel
+    .wready_i                 (wready_s3),
+    .wvalid_o                 (wvalid_ddctd_s3),
+    .wpayload_o               (wpayload_s3),
+    .bus_wvalid_i             (bus_wvalid_s3),
+    .bus_wpayload_i           (bus_wpayload_s3),
+    .bus_wready_o             (bus_sp_wready_s3),
+    .issued_tx_shrd_i         (issued_wtx_shrd_sys_s3),
+    .issued_tx_shrd_mst_oh_i  (issued_wtx_shrd_mst_oh_s3),
+    .shrd_w_nxt_fb_pend_o     (shrd_w_nxt_fb_pend_s3),
+//Burst Response Channel
+    .bvalid_i                 (bvalid_s3),
+    .bpayload_i               (bpayload_s3),
+    .bready_o                 (bready_s3),
+    .bus_bready_i             (bus_bready_s3),
+    .bus_bvalid_o             (sp_bvalid_s3),
+    .bpayload_o               (sp_bpayload_s3),
+    .b_shrd_ch_req_o          (b_shrd_ch_req_s3),
+    .wcpl_tx_shrd_o           (wcpl_tx_s3)
+  );
 
 
 
@@ -4737,6 +5758,68 @@ assign mp_awvalid_m1 = mp_awvalid_m1_q;
   
 
 
+  miet_dw_axi_ic_DW_axi_mp
+   #(`miet_dw_axi_ic_AXI_SYS_NUM_FOR_M2 - 1, `miet_dw_axi_ic_AXI_IS_ICM_M2, `miet_dw_axi_ic_AXI_NSP1V_M2, `miet_dw_axi_ic_AXI_LOG2_NSP1V_M2, `miet_dw_axi_ic_AXI_R_M2_NSV, `miet_dw_axi_ic_AXI_R_M2_NSV_LOG2, `miet_dw_axi_ic_AXI_R_M2_NSV_P1_LOG2, `miet_dw_axi_ic_AXI_B_M2_NSV, `miet_dw_axi_ic_AXI_B_M2_NSV_LOG2, `miet_dw_axi_ic_AXI_B_M2_NSV_P1_LOG2, `miet_dw_axi_ic_AXI_R_ARB_TYPE_M2, `miet_dw_axi_ic_AXI_B_ARB_TYPE_M2, `miet_dw_axi_ic_AXI_R_MCA_EN_M2, `miet_dw_axi_ic_AXI_B_MCA_EN_M2, `miet_dw_axi_ic_AXI_R_MCA_NC_M2, `miet_dw_axi_ic_AXI_B_MCA_NC_M2, `miet_dw_axi_ic_AXI_R_MCA_NC_W_M2, `miet_dw_axi_ic_AXI_B_MCA_NC_W_M2, 1,  /* Default slave always visible in normal mode. */ `miet_dw_axi_ic_AXI_NV_S1_BY_M2, `miet_dw_axi_ic_AXI_NV_S2_BY_M2, `miet_dw_axi_ic_AXI_NV_S3_BY_M2, `miet_dw_axi_ic_AXI_NV_S4_BY_M2, `miet_dw_axi_ic_AXI_NV_S5_BY_M2, `miet_dw_axi_ic_AXI_NV_S6_BY_M2, `miet_dw_axi_ic_AXI_NV_S7_BY_M2, `miet_dw_axi_ic_AXI_NV_S8_BY_M2, `miet_dw_axi_ic_AXI_NV_S9_BY_M2, `miet_dw_axi_ic_AXI_NV_S10_BY_M2, `miet_dw_axi_ic_AXI_NV_S11_BY_M2, `miet_dw_axi_ic_AXI_NV_S12_BY_M2, `miet_dw_axi_ic_AXI_NV_S13_BY_M2, `miet_dw_axi_ic_AXI_NV_S14_BY_M2, `miet_dw_axi_ic_AXI_NV_S15_BY_M2, `miet_dw_axi_ic_AXI_NV_S16_BY_M2, 1,  /* Default slave always visible in boot mode. */ `miet_dw_axi_ic_AXI_BV_S1_BY_M2, `miet_dw_axi_ic_AXI_BV_S2_BY_M2, `miet_dw_axi_ic_AXI_BV_S3_BY_M2, `miet_dw_axi_ic_AXI_BV_S4_BY_M2, `miet_dw_axi_ic_AXI_BV_S5_BY_M2, `miet_dw_axi_ic_AXI_BV_S6_BY_M2, `miet_dw_axi_ic_AXI_BV_S7_BY_M2, `miet_dw_axi_ic_AXI_BV_S8_BY_M2, `miet_dw_axi_ic_AXI_BV_S9_BY_M2, `miet_dw_axi_ic_AXI_BV_S10_BY_M2, `miet_dw_axi_ic_AXI_BV_S11_BY_M2, `miet_dw_axi_ic_AXI_BV_S12_BY_M2, `miet_dw_axi_ic_AXI_BV_S13_BY_M2, `miet_dw_axi_ic_AXI_BV_S14_BY_M2, `miet_dw_axi_ic_AXI_BV_S15_BY_M2, `miet_dw_axi_ic_AXI_BV_S16_BY_M2, `miet_dw_axi_ic_AXI_MAX_RCA_ID_M2, `miet_dw_axi_ic_AXI_MAX_WCA_ID_M2, `miet_dw_axi_ic_AXI_MAX_URIDA_M2, `miet_dw_axi_ic_AXI_MAX_UWIDA_M2, `miet_dw_axi_ic_AXI_LOG2_MAX_RCA_ID_P1_M2, `miet_dw_axi_ic_AXI_LOG2_MAX_WCA_ID_P1_M2, `miet_dw_axi_ic_AXI_LOG2_MAX_URIDA_M2, `miet_dw_axi_ic_AXI_LOG2_MAX_UWIDA_M2, `miet_dw_axi_ic_AXI_RI_LIMIT_M2
+,`miet_dw_axi_ic_AXI_AR_LAYER_S0_M2 ,`miet_dw_axi_ic_AXI_AR_LAYER_S1_M2 ,`miet_dw_axi_ic_AXI_AR_LAYER_S2_M2 ,`miet_dw_axi_ic_AXI_AR_LAYER_S3_M2 ,`miet_dw_axi_ic_AXI_AR_LAYER_S4_M2 ,`miet_dw_axi_ic_AXI_AR_LAYER_S5_M2 ,`miet_dw_axi_ic_AXI_AR_LAYER_S6_M2 ,`miet_dw_axi_ic_AXI_AR_LAYER_S7_M2 ,`miet_dw_axi_ic_AXI_AR_LAYER_S8_M2 ,`miet_dw_axi_ic_AXI_AR_LAYER_S9_M2 ,`miet_dw_axi_ic_AXI_AR_LAYER_S10_M2 ,`miet_dw_axi_ic_AXI_AR_LAYER_S11_M2 ,`miet_dw_axi_ic_AXI_AR_LAYER_S12_M2 ,`miet_dw_axi_ic_AXI_AR_LAYER_S13_M2 ,`miet_dw_axi_ic_AXI_AR_LAYER_S14_M2 ,`miet_dw_axi_ic_AXI_AR_LAYER_S15_M2 ,`miet_dw_axi_ic_AXI_AR_LAYER_S16_M2 ,`miet_dw_axi_ic_AXI_AW_LAYER_S0_M2 ,`miet_dw_axi_ic_AXI_AW_LAYER_S1_M2 ,`miet_dw_axi_ic_AXI_AW_LAYER_S2_M2 ,`miet_dw_axi_ic_AXI_AW_LAYER_S3_M2 ,`miet_dw_axi_ic_AXI_AW_LAYER_S4_M2 ,`miet_dw_axi_ic_AXI_AW_LAYER_S5_M2 ,`miet_dw_axi_ic_AXI_AW_LAYER_S6_M2 ,`miet_dw_axi_ic_AXI_AW_LAYER_S7_M2 ,`miet_dw_axi_ic_AXI_AW_LAYER_S8_M2 ,`miet_dw_axi_ic_AXI_AW_LAYER_S9_M2 ,`miet_dw_axi_ic_AXI_AW_LAYER_S10_M2 ,`miet_dw_axi_ic_AXI_AW_LAYER_S11_M2 ,`miet_dw_axi_ic_AXI_AW_LAYER_S12_M2 ,`miet_dw_axi_ic_AXI_AW_LAYER_S13_M2 ,`miet_dw_axi_ic_AXI_AW_LAYER_S14_M2 ,`miet_dw_axi_ic_AXI_AW_LAYER_S15_M2 ,`miet_dw_axi_ic_AXI_AW_LAYER_S16_M2 ,`miet_dw_axi_ic_AXI_W_LAYER_S0_M2 ,`miet_dw_axi_ic_AXI_W_LAYER_S1_M2 ,`miet_dw_axi_ic_AXI_W_LAYER_S2_M2 ,`miet_dw_axi_ic_AXI_W_LAYER_S3_M2 ,`miet_dw_axi_ic_AXI_W_LAYER_S4_M2 ,`miet_dw_axi_ic_AXI_W_LAYER_S5_M2 ,`miet_dw_axi_ic_AXI_W_LAYER_S6_M2 ,`miet_dw_axi_ic_AXI_W_LAYER_S7_M2 ,`miet_dw_axi_ic_AXI_W_LAYER_S8_M2 ,`miet_dw_axi_ic_AXI_W_LAYER_S9_M2 ,`miet_dw_axi_ic_AXI_W_LAYER_S10_M2 ,`miet_dw_axi_ic_AXI_W_LAYER_S11_M2 ,`miet_dw_axi_ic_AXI_W_LAYER_S12_M2 ,`miet_dw_axi_ic_AXI_W_LAYER_S13_M2 ,`miet_dw_axi_ic_AXI_W_LAYER_S14_M2 ,`miet_dw_axi_ic_AXI_W_LAYER_S15_M2 ,`miet_dw_axi_ic_AXI_W_LAYER_S16_M2 ,`miet_dw_axi_ic_AXI_AW_S0_HAS_SHRD_DDCTD_LNK_VAL ,`miet_dw_axi_ic_AXI_AW_S1_HAS_SHRD_DDCTD_LNK_VAL ,`miet_dw_axi_ic_AXI_AW_S2_HAS_SHRD_DDCTD_LNK_VAL ,`miet_dw_axi_ic_AXI_AW_S3_HAS_SHRD_DDCTD_LNK_VAL ,`miet_dw_axi_ic_AXI_AW_S4_HAS_SHRD_DDCTD_LNK_VAL ,`miet_dw_axi_ic_AXI_AW_S5_HAS_SHRD_DDCTD_LNK_VAL ,`miet_dw_axi_ic_AXI_AW_S6_HAS_SHRD_DDCTD_LNK_VAL ,`miet_dw_axi_ic_AXI_AW_S7_HAS_SHRD_DDCTD_LNK_VAL ,`miet_dw_axi_ic_AXI_AW_S8_HAS_SHRD_DDCTD_LNK_VAL ,`miet_dw_axi_ic_AXI_AW_S9_HAS_SHRD_DDCTD_LNK_VAL ,`miet_dw_axi_ic_AXI_AW_S10_HAS_SHRD_DDCTD_LNK_VAL ,`miet_dw_axi_ic_AXI_AW_S11_HAS_SHRD_DDCTD_LNK_VAL ,`miet_dw_axi_ic_AXI_AW_S12_HAS_SHRD_DDCTD_LNK_VAL ,`miet_dw_axi_ic_AXI_AW_S13_HAS_SHRD_DDCTD_LNK_VAL ,`miet_dw_axi_ic_AXI_AW_S14_HAS_SHRD_DDCTD_LNK_VAL ,`miet_dw_axi_ic_AXI_AW_S15_HAS_SHRD_DDCTD_LNK_VAL ,`miet_dw_axi_ic_AXI_AW_S16_HAS_SHRD_DDCTD_LNK_VAL , `miet_dw_axi_ic_AXI_M2_ON_R_SHARED_ONLY_VAL, `miet_dw_axi_ic_AXI_M2_ON_B_SHARED_ONLY_VAL, `miet_dw_axi_ic_ACT_ID_BUF_POINTER_W_AW_M2, `miet_dw_axi_ic_LOG2_ACT_ID_BUF_POINTER_W_AW_M2, `miet_dw_axi_ic_ACT_ID_BUF_POINTER_W_AR_M2, `miet_dw_axi_ic_LOG2_ACT_ID_BUF_POINTER_W_AR_M2
+  )
+  U_DW_axi_mp_m2 (
+    .aclk_i                      (aclk),
+    .aresetn_i                   (aresetn),
+    .r_bus_slv_priorities_i      (r_bus_slv_priorities_m2),
+    .b_bus_slv_priorities_i      (b_bus_slv_priorities_m2),
+
+// Read Address Channel
+    .arvalid_i                   (arvalid_m2),
+    .arpayload_i                 (arpayload_m2),
+    .arready_o                   (arready_m2),
+    .bus_arready_i               (bus_arready_m2),
+    .bus_arvalid_o               (mp_arvalid_m2_q),
+    .ar_shrd_ch_req_o            (ar_shrd_ch_req_m2),
+    .arpayload_o                 (mp_arpayload_m2),
+// Read Data Channel
+    .rready_i                    (rready_m2),
+    .rvalid_o                    (rvalid_ddctd_m2),
+    .rpayload_o                  (rpayload_m2),
+    .bus_rvalid_i                (bus_rvalid_m2),
+    .bus_rpayload_i              (bus_rpayload_m2),
+    .bus_rready_o                (bus_mp_rready_m2),
+    .rcpl_tx_shrd_i              (rcpl_tx_shrd_sys_m2),
+    .rcpl_id_shrd_i              (rcpl_id_shrd[`miet_dw_axi_ic_AXI_MIDW-1:0]),
+// Write Address Channel
+    .awvalid_i                   (awvalid_m2),
+    .awpayload_i                 (awpayload_m2),
+    .awready_o                   (awready_m2),
+    .bus_awready_i               (bus_awready_m2),
+    .aw_shrd_lyr_granted_s_bus_i (aw_shrd_lyr_granted_m2_s_bus),
+    .issued_wtx_shrd_sys_s_bus_i (issued_wtx_shrd_sys_m2_s_bus),
+    .bus_awvalid_o               (mp_awvalid_m2_q),
+    .aw_shrd_ch_req_o            (aw_shrd_ch_req_m2),
+    .awpayload_o                 (mp_awpayload_m2),
+// Write Data Channel
+    .wvalid_i                    (wvalid_m2),
+    .wpayload_i                  (wpayload_m2),
+    .wready_o                    (wready_m2),
+    .bus_wready_i                (bus_wready_m2),
+    .bus_wvalid_o                (mp_wvalid_m2),
+    .w_shrd_ch_req_o             (w_shrd_ch_req_m2),
+    .wpayload_o                  (mp_wpayload_m2),
+//Burst Response Channel
+    .bready_i                    (bready_m2),
+    .bvalid_o                    (bvalid_ddctd_m2),
+    .bpayload_o                  (bpayload_m2),
+    .bus_bvalid_i                (bus_bvalid_m2),
+    .bus_bpayload_i              (bus_bpayload_m2),
+    .bus_bready_o                (bus_mp_bready_m2),
+    .wcpl_tx_shrd_i              (wcpl_tx_shrd_sys_m2),
+    .wcpl_id_shrd_i              (wcpl_id_shrd[`miet_dw_axi_ic_AXI_MIDW-1:0])
+  );
+ 
+assign mp_arvalid_m2 = mp_arvalid_m2_q;
+  
+ 
+assign mp_awvalid_m2 = mp_awvalid_m2_q;
+  
+  
 
 
 
@@ -4838,8 +5921,15 @@ assign mp_awvalid_m1 = mp_awvalid_m1_q;
   `undef miet_dw_axi_ic_AXI_HAS_S0
   `undef miet_dw_axi_ic_AXI_HAS_S1
   `undef miet_dw_axi_ic_AXI_HAS_S2
+  `undef miet_dw_axi_ic_AXI_HAS_S3
   `undef miet_dw_axi_ic_AXI_HAS_M1
+  `undef miet_dw_axi_ic_AXI_HAS_M2
   `undef miet_dw_axi_ic_AXI_V_S0_BY_M1
+  `undef miet_dw_axi_ic_AXI_V_S0_BY_M2
   `undef miet_dw_axi_ic_AXI_V_S1_BY_M1
+  `undef miet_dw_axi_ic_AXI_V_S1_BY_M2
   `undef miet_dw_axi_ic_AXI_V_S2_BY_M1
+  `undef miet_dw_axi_ic_AXI_V_S2_BY_M2
+  `undef miet_dw_axi_ic_AXI_V_S3_BY_M1
+  `undef miet_dw_axi_ic_AXI_V_S3_BY_M2
 endmodule 

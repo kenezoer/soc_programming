@@ -32,7 +32,13 @@ export TCM          := 1
 export SIM_CFG_DEF  := SCR1_CFG_RV32IC_BASE
 
 compile: | $(bld_dir)
-	-$(MAKE) -C $(tst_dir)/user_programm EXT_CFLAGS="$(EXT_CFLAGS)" ARCH=$(ARCH)
+	-$(MAKE) -C $(tst_dir)/user_programm EXT_CFLAGS="$(EXT_CFLAGS)" ARCH=$(ARCH) ;
+	$(CROSS_PREFIX)objcopy -O ihex $(bld_dir)/user_programm.elf $(bld_dir)/user_programm.ihex ;
+	grep -v "@" $(bld_dir)/user_programm.hex > $(bld_dir)/temp ;
+	cat $(bld_dir)/temp | sed 's/ //g' > $(bld_dir)/temp2 ;
+	fold -w 8 <<< cat $(bld_dir)/temp2 > $(bld_dir)/temp3 ;
+	mv $(bld_dir)/temp3 $(bld_dir)/user_programm2.hex
+
 
 clean_hex: | $(bld_dir)
 	$(RM) $(bld_dir)/*.hex

@@ -30,9 +30,9 @@
 // Description : APB Address  generation and range checking for DW_axi_x2p bridge.
 //-----------------------------------------------------------------------------
 
-`include "DW_axi_x2p_all_includes.vh"
+`include "i_axi_x2p_DW_axi_x2p_all_includes.vh"
 
-module DW_axi_x2p_s_addr_dcd (/*AUTOARG*/
+module i_axi_x2p_DW_axi_x2p_s_addr_dcd (/*AUTOARG*/
   // Outputs
   dcd_error, 
                               paddr, 
@@ -56,10 +56,10 @@ module DW_axi_x2p_s_addr_dcd (/*AUTOARG*/
 
 // Interface to Common CMD Queue - the address field
 
-   input [`X2P_CMD_ADDR_WIDTH-1:0] cmd_addr;   // starting address of corrent transaction
+   input [`i_axi_x2p_X2P_CMD_ADDR_WIDTH-1:0] cmd_addr;   // starting address of corrent transaction
    input [1:0]                     cmd_type; // INCR,FIXED,WRAP
    input [2:0]                     cmd_size;
-   input [`LEN_WIDTH-1:0]          cmd_len;
+   input [`i_axi_x2p_LEN_WIDTH-1:0]          cmd_len;
    input                           cmd_direction;
    
    input                           incr_addr;
@@ -70,19 +70,19 @@ module DW_axi_x2p_s_addr_dcd (/*AUTOARG*/
    input                           update_address;
    
    output                             dcd_error;
-   output [`X2P_APB_ADDR_WIDTH-1:0]   paddr;
-   output [`X2P_NUM_APB_SLAVES-1:0]   psel;     //results of the address decoder. 
+   output [`i_axi_x2p_X2P_APB_ADDR_WIDTH-1:0]   paddr;
+   output [`i_axi_x2p_X2P_NUM_APB_SLAVES-1:0]   psel;     //results of the address decoder. 
  
-   reg [`X2P_APB_ADDR_WIDTH-1:0]   paddr;
-   wire [`X2P_APB_ADDR_WIDTH-1:0]  next_paddr; 
+   reg [`i_axi_x2p_X2P_APB_ADDR_WIDTH-1:0]   paddr;
+   wire [`i_axi_x2p_X2P_APB_ADDR_WIDTH-1:0]  next_paddr; 
   
    
-  reg [`X2P_NUM_APB_SLAVES-1:0]                       psel;   
-  wire [`X2P_NUM_APB_SLAVES-1:0]                      next_psel,raw_psel;   
+  reg [`i_axi_x2p_X2P_NUM_APB_SLAVES-1:0]                       psel;   
+  wire [`i_axi_x2p_X2P_NUM_APB_SLAVES-1:0]                      next_psel,raw_psel;   
    
 
-   wire  [`X2P_CMD_ADDR_WIDTH-1:0] cmd_addr;
-   reg [`X2P_CMD_ADDR_WIDTH-1:0]   next_address, address_temp, address,
+   wire  [`i_axi_x2p_X2P_CMD_ADDR_WIDTH-1:0] cmd_addr;
+   reg [`i_axi_x2p_X2P_CMD_ADDR_WIDTH-1:0]   next_address, address_temp, address,
                                    next_address_from_set, next_base_address_from_set, 
                                    next_address_from_incr_base, next_base_address_from_incr_base,
                                    next_address_from_incr, next_base_address_from_incr,  
@@ -90,7 +90,7 @@ module DW_axi_x2p_s_addr_dcd (/*AUTOARG*/
                                                           
    wire [1:0]                      cmd_type;
    wire [2:0]                      cmd_size;
-   wire [`LEN_WIDTH-1:0]           cmd_len;
+   wire [`i_axi_x2p_LEN_WIDTH-1:0]           cmd_len;
    wire                            dcd_error;
  // being explict in setting the priorites for next address generation;
    
@@ -99,11 +99,11 @@ module DW_axi_x2p_s_addr_dcd (/*AUTOARG*/
    wire                            incr_address = incr_addr & (!(set_addr | incr_base_addr));
    wire                            next_decode_error;
    
-parameter AXI_MOD = ((`X2P_AXI_DW > 256) ? 6 :((`X2P_AXI_DW > 128) ? 5 : ((`X2P_AXI_DW > 64) ? 4 : ((`X2P_AXI_DW > 32) ? 3 :((`X2P_AXI_DW > 16) ? 2 : 1)))));
+parameter AXI_MOD = ((`i_axi_x2p_X2P_AXI_DW > 256) ? 6 :((`i_axi_x2p_X2P_AXI_DW > 128) ? 5 : ((`i_axi_x2p_X2P_AXI_DW > 64) ? 4 : ((`i_axi_x2p_X2P_AXI_DW > 32) ? 3 :((`i_axi_x2p_X2P_AXI_DW > 16) ? 2 : 1)))));
    
-     /* AUTO_CONSTANT (`APB_ADD_INC,`APB_IND, `X2P_CMD_ADDR_WIDTH, `AXI_MOD `X2P_APB_SIZE) */
+     /* AUTO_CONSTANT (`APB_ADD_INC,`APB_IND, `i_axi_x2p_X2P_CMD_ADDR_WIDTH, `AXI_MOD `i_axi_x2p_X2P_APB_SIZE) */
 
-parameter [8:0]                    APB_ADD_INC = 9'd1 << `X2P_APB_SIZE;
+parameter [8:0]                    APB_ADD_INC = 9'd1 << `i_axi_x2p_X2P_APB_SIZE;
    
    
    reg [7:0]                       base_addr_inc;
@@ -112,7 +112,7 @@ parameter [8:0]                    APB_ADD_INC = 9'd1 << `X2P_APB_SIZE;
    
 
    
- /* AUTO_CONSTANT (`X2P_AXI_BLW) */
+ /* AUTO_CONSTANT (`i_axi_x2p_X2P_AXI_BLW) */
  // incriment the base address by the AXI beat size
  always @(/*AS*/cmd_size 
      )
@@ -129,7 +129,7 @@ parameter [8:0]                    APB_ADD_INC = 9'd1 << `X2P_APB_SIZE;
 // used in WRAP to mask the wrap address
    always @(/*AS*/cmd_len or cmd_size or cmd_type)
      begin: ADDR_LSB_MASK_PROC
-       addr_lsb_mask = {`X2P_CMD_ADDR_WIDTH{1'b1}};//-1;
+       addr_lsb_mask = {`i_axi_x2p_X2P_CMD_ADDR_WIDTH{1'b1}};//-1;
        wrap_error    = 1'b0;
 
         if (cmd_type == 2)
@@ -139,25 +139,21 @@ parameter [8:0]                    APB_ADD_INC = 9'd1 << `X2P_APB_SIZE;
   //SJ : We are masking the bits of addr_lsb_mask based on cmd_len value before  multiply the beats  by the size to get the total bytes in the transfer.
             // to do wrap set up the mask for the address
             // set to the number of beats.
-     
-     
-     
-     
             case(cmd_len)      
               1      : addr_lsb_mask[0]   = 1'b0;
               3      : addr_lsb_mask[1:0] = 2'b0;
               7      : addr_lsb_mask[2:0] = 3'b0;
               15     : addr_lsb_mask[3:0] = 4'b0;
-              31     : addr_lsb_mask[4:0] = 5'b0;
-              63     : addr_lsb_mask[5:0] = 6'b0;
-              127    : addr_lsb_mask[6:0] = 7'b0;
-              255    : addr_lsb_mask[7:0] = 8'b0;
               default:
                 begin
                   wrap_error         = 1'b1;
-                  addr_lsb_mask      = {`X2P_CMD_ADDR_WIDTH{1'b0}};
-               end     
+                  addr_lsb_mask      = {`i_axi_x2p_X2P_CMD_ADDR_WIDTH{1'b0}};
+                end     
             endcase // case(cmd_len)
+     
+     
+     
+     
      
             // multiply the beats  by the size this will get the total bytes in the transfer
             // and the locs for the wrapping address 
@@ -195,7 +191,7 @@ parameter [8:0]                    APB_ADD_INC = 9'd1 << `X2P_APB_SIZE;
          begin
            // the address will be the base aligned to the AXI data 
            // width displaced by the first write strobe
-           next_address_from_set = {cmd_addr[`X2P_CMD_ADDR_WIDTH-1:AXI_MOD], {AXI_MOD{1'b0}}};
+           next_address_from_set = {cmd_addr[`i_axi_x2p_X2P_CMD_ADDR_WIDTH-1:AXI_MOD], {AXI_MOD{1'b0}}};
          end
        else
          begin
@@ -225,37 +221,37 @@ parameter [8:0]                    APB_ADD_INC = 9'd1 << `X2P_APB_SIZE;
       begin: NEXT_ADDR_INCR_BASE_PROC
         next_address_from_incr_base = address;
         next_base_address_from_incr_base = base_addr;
-        address_temp = {`X2P_CMD_ADDR_WIDTH{1'b0}}; 
+        address_temp = {`i_axi_x2p_X2P_CMD_ADDR_WIDTH{1'b0}}; 
         // a new beat from the AXI, calculate the address for the AXI beat
         // incriment the base to the next beat AXI address
         case (cmd_type)
           0: begin // Fixed
             next_base_address_from_incr_base = cmd_addr;
-            next_address_from_incr_base = {`X2P_CMD_ADDR_WIDTH{1'b0}};
+            next_address_from_incr_base = {`i_axi_x2p_X2P_CMD_ADDR_WIDTH{1'b0}};
             if (cmd_direction == 1'b1)
               begin
-                next_address_from_incr_base = {cmd_addr[`X2P_CMD_ADDR_WIDTH-1:AXI_MOD], {AXI_MOD{1'b0}}};
+                next_address_from_incr_base = {cmd_addr[`i_axi_x2p_X2P_CMD_ADDR_WIDTH-1:AXI_MOD], {AXI_MOD{1'b0}}};
               end
             else 
               next_address_from_incr_base = cmd_addr;
           end
           1: begin
             // the next address is set to the AXI word boundary
-            next_base_address_from_incr_base = base_addr + {{(`X2P_CMD_ADDR_WIDTH-8){1'b0}}, base_addr_inc};    
+            next_base_address_from_incr_base = base_addr + {{(`i_axi_x2p_X2P_CMD_ADDR_WIDTH-8){1'b0}}, base_addr_inc};    
             // the wite strobes will indicate the displacement
             if (cmd_direction == 1'b1) 
               begin
-                next_address_from_incr_base = {next_base_address_from_incr_base[`X2P_CMD_ADDR_WIDTH-1:AXI_MOD], {AXI_MOD{1'b0}}};
+                next_address_from_incr_base = {next_base_address_from_incr_base[`i_axi_x2p_X2P_CMD_ADDR_WIDTH-1:AXI_MOD], {AXI_MOD{1'b0}}};
               end
             // read is just a increment of paddr b APB word
             else 
-              next_address_from_incr_base = address + {{(`X2P_CMD_ADDR_WIDTH-9){1'b0}}, APB_ADD_INC};
+              next_address_from_incr_base = address + {{(`i_axi_x2p_X2P_CMD_ADDR_WIDTH-9){1'b0}}, APB_ADD_INC};
           end // case: 1
           2: begin // WRAP     
           // the incrimented base address is wrapped base on 
           // incrementing the SIZE address bit
           
-          address_temp = base_addr + {{(`X2P_CMD_ADDR_WIDTH-8){1'b0}}, base_addr_inc};
+          address_temp = base_addr + {{(`i_axi_x2p_X2P_CMD_ADDR_WIDTH-8){1'b0}}, base_addr_inc};
           // now restore the address outside the wrap making this wrap on the SIZE * LEN bits
           next_base_address_from_incr_base = base_addr & addr_lsb_mask;
           // spyglass disable_block W415a
@@ -267,14 +263,14 @@ parameter [8:0]                    APB_ADD_INC = 9'd1 << `X2P_APB_SIZE;
           // the wite strobes will indicate the displacement
           if (cmd_direction == 1'b1)
             begin
-              next_address_from_incr_base = {next_base_address_from_incr_base[`X2P_CMD_ADDR_WIDTH-1:AXI_MOD], {AXI_MOD{1'b0}}};
+              next_address_from_incr_base = {next_base_address_from_incr_base[`i_axi_x2p_X2P_CMD_ADDR_WIDTH-1:AXI_MOD], {AXI_MOD{1'b0}}};
             end
           // read is just a increment of paddr 
           else 
             next_address_from_incr_base = next_base_address_from_incr_base;
           end // case: 2
           default: begin // all the others are considered to be INCR     
-            next_base_address_from_incr_base = base_addr + {{(`X2P_CMD_ADDR_WIDTH-8){1'b0}}, base_addr_inc};
+            next_base_address_from_incr_base = base_addr + {{(`i_axi_x2p_X2P_CMD_ADDR_WIDTH-8){1'b0}}, base_addr_inc};
           end
         endcase // case(cmd_type)
       end // always @ (...\
@@ -286,7 +282,7 @@ parameter [8:0]                    APB_ADD_INC = 9'd1 << `X2P_APB_SIZE;
    always @(*)
      begin:NEXT_ADDR_INCR_PROC
        next_base_address_from_incr = base_addr;
-       next_address_from_incr = address + {{(`X2P_CMD_ADDR_WIDTH-9){1'b0}}, APB_ADD_INC};
+       next_address_from_incr = address + {{(`i_axi_x2p_X2P_CMD_ADDR_WIDTH-9){1'b0}}, APB_ADD_INC};
      end
 
    // now select which one to send to address
@@ -328,13 +324,13 @@ parameter [8:0]                    APB_ADD_INC = 9'd1 << `X2P_APB_SIZE;
      // spyglass enable_block W415a
  
    // get the psels from the address decoder
-   DW_axi_x2p_dcdr
-    U_apb_psel(.psel_addr({address[`X2P_CMD_ADDR_WIDTH-1:10]}),
+   i_axi_x2p_DW_axi_x2p_dcdr
+    U_apb_psel(.psel_addr({address[`i_axi_x2p_X2P_CMD_ADDR_WIDTH-1:10]}),
                               .psel_err(next_decode_error),
                               .psel_int(raw_psel));
    assign dcd_error = next_decode_error | wrap_error;
 
-   assign next_paddr = (update_address == 1'b1) ? next_address[`X2P_APB_ADDR_WIDTH-1:0] : paddr;
+   assign next_paddr = (update_address == 1'b1) ? next_address[`i_axi_x2p_X2P_APB_ADDR_WIDTH-1:0] : paddr;
    assign next_psel = (update_address == 1'b1) ? raw_psel : psel;
  
   
@@ -343,10 +339,10 @@ parameter [8:0]                    APB_ADD_INC = 9'd1 << `X2P_APB_SIZE;
      begin: S_REGS_PROC
        if (!rstn)
          begin
-           base_addr <= {`X2P_CMD_ADDR_WIDTH{1'b0}};
-           paddr <= {`X2P_APB_ADDR_WIDTH{1'b0}};
-           psel <= {`X2P_NUM_APB_SLAVES{1'b0}};
-           address <= {`X2P_CMD_ADDR_WIDTH{1'b0}};
+           base_addr <= {`i_axi_x2p_X2P_CMD_ADDR_WIDTH{1'b0}};
+           paddr <= {`i_axi_x2p_X2P_APB_ADDR_WIDTH{1'b0}};
+           psel <= {`i_axi_x2p_X2P_NUM_APB_SLAVES{1'b0}};
+           address <= {`i_axi_x2p_X2P_CMD_ADDR_WIDTH{1'b0}};
          end
        else
          begin

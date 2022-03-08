@@ -243,15 +243,24 @@ module miet_dw_axi_ic_DW_axi_sp_drespch (
 
   // Take master number from the slaves ID signal.
   
-  wire dummy;
-  assign dummy = 1'b0;
-
+  // spyglass disable_block SelfDeterminedExpr-ML
+  // SMD: Self determined expression found
+  // SJ : The expression indexing the vector/array will never exceed the bound of the vector/array.        
   always @(*) 
-  begin : id_mstnum_PROC
-    // No master number in slaves ID signal if only
-    // 1 master in the system.
-      id_mstnum = dummy;
-  end // id_mstnum_PROC
+  begin : C_ID_MSTNUM_PROC
+   integer mnum_bit; 
+
+   // No master number in slaves ID signal if only
+   // 1 master in the system.
+     for(mnum_bit=0 ; 
+         mnum_bit<=(`miet_dw_axi_ic_AXI_LOG2_NM-1) ; 
+         mnum_bit=mnum_bit+1
+        ) 
+     begin
+       id_mstnum[mnum_bit] = id_slv[mnum_bit+`miet_dw_axi_ic_AXI_MIDW];
+     end
+  end // id_mstnum_PRO
+  // spyglass enable_block SelfDeterminedExpr-ML      
 
  
 
@@ -457,7 +466,11 @@ module miet_dw_axi_ic_DW_axi_sp_drespch (
       end else begin
         // There will only be id bits to strip off if number of
         // visible masters is > 1.
-          payload_o[pyld_bit] = payload_i[pyld_bit];
+        // spyglass disable_block SelfDeterminedExpr-ML
+        // SMD: Self determined expression found
+        // SJ : The expression indexing the vector/array will never exceed the bound of the vector/array.        
+          payload_o[pyld_bit] = payload_i[pyld_bit+`miet_dw_axi_ic_AXI_LOG2_NM];
+        // spyglass enable_block SelfDeterminedExpr-ML   
       end
     end
   end // strip_mstnum_from_id_PROC   

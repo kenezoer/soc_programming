@@ -33,9 +33,9 @@
 //               
 //----------------------------------------------------------------------------
 
-`include "DW_axi_x2p_all_includes.vh"
+`include "i_axi_x2p_DW_axi_x2p_all_includes.vh"
 
-module DW_axi_x2p_s_response(/*AUTOARG*/
+module i_axi_x2p_DW_axi_x2p_s_response(/*AUTOARG*/
    // Outputs
    resp_id, resp_status, push_n,
    // Inputs
@@ -47,19 +47,19 @@ module DW_axi_x2p_s_response(/*AUTOARG*/
   
    input wr_error;
    input push_req_n;
-   input [`X2P_AXI_SIDW-1:0] cmd_id;      // this is right from the cmd queue
+   input [`i_axi_x2p_X2P_AXI_SIDW-1:0] cmd_id;      // this is right from the cmd queue
    input resp_rdy_n;
    input save_id;
    
-   output [`X2P_AXI_SIDW-1:0] resp_id;
+   output [`i_axi_x2p_X2P_AXI_SIDW-1:0] resp_id;
    output resp_status;
    output push_n;
 
   //When X2P is configured to single clock mode, the buffers are configured to pass through data without synchronization.
   //In this config the buffers can be configured to single entry deep. Waiving off the unused signals in this configuration.
-   reg [`X2P_AXI_SIDW-1:0] saved_cmd_id;
+   reg [`i_axi_x2p_X2P_AXI_SIDW-1:0] saved_cmd_id;
    reg saved_error;
-   wire [`X2P_AXI_SIDW-1:0]   next_saved_cmd_id;
+   wire [`i_axi_x2p_X2P_AXI_SIDW-1:0]   next_saved_cmd_id;
    reg dlyd_resp,next_dlyd_resp;
    wire next_saved_error;
 
@@ -90,7 +90,7 @@ module DW_axi_x2p_s_response(/*AUTOARG*/
       if (!rstn)
         begin
           dlyd_resp <= 1'b0;
-          saved_cmd_id <= {`X2P_AXI_SIDW{1'b0}};
+          saved_cmd_id <= {`i_axi_x2p_X2P_AXI_SIDW{1'b0}};
           saved_error <= 1'b0;
         end
       else
