@@ -383,7 +383,7 @@
 // Values:       false (0), true (1)
 // 
 // AMBA 3 support for APB slave. Slave 0 has the additional ports PREADY and PSLVERR according to the AMBA3 specification.
-`define i_axi_x2p_X2P_IS_APB3_S0 0
+`define i_axi_x2p_X2P_IS_APB3_S0 1
 
 //Creates a define for enabling APB3 in Slave 0
 

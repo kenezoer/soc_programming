@@ -139,17 +139,11 @@ module top;
     //| Student's module place
     //|------------------------
 
-
-    //| !!!!!!!!!!!!!!!!!!!
-    //| !!!!!!!!!!!!!!!!!!!
-    //| !!!!!!!!!!!!!!!!!!!
-    //| !!!!!!!!!!!!!!!!!!!
-    //| PUT YOUR MODULE HERE
-    //| !!!!!!!!!!!!!!!!!!!
-    //| !!!!!!!!!!!!!!!!!!!
-    //| !!!!!!!!!!!!!!!!!!!
-    //| !!!!!!!!!!!!!!!!!!!
-    //| !!!!!!!!!!!!!!!!!!!
+    apb3_slave #(
+        .DATA_WIDTH         ( APB3_DATA_WIDTH   ),
+        .ADDR_WIDTH         ( APB3_ADDR_WIDTH   )
+    )(
+        .APB3               ( APB3.Slave        ));
 
     //|------------------------
     //| DW AXI X2P 
@@ -250,7 +244,7 @@ module top;
         .axi                    ( AXI4_SRAM.Slave       ),
 
     // SRAM bank interface
-        .bank_addr              ( bank_addr             ),
+        .bank_addr              ( bank_addr[11:0]       ),
         .bank_cs                ( bank_cs               ),
         .bank_we                ( bank_we               ),
         .bank_be                ( bank_be               ),
@@ -266,7 +260,7 @@ module top;
     ) generic_memory (
         .i_clk                  ( i_clk                 ),
 
-        .mem_addr               ( mem_addr              ),
+        .mem_addr               ( mem_addr[11:0]        ),
         .mem_wdata              ( mem_wdata             ),
         .mem_we                 ( mem_we                ),
         .mem_ce                 ( mem_ce                ),
