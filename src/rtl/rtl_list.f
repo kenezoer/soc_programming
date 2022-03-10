@@ -7,11 +7,6 @@ axilite_uart/txuartlite.v
 axilite_uart/ufifo.v
 axilite_uart/wbuart.v
 
-my_device/crc_slave_device_pkg.sv
-my_device/APB_slave.sv
-my_device/APB.sv
-my_device/CRC_16_EN_13757.sv
-
 apb3_if.svi
 axi4_pkg.sv
 axi4_if.svi

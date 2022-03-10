@@ -266,7 +266,7 @@ module top;
     ) generic_memory (
         .i_clk                  ( i_clk                 ),
 
-        .mem_addr               ( mem_addr              ),
+        .mem_addr               ( mem_addr[11:0]        ),
         .mem_wdata              ( mem_wdata             ),
         .mem_we                 ( mem_we                ),
         .mem_ce                 ( mem_ce                ),

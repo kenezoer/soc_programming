@@ -19,7 +19,6 @@ TOOL_OPTS	 = -sverilog
 TOOL_OPTS	+= -debug
 TOOL_OPTS   += -PR
 TOOL_OPTS   += -RI
-TOOL_OPTS	+= -gui
 TOOL_OPTS	+= +systemverilogext+svi
 TOOL_OPTS	+= +systemverilogext+svh
 TOOL_OPTS	+= +systemverilogext+vh

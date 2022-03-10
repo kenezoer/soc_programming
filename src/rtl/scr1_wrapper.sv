@@ -33,7 +33,7 @@ import  axi4_pkg::*;
     //|-------------------------------
     //| SCR1 Top module
     //|-------------------------------
-    scr1_top_axi (
+    scr1_top_axi SCR1 (
         .pwrup_rst_n            ( i_cpu_rstn            ),
         .rst_n                  ( i_cpu_rstn            ),
         .cpu_rst_n              ( i_cpu_rstn            ),
