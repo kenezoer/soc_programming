@@ -1,0 +1,6 @@
+[submodule "submodules/YetAnotherUART"]
+	path = submodules/YetAnotherUART
+	url = https://github.com/kenezoer/YetAnotherUART
+[submodule "submodules/syntacore_scr1"]
+	path = submodules/syntacore_scr1
+	url = https://github.com/kenezoer/syntacore_scr1
