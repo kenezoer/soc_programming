@@ -5,16 +5,23 @@
 #include <string.h>
 #include <stdarg.h>
 #include "sc_print.h"
+#include "yaUART.h"
 
 #define SC_SIM_OUTPORT (0x00001000)
 #define CHAR_BIT (8)
 
-static void
-sc_puts(long str, long strlen) {
-	volatile char *out_ptr = (volatile char*)SC_SIM_OUTPORT;
+static void sc_puts(long str, long strlen) {
+
+	// volatile char *out_ptr = (volatile char*)SC_SIM_OUTPORT;
+	// const char *in_ptr = (const char*)str;
+	// for (long len = strlen; len > 0; --len)
+	//   *out_ptr = *in_ptr++;
+
+
 	const char *in_ptr = (const char*)str;
 	for (long len = strlen; len > 0; --len)
-	  *out_ptr = *in_ptr++;
+	//   *out_ptr = *in_ptr++;
+      YaUART_PutChar(*in_ptr++);
 }
 
 #undef putchar
