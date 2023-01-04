@@ -2,22 +2,16 @@
 
 TOOL ?= xrun
 
-RTL_FILES  = -F ../rtl/dw_axi/miet_dw_axi_ic/DW_axi.f
-RTL_FILES += -F ../rtl/scr1/core.files
-RTL_FILES += -F ../rtl/scr1/axi_top.files
-RTL_FILES += -F ../rtl/x2p/DW_axi_x2p.f
-RTL_FILES += ../rtl/dw_axi/miet_dw_axi.v
-RTL_FILES += ../rtl/dw_axi/miet_interconnect_wrapper.sv
-RTL_FILES += -F ../rtl/rtl_list.f
+RTL_FILES  	 = -F ../../filelist/main_project.f
+RTL_FILES  	+= -F ../../filelist/scr1.f
+RTL_FILES  	+= -F ../../filelist/yetanotheruart.f
 
-INCLUDE_DIRS  = +incdir+../rtl/dw_axi/miet_dw_axi_ic/
-INCLUDE_DIRS += +incdir+../rtl/x2p/
-INCLUDE_DIRS += +incdir+../rtl/scr1/includes/
-INCLUDE_DIRS += +incdir+../rtl/axilite_uart
-
-TOOL_OPTS	 = -sv12
+TOOL_OPTS	 = -sv
 TOOL_OPTS	+= +access+rwc
 TOOL_OPTS   += -timescale 1ns/1ns
+TOOL_OPTS	+= -gui
+TOOL_OPTS	+= -nowarn DSEMEL
+TOOL_OPTS	+= -nowarn STARMT
 
 
 help:
@@ -47,4 +41,6 @@ clean:
 	@rm -rf DVE*
 	@rm -rf *.vpd
 	@rm -rf *.key
+	@rm -rf xcelium.d
+	@rm -rf xrun.*
 

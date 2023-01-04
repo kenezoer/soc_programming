@@ -4094,12 +4094,15 @@
    `undef miet_dw_axi_ic_AXI_S2_SHARED_FARC
    `undef miet_dw_axi_ic_AXI_S2_SHARED_FAWC
    `undef miet_dw_axi_ic_AXI_S2_SHARED_W_HAS_DDCTD
+   `undef miet_dw_axi_ic_AXI_S3_ON_AR_SHARED_ONLY
    `undef miet_dw_axi_ic_AXI_S3_ON_AR_SHARED_ONLY_VAL
    `undef miet_dw_axi_ic_AXI_S3_ON_AR_SHARED_VAL
+   `undef miet_dw_axi_ic_AXI_S3_ON_AW_SHARED_ONLY
    `undef miet_dw_axi_ic_AXI_S3_ON_AW_SHARED_ONLY_VAL
    `undef miet_dw_axi_ic_AXI_S3_ON_AW_SHARED_VAL
    `undef miet_dw_axi_ic_AXI_S3_ON_B_SHARED_VAL
    `undef miet_dw_axi_ic_AXI_S3_ON_R_SHARED_VAL
+   `undef miet_dw_axi_ic_AXI_S3_ON_W_SHARED_ONLY
    `undef miet_dw_axi_ic_AXI_S3_ON_W_SHARED_ONLY_VAL
    `undef miet_dw_axi_ic_AXI_S3_ON_W_SHARED_VAL
    `undef miet_dw_axi_ic_AXI_S3_SHARED_AR_HAS_DDCTD

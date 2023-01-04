@@ -42,8 +42,20 @@ import  axi4_pkg::*;
         .clk                    ( i_clk                 ),
         .rtc_clk                ( i_clk                 ),
         .fuse_mhartid           ( '0                    ),
-        .ext_irq                ( '0                    ),
+        // .ext_irq                ( '0                    ),
         .soft_irq               ( i_sw_irq              ),
+
+        .fuse_idcode            ( '0                    ),
+        .irq_lines              ( '0                    ),
+        .trst_n                 ( '0                    ),
+        .tck                    ( '0                    ),
+        .tms                    ( '0                    ),
+        .tdi                    ( '0                    ),
+
+        .sys_rst_n_o            (                       ),
+        .sys_rdc_qlfy_o         (                       ),
+        .tdo                    (                       ),
+        .tdo_en                 (                       ),
 
     //| Instruction MEMORY
         .io_axi_imem_awid       ( AXI4_IMEM.aw_id       ),

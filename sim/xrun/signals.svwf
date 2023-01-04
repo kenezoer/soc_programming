@@ -1,0 +1,140 @@
+
+#
+# Mnemonic Maps
+#
+mmap new  -reuse -name {Boolean as Logic} -radix %b -contents {{%c=FALSE -edgepriority 1 -shape low}
+{%c=TRUE -edgepriority 1 -shape high}}
+mmap new  -reuse -name {Example Map} -radix %x -contents {{%b=11???? -bgcolor orange -label REG:%x -linecolor yellow -shape bus}
+{%x=1F -bgcolor red -label ERROR -linecolor white -shape EVENT}
+{%x=2C -bgcolor red -label ERROR -linecolor white -shape EVENT}
+{%x=* -label %x -linecolor gray -shape bus}}
+
+array unset createdGroup
+array set createdGroup {}
+#
+# Groups
+#
+if {[catch {group get -using [list IMEM]}]} {
+set createdGroup([list IMEM]) 1
+catch {group new -name IMEM -overlay 0}
+}
+if {[catch {group get -using [list DMEM]}]} {
+set createdGroup([list DMEM]) 1
+catch {group new -name DMEM -overlay 0}
+}
+if {[info exists createdGroup([list IMEM])]} {
+group using IMEM
+group set -overlay 0
+group set -comment {}
+group clear 0 end
+group insert \
+    [subst  {[format {top.AXI4_IMEM.Master.w_valid}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.w_user[3:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.w_strb[3:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.w_ready}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.w_last}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.w_data[31:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.r_valid}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.r_user[3:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.r_resp[1:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.r_ready}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.r_last}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.r_id[3:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.r_data[31:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.b_valid}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.b_user[3:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.b_resp[1:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.b_ready}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.b_id[3:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.aw_valid}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.aw_user[3:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.aw_size[2:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.aw_region[3:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.aw_ready}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.aw_qos[3:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.aw_prot[2:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.aw_lock}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.aw_len[7:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.aw_id[3:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.aw_cache[3:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.aw_burst[1:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.aw_addr[31:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.ar_valid}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.ar_user[3:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.ar_size[2:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.ar_region[3:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.ar_ready}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.ar_qos[3:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.ar_prot[2:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.ar_lock}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.ar_len[7:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.ar_id[3:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.ar_cache[3:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.ar_burst[1:0]}]} ] \
+    [subst  {[format {top.AXI4_IMEM.Master.ar_addr[31:0]}]} ]
+}
+
+if {[info exists createdGroup([list DMEM])]} {
+group using DMEM
+group set -overlay 0
+group set -comment {}
+group clear 0 end
+group insert \
+    [subst  {[format {top.AXI4_DMEM.Master.ar_addr[31:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.ar_burst[1:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.ar_cache[3:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.ar_id[3:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.ar_len[7:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.ar_lock}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.ar_prot[2:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.ar_qos[3:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.ar_ready}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.ar_region[3:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.ar_size[2:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.ar_user[3:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.ar_valid}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.aw_addr[31:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.aw_burst[1:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.aw_cache[3:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.aw_id[3:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.aw_len[7:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.aw_lock}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.aw_prot[2:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.aw_qos[3:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.aw_ready}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.aw_region[3:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.aw_size[2:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.aw_user[3:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.aw_valid}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.b_id[3:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.b_ready}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.b_resp[1:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.b_user[3:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.b_valid}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.r_data[31:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.r_id[3:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.r_last}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.r_ready}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.r_resp[1:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.r_user[3:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.r_valid}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.w_data[31:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.w_last}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.w_ready}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.w_strb[3:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.w_user[3:0]}]} ] \
+    [subst  {[format {top.AXI4_DMEM.Master.w_valid}]} ]
+}
+
+
+set groupId0 [waveform add -groups IMEM]
+waveform hierarchy collapse $groupId0
+
+set id [waveform add -cdivider divider]
+
+set groupId0 [waveform add -groups DMEM]
+waveform hierarchy collapse $groupId0
+
+set id [waveform add -cdivider divider]
+
+waveform xview limits 0 30000ns
