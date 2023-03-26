@@ -4,6 +4,7 @@ dmem_pattern ?= FFFFFFFF
 export ABI   ?= ilp32
 
 TCM := 0
+
 # Paths
 export root_dir := $(shell pwd)
 export tst_dir  := $(root_dir)
@@ -14,7 +15,6 @@ test_results := $(bld_dir)/test_results.txt
 test_info    := $(bld_dir)/test_info
 sim_results  := $(bld_dir)/sim_results.txt
 todo_list    := $(bld_dir)/todo.txt
-
 
 # Environment
 export CROSS_PREFIX  ?= riscv64-unknown-elf-
