@@ -6,18 +6,6 @@ package apb3_regmap_pkg;
     // control & status
 
     typedef struct packed {
-        logic   [31:0]      data;               // RW
-    } source_data_reg_t;
-
-    typedef struct packed {
-        logic   [31:0]      polynomous;         // R0
-    } polynomous_reg_t;
-
-    typedef struct packed {
-        logic   [31:0]      data;               // RO
-    } output_data_reg_t;
-
-    typedef struct packed {
         logic   [6:0]       reserved4;          // RO
         logic               busy;               // RO
         logic   [6:0]       reserved3;          // RO
@@ -30,10 +18,10 @@ package apb3_regmap_pkg;
 
 
     typedef struct packed {
-        control_reg_t       control;
-        output_data_reg_t   data_out;
-        source_data_reg_t   data_in;
-        polynomous_reg_t    poly;
+        control_reg_t       control;            // Mixed
+        logic   [31:0]      data_out;           // RO
+        logic   [31:0]      data_in;            // RW
+        logic   [31:0]      poly;               // RO
     } regmap_t;
 
 
