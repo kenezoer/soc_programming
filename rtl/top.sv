@@ -145,17 +145,25 @@ module top;
     //| Student's module place
     //|------------------------
 
+    APB3_Interface#(
+        .APB3_ADDR_WIDTH    ( APB3_ADDR_WIDTH   ),
+        .APB3_DATA_WIDTH    ( APB3_DATA_WIDTH   )
+    ) APB3_CUSTOM (
+        .PCLK               ( i_clk             ),
+        .PRESETn            ( i_rst_n           ));
 
-    //| !!!!!!!!!!!!!!!!!!!
-    //| !!!!!!!!!!!!!!!!!!!
-    //| !!!!!!!!!!!!!!!!!!!
-    //| !!!!!!!!!!!!!!!!!!!
-    //| PUT YOUR MODULE HERE
-    //| !!!!!!!!!!!!!!!!!!!
-    //| !!!!!!!!!!!!!!!!!!!
-    //| !!!!!!!!!!!!!!!!!!!
-    //| !!!!!!!!!!!!!!!!!!!
-    //| !!!!!!!!!!!!!!!!!!!
+    always_comb APB3_CUSTOM.PADDR   = APB3_USER.PADDR;
+    always_comb APB3_CUSTOM.PSEL    = APB3_USER.PSEL;
+    always_comb APB3_CUSTOM.PENABLE = APB3_USER.PENABLE;
+    always_comb APB3_CUSTOM.PWRITE  = APB3_USER.PWRITE;
+    always_comb APB3_CUSTOM.PWDATA  = APB3_USER.PWDATA;
+
+    always_comb APB3_USER.PREADY    = APB3_CUSTOM.PREADY;
+    always_comb APB3_USER.PRDATA    = APB3_CUSTOM.PRDATA;
+    always_comb APB3_USER.PSLVERR   = APB3_CUSTOM.PSLVERR;
+
+    apb3_slave apb3_slave(
+        .APB3               ( APB3_CUSTOM.Slave ));
 
     //|------------------------
     //| DW AXI X2P 

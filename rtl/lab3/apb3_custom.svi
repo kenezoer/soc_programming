@@ -1,0 +1,66 @@
+//|-----------------------------------------------------------------------------------
+//| Author:      Kirill Lyubavin (kenezoer@gmail.com)
+//| 
+//| Module:      apb3_custom.svi
+//| 
+//| Purpose:     APB3 Interface primitive for future use
+//| 
+//| Functionality:   
+//|      Nothing extra, just a SV's interface of AMBA APB3 Bus
+//| 
+//|-----------------------------------------------------------------------------------
+
+interface APB3_Interface#(
+    parameter           APB3_ADDR_WIDTH = 32,   //| Address width
+    parameter           APB3_DATA_WIDTH = 32    //| Data width
+)(
+    input               PCLK,                   //| Clock
+    input               PRESETn                 //| Reset
+);
+    
+    //| APB3 Signals
+    logic [APB3_ADDR_WIDTH-1:0]  PADDR;         //| Address
+    logic                        PSEL;          //| Slave select
+    logic                        PENABLE;       //| Slave enable
+    logic                        PWRITE;        //| Write strobe
+    logic [APB3_DATA_WIDTH-1:0]  PWDATA;        //| Write data
+    logic                        PREADY;        //| Slave ready 
+    logic [APB3_DATA_WIDTH-1:0]  PRDATA;        //| Read data
+    logic                        PSLVERR;       //| Slave error
+
+    //|-------------------------------
+    //| Modports Definition
+    //|-------------------------------
+    //| Slave
+    modport Slave(
+        input       PCLK,
+        input       PRESETn,
+        
+        input       PADDR,
+        input       PSEL,
+        input       PENABLE,
+        input       PWRITE,
+        input       PWDATA,
+
+        output      PREADY,
+        output      PRDATA,
+        output      PSLVERR
+    );
+   
+    //| Master
+    modport Master(
+        input       PCLK,
+        input       PRESETn,
+        
+        output      PADDR,
+        output      PSEL,
+        output      PENABLE,
+        output      PWRITE,
+        output      PWDATA,
+        
+        input       PREADY,
+        input       PRDATA,
+        input       PSLVERR
+    );
+
+endinterface : APB3_Interface

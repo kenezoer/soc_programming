@@ -2,13 +2,9 @@
 
 TOOL ?= vcs
 
-RTL_FILES  = -F ../rtl/dw_axi/miet_dw_axi_ic/DW_axi.f
-RTL_FILES += -F ../rtl/scr1/core.files
-RTL_FILES += -F ../rtl/scr1/axi_top.files
-RTL_FILES += -F ../rtl/x2p/DW_axi_x2p.f
-RTL_FILES += ../rtl/dw_axi/miet_dw_axi.v
-RTL_FILES += ../rtl/dw_axi/miet_interconnect_wrapper.sv
-RTL_FILES += -F ../rtl/rtl_list.f
+RTL_FILES  	 = -F ../../filelist/main_project.f
+RTL_FILES  	+= -F ../../filelist/scr1.f
+RTL_FILES  	+= -F ../../filelist/yetanotheruart.f
 
 INCLUDE_DIRS  = +incdir+../rtl/dw_axi/miet_dw_axi_ic/
 INCLUDE_DIRS += +incdir+../rtl/x2p/
@@ -23,13 +19,14 @@ TOOL_OPTS	+= +systemverilogext+svi
 TOOL_OPTS	+= +systemverilogext+svh
 TOOL_OPTS	+= +systemverilogext+vh
 TOOL_OPTS   += -timescale=1ns/1ns
+TOOL_OPTS   += -assert svaext
 
 
 help:
 	@echo "============================================================"
 	@echo "MIET LABORATORY COURSE \"SOC WITH PROGRAMMING ARCHITECTURE\""
 	@echo "============================================================"
-	@echo "Authors: Kirill Liubavin, Oleg Kalistratov"
+	@echo "Authors: Kirill Liubavin, Pavel Kuzmin"
 	@echo "============================================================"
 	@echo "Available make directives:"
 	@echo "make sim (run simulation)"
